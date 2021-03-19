@@ -1,5 +1,5 @@
 import speech_recognition as sr
-from speak import voice_assistant_speak
+from core.speak import voice_assistant_speak
 
 def record_audio(r, ask = False):
     with sr.Microphone()as source:

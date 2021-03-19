@@ -1,5 +1,5 @@
-from speak import voice_assistant_speak
-from listen import record_audio
+from core.speak import voice_assistant_speak
+from core.listen import record_audio
 from time import ctime
 import webbrowser as wb
 
@@ -26,3 +26,4 @@ def respond(r, voice_data):
     if "exit" in voice_data:
         exit()
     print(voice_data)
+
