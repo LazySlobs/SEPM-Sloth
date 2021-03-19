@@ -3,7 +3,7 @@ from core.listen import record_audio
 from time import ctime
 import webbrowser as wb
 
-def respond(r, voice_data):
+def respond(r, voice_data, language='en'):
     print("Waiting for voice...")
     # if "hey Bao" not in voice_data:
     #     return
@@ -15,20 +15,18 @@ def respond(r, voice_data):
         search = voice_data
         search = search.replace('search for', '')
         url = 'https://www.google.com/search?q=' + search
-        voice_assistant_speak(voice_data)
+        voice_assistant_speak("Here is what i found for " + search)
         wb.get().open(url)
     elif "search" in voice_data:
-        search = record_audio(r, 'What do you want to search for')
+        search, language = record_audio(r, 'What do you want to search for')
         url = 'https://www.google.com/search?q=' + search
-        voice_assistant_speak(search)
         wb.get().open(url)
         voice_assistant_speak("Here is what i found for " + search)
-    if "find location" in voice_data:
-        location = record_audio(r, 'What is the location')
+    if "find location" in voice_data or 'locate' in voice_data:
+        location, language = record_audio(r, language='vi', ask='What is the location')
         url = 'https://www.google.nl/maps/place/' + location + '/&lamp;'
-        voice_assistant_speak(location)
         wb.get().open(url)
-        voice_assistant_speak("Here is the location of  " + location)
+        voice_assistant_speak(location, language=language)
     if "exit" in voice_data:
         exit()
     print(voice_data)

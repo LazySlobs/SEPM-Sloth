@@ -2,8 +2,8 @@ from gtts import gTTS
 from io import BytesIO
 import pygame
 
-def voice_assistant_speak(msg):
-    tts = gTTS(text=msg, lang='en')
+def voice_assistant_speak(msg, language='en'):
+    tts = gTTS(text=msg, lang=language)
     fp = BytesIO()
     tts.write_to_fp(fp)
     fp.seek(0)

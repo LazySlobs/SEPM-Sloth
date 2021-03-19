@@ -4,18 +4,19 @@ from core.listen import record_audio
 from core.speak import voice_assistant_speak
 from core.proccess_respond import respond
 
-r = sr.Recognizer() # create a recognizer object to recognize texts
-r.energy_threshold = 1000 # change threshold to eliminate background noise
+r1 = sr.Recognizer() # create a recognizer object to recognize texts
+r1.energy_threshold = 3000 # change threshold to eliminate background noise
 
+r2 = sr.Recognizer()
 
 def main():
     # time.sleep(1)
     voice_assistant_speak("How can I help you ?")
     while True:
         # try:
-        voice_data = record_audio(r)
+        voice_data, language = record_audio(r1)
         print(voice_data)
-        respond(r, voice_data)
+        respond(r2, voice_data, language=language)
         # finally:
 
 
