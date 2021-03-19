@@ -2,11 +2,18 @@ from core.speak import voice_assistant_speak
 from core.listen import record_audio
 from time import ctime
 import webbrowser as wb
+from os_funtions.manage_dir import *
 
 def respond(r, voice_data, language='en'):
     print("Waiting for voice...")
-    # if "hey Bao" not in voice_data:
-    #     return
+    
+    #os functions
+    #delete
+    if 'delete' in voice_data:
+        delete_file(voice_data)
+
+
+
     if "what is your name" in voice_data or "what's your name" in voice_data:
         voice_assistant_speak(" My name is Sloth")
     if "what time is it" in voice_data:
@@ -18,7 +25,7 @@ def respond(r, voice_data, language='en'):
         voice_assistant_speak("Here is what i found for " + search)
         wb.get().open(url)
     elif "search" in voice_data:
-        search, language = record_audio(r, 'What do you want to search for')
+        search, language = record_audio(r, ask='What do you want to search for')
         url = 'https://www.google.com/search?q=' + search
         wb.get().open(url)
         voice_assistant_speak("Here is what i found for " + search)
