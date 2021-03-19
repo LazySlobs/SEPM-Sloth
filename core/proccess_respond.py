@@ -11,7 +11,13 @@ def respond(r, voice_data):
         voice_assistant_speak(" My name is Sloth")
     if "what time is it" in voice_data:
         voice_assistant_speak(ctime())
-    if "search" in voice_data:
+    if "search for" in voice_data:
+        search = voice_data
+        search = search.replace('search for', '')
+        url = 'https://www.google.com/search?q=' + search
+        voice_assistant_speak(voice_data)
+        wb.get().open(url)
+    elif "search" in voice_data:
         search = record_audio(r, 'What do you want to search for')
         url = 'https://www.google.com/search?q=' + search
         voice_assistant_speak(search)
