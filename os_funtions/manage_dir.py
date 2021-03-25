@@ -49,15 +49,13 @@ def delete_file(voice_data, location='/Users/bao/Desktop'):
     # delete various type of file 
     path = os.path.join(location, dir)  
 
-    # check if the requested file is an image and delete
-    image_file = ['rgb', 'gif', 'pbm', 'pgm', 'ppm', 'tiff', 'rast', 'xbm', 'jpeg', 'jpg', 'bmp', 'png', 'webp', 'exr']
-
-    file_type = imghdr.what(path)
-    if file_type.lower() in image_file:
+    # try to delete with os.remove
+    try:
         os.remove(path)
         return 1
-
-    # delete a folder and all of its contents
+    except:
+        pass
+    # delete a folder and all of its contents with shutil
     shutil.rmtree(path)  
     return 1
 
