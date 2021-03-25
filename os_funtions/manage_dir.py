@@ -5,15 +5,13 @@ from core.listen import record_audio
 from difflib import SequenceMatcher
 import settings
 
-def delete_file(voice_data, location='/Users/bao/Desktop'):
+def delete_file(voice_data, location):
     '''
     Delete a file at default location(desktop)
 
     Parameters:
         voice_data(str): the string recorded and recognized from user's voice input
-
-        Options:
-            location(str): current path/directory
+        location(str): current path/directory
     
     Returns:
         0(bool): failed to delete
