@@ -126,3 +126,11 @@ def open_file(voice_data, location):
 
     subprocess.call(['open', path])
     return 1
+
+def create_file(voice_data, location):
+    raw_dir = voice_data.replace('create ', '').replace('file', '').replace('folder', '').replace(' ', '')  
+
+    try:
+        os.mkdir(location + '/' + raw_dir)
+    except FileExistsError as exc:
+        print(exc)

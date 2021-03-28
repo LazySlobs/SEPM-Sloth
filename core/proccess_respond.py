@@ -31,6 +31,10 @@ def respond(r, voice_data, language='en'):
     if 'open' in voice_data:
         manage_dir.open_file(voice_data, location = settings.location)
 
+        # create 
+    if 'create' in voice_data:
+        manage_dir.create_file(voice_data, location = settings.location)
+
     # browser fuctions
         # search google
     if "search for" in voice_data:
