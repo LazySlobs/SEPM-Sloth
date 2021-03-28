@@ -1,4 +1,4 @@
 SpeechRecognition>=3.8.1;
 PyAudio>=0.2.11;
-pygame~=2.0.1;
+pygame~=1.9.6;
 gTTS~=2.2.2;
