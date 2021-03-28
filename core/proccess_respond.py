@@ -2,7 +2,7 @@ from core.speak import voice_assistant_speak
 from core.listen import record_audio
 from time import ctime
 import webbrowser as wb
-from os_funtions.manage_dir import *
+import os_functions.manage_dir as manage_dir
 import settings
 
 def respond(r, voice_data, language='en'):
@@ -25,8 +25,11 @@ def respond(r, voice_data, language='en'):
     # os functions
         # delete
     if 'delete' in voice_data:
-        delete_file(voice_data, location = settings.location)
+        manage_dir.delete_file(voice_data, location = settings.location)
 
+        # open 
+    if 'open' in voice_data:
+        manage_dir.open_file(voice_data, location = settings.location)
 
     # browser fuctions
         # search google
