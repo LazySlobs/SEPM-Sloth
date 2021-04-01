@@ -5,7 +5,6 @@ os:
   - windows
 python:
   - "3.7"  #Bao python version
-  - "3.9"  #Duong python version
 before_install:
   - python -m pip install --upgrade pip
 install:
