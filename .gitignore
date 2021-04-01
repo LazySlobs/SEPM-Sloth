@@ -2,6 +2,7 @@ __pycache__/
 .vscode
 .cache
 .coverage
+build/
 points.egg-info
 .vscode
 .# Created by .ignore support plugin (hsz.mobi)
