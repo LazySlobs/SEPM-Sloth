@@ -1,8 +1,8 @@
 from gtts import gTTS
 from io import BytesIO
-import pygame
+import pygame, settings
 
-def voice_assistant_speak(msg, language='en'):
+def voice_assistant_speak(msg, language=settings.language):
     '''
     Speak the sound using given text
 

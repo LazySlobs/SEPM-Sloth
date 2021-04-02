@@ -1,7 +1,8 @@
 import speech_recognition as sr
 from core.speak import voice_assistant_speak
+import settings
 
-def record_audio(r, language='en', ask = False):
+def record_audio(r, language=settings.language, ask = False):
     '''
     Record user input and turns it to text
 

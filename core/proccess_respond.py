@@ -28,16 +28,24 @@ def respond(r, voice_data, language='en'):
         manage_dir.delete_file(voice_data, location = settings.location)
 
         # open 
-    if 'open' in voice_data:
+    elif 'open' in voice_data:
         manage_dir.open_file(voice_data, location = settings.location)
 
         # create 
-    if 'create' in voice_data:
+    elif 'create' in voice_data:
         manage_dir.create_file(voice_data, location = settings.location)
+
+        # get info 
+    elif 'information' in voice_data and 'show' in voice_data:
+        manage_dir.file_info(voice_data)
+
+        # scoll 
+    elif 'scroll down' in voice_data:
+        manage_dir.scroll_down(voice_data)
 
     # browser fuctions
         # search google
-    if "search for" in voice_data:
+    elif "search for" in voice_data:
         search = voice_data
         search = search.replace('search for', '')
         url = 'https://www.google.com/search?q=' + search
@@ -50,7 +58,7 @@ def respond(r, voice_data, language='en'):
         voice_assistant_speak("Here is what i found for " + search)
 
         # find location
-    if "find location" in voice_data or 'locate' in voice_data:
+    elif "find location" in voice_data or 'locate' in voice_data:
         location, language = record_audio(r, language='vi', ask='What is the location')
         url = 'https://www.google.nl/maps/place/' + location + '/&lamp;'
         wb.get().open(url)
@@ -58,15 +66,15 @@ def respond(r, voice_data, language='en'):
 
     # general functions
         # asked for name
-    if "what is your name" in voice_data or "what's your name" in voice_data:
+    elif "what is your name" in voice_data or "what's your name" in voice_data:
         voice_assistant_speak(" My name is Sloth")
 
         # asked for time
-    if "what time is it" in voice_data:
+    elif "what time is it" in voice_data:
         voice_assistant_speak(ctime())
     
     # internal functions
         # exit
-    if "exit" in voice_data:
+    elif "exit" in voice_data:
         exit()
 

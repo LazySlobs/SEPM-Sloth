@@ -1,9 +1,13 @@
-import shutil, os, imghdr, subprocess
+import shutil, os, imghdr, subprocess, time, pyautogui
 import speech_recognition as sr
 from core.speak import voice_assistant_speak
 from core.listen import record_audio
 from difflib import SequenceMatcher
+from pynput.keyboard import Controller
+from pynput import keyboard
 import settings
+
+kb = Controller
 
 def similar_file(files, raw_dir):
     '''
@@ -128,9 +132,74 @@ def open_file(voice_data, location):
     return 1
 
 def create_file(voice_data, location):
+    '''
+    Create a file at default location(desktop)
+
+    Parameters:
+        voice_data(str): the string recorded and recognized from user's voice input
+        location(str): current path/directory
+    
+    Returns:
+        0(bool): failed to create
+        1(bool): created successfully
+
+    '''
+
     raw_dir = voice_data.replace('create ', '').replace('file', '').replace('folder', '').replace(' ', '')  
 
     try:
         os.mkdir(location + '/' + raw_dir)
+        return 1
     except FileExistsError as exc:
         print(exc)
+        return 0
+
+def file_info(voice_data):
+    '''
+    Open file's information summary window
+
+    Parameters:
+        voice_data(str): the string recorded and recognized from user's voice input
+    
+    Returns:
+        0(bool): failed to open
+        1(bool): opened successfully
+    '''
+
+    try:
+        kb.press(keyboard.Key.cmd)
+        kb.press('i')
+        time.sleep(0.1)
+        kb.release(keyboard.Key.cmd)
+        kb.release('i')
+        return 1
+    except Exception:
+        return 0
+
+def scroll_down(voice_data):
+    '''
+    Scroll down 
+
+    Parameters:
+        voice_data(str): the string recorded and recognized from user's voice input
+
+    Returns:
+        0(bool): failed to scroll down
+        1(bool): scrolled down successfully
+    '''
+
+    r = sr.Recognizer()
+    r.energy_threshold = settings.energy_threshold
+    stop = False
+    audio = ''
+    stop = r.listen_in_background(sr.Microphone())
+    try:
+        while not stop:
+            pyautogui.scroll(-1)
+            
+            
+            
+            stop_audio = r.recognize_google(audio, language=settings.language)
+        return 1
+    except Exception:
+        return 0
