@@ -52,12 +52,24 @@ Step 2: Set up paths for CRUD files and folders functions
 
 ## Current Functions/ Feature: 
 
-Explain how to run the automated tests for this system
+Explain how to run the functions for this system
 
-1. Create New File/ Folder with voice: 
+// All keywords to trigger functions in Process_respond.py file
+1. Create New File/ Folder with voice: (Just create folder now)
+   - Start Program
+   - Speak "Create" + Name Folder want to create
 2. Open Existing File/ Folder with voice: 
+   - Start Program
+   - Speak "Open" + Name App / File / Folder based on setup Path
 3. Delete Existing File/ Folder with voice: 
-4. Get Infor of Existing/ Folder with voice: 
+   - Start Program
+   - Speak "Delete" + Name App / File / Folder based on setup Path
+   - Get List of apps/folders/files
+   - Answer Yes if want to delete/ No if deny
+4. Get Info of Existing/ Folder with voice: 
+   - Start Program 
+   - Click in File (Not done with cursor yet/ have to click specific file)
+   - Speak Information/show to get info 
 
 ## Running the tests
 
@@ -68,7 +80,7 @@ Explain how to run the automated tests for this system
 Explain what these tests test and why
 
 ```
-Not doing any tests yey
+Not doing any tests yet
 ```
 
 ### And coding style tests
@@ -103,7 +115,7 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 * **Quach Gia Vi** - *Scrum Master- Developer* - (https://github.com/s3757317)
 * **Bui Manh Dai Duong** - *UI/UX Designer- Developer* - (https://github.com/koumi15cancer)
-* **Ha Gia Bao** - *Leading Developer* - (https://github.com/koumi15cancer)
+* **Ha Gia Bao** - *Leading Developer* - (https://github.com/baogia0912)
 * **Nguyen Bao Tri** - *Tester - Documentation supervisor* - (https://github.com/nguyenbaotri)
 
 
