@@ -2,3 +2,5 @@ SpeechRecognition>=3.8.1;
 PyAudio>=0.2.11;
 pygame~=1.9.6;
 gTTS~=2.2.2;
+pynput ~= 1.7.3
+pyAutoGUI~= 0.9.52

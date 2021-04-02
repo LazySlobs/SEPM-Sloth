@@ -21,6 +21,7 @@ PyAudio>=0.2.11;
 pygame~=1.9.6;
 gTTS~=2.2.2;
 pynput ~= 1.7.3
+pyAutoGUI~= 0.9.52
 
 ```
 
@@ -37,6 +38,7 @@ Step 1: Install modules from command line
  - pip install pygame == 1.9.6
  - pip install gTTS
  - pip install pynput
+ - pip install pyAutoGUI
 ```
 
 And 
@@ -88,6 +90,7 @@ Add additional notes about how to deploy this on a live system
 * [PyGame](https://pypi.org/project/pygame/1.9.6/) - Support Music player / version 1.9.6 to stable mp3 file
 * [gTTS](https://pypi.org/project/gTTS/) - Google Text to Speech api
 * [pynput](https://pypi.org/project/pynput/) - Control and monitor keyboard/ mouse input devices
+* [pyAutoGUI](https://pypi.org/project/PyAutoGUI/) - programmatically control the mouse & keyboard
 
 ## Contributing
 
