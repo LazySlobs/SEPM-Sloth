@@ -1,0 +1,13 @@
+language: python
+os:
+  - linux
+  - osx
+  - windows
+python:
+  - 3.7
+before_install:
+  - python -m pip install --upgrade pip
+install:
+  - pip install --user -r requirements.txt --use-feature=2020-resolver
+script:
+  - python3 main.py || python main.py
