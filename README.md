@@ -9,8 +9,12 @@ These instructions will get you a copy of the project up and running on your loc
 
 What things you need to install the software and how to install them
 
+Programming Language:
+Python version 3.7 to 3.8
+
+Modules:
 ```
-*If you could not install these modules on Window by Pip, install PipWin to install instead of Pip " 
+*If you could not install these modules on Window by Pip, install PipWin module to install by using "pipwin install" instead of "pip install" 
 
 SpeechRecognition>=3.8.1;
 PyAudio>=0.2.11;
@@ -27,25 +31,21 @@ A step by step series of examples that tell you how to get a development env run
 Say what the step will be
 
 ```
-Step 1: Install modules from command or IDE 
- - Pip install SpeechRecognition 
- - Pip install PyAudio
- - Pip install pygame == 1.9.6
- - Pip install gTTS
- - Pip install pynput
+Step 1: Install modules from command line
+ - pip install SpeechRecognition 
+ - pip install PyAudio
+ - pip install pygame == 1.9.6
+ - pip install gTTS
+ - pip install pynput
 ```
 
 And 
 
 ```
-Step 2: Set Up paths (Not done version so manually set up path)
+Step 2: Set up paths for CRUD files and folders functions
 - Open file settings.py
-- Comment the location line and make new location path based on your OS
-Example: add this line "   location ='C:/Users/Dell/Desktop'   "
-```
-
-```
-until finished
+- Comment the location line and make new location path. For example, add this line "location ='C:/Users/Dell/Desktop'"
+- Keep adding to test functions in multiple paths
 ```
 
 ## Current Functions/ Feature: 
@@ -86,14 +86,14 @@ Add additional notes about how to deploy this on a live system
 * [SpeechRecognition](https://pypi.org/project/SpeechRecognition/) - SpeechRecognition to recognize speech
 * [PyAudio](https://pypi.org/project/PyAudio/) - PyAudio control
 * [PyGame](https://pypi.org/project/pygame/1.9.6/) - Support Music player / version 1.9.6 to stable mp3 file
-* [gTTS](https://pypi.org/project/pygame/1.9.6/) - Google Text to Speech api
+* [gTTS](https://pypi.org/project/gTTS/) - Google Text to Speech api
 * [pynput](https://pypi.org/project/pynput/) - Control and monitor keyboard/ mouse input devices
 
 ## Contributing
 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
-## Versioning
+## Version
 
 
 ## Authors
