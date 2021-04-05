@@ -43,6 +43,26 @@ def respond(r, voice_data, language='en'):
     elif 'scroll down' in voice_data:
         manage_dir.scroll_down(voice_data)
 
+        #copy
+    elif 'copy' in voice_data:
+        manage_dir.copy(voice_data)
+        
+        #paste
+    elif 'paste' in voice_data:
+        manage_dir.paste(voice_data)
+        
+        #cut
+    elif 'cut' in voice_data:
+        manage_dir.cut(voice_data)
+        
+        #undo
+    elif 'undo' in voice_data:
+        manage_dir.undo(voice_data)
+        
+        #redo
+    elif 'redo' in voice_data:
+        manage_dir.redo(voice_data)
+
     # browser fuctions
         # search google
     elif "search for" in voice_data:
