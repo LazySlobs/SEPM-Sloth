@@ -2,7 +2,7 @@ from core.speak import voice_assistant_speak
 from core.listen import record_audio
 from time import ctime
 import webbrowser as wb
-import os_functions.manage_dir as manage_dir
+import os_functions.manage_dir as manage_dir    # use manage directory file
 import settings
 
 def respond(r, voice_data, language='en'):
@@ -19,32 +19,34 @@ def respond(r, voice_data, language='en'):
     Returns:
         Null
     '''
-
-    print("Waiting for voice...")
     
-    # os functions
-        # delete
+    # ================================== #
+    # ========== OS FUNCTIONS ========== #
+    # ================================== #
+    # delete
     if 'delete' in voice_data:
         manage_dir.delete_file(voice_data, location = settings.location)
 
-        # open 
+    # open 
     elif 'open' in voice_data:
         manage_dir.open_file(voice_data, location = settings.location)
 
-        # create 
+    # create 
     elif 'create' in voice_data:
         manage_dir.create_file(voice_data, location = settings.location)
 
-        # get info 
+    # get info 
     elif 'information' in voice_data and 'show' in voice_data:
         manage_dir.file_info(voice_data)
 
-        # scoll 
+    # scoll 
     elif 'scroll down' in voice_data:
         manage_dir.scroll_down(voice_data)
 
-    # browser fuctions
-        # search google
+    # ======================================= #
+    # ========== BROWSER FUNCTIONS ========== #
+    # ======================================= #
+    # search google
     elif "search for" in voice_data:
         search = voice_data
         search = search.replace('search for', '')
@@ -57,24 +59,29 @@ def respond(r, voice_data, language='en'):
         wb.get().open(url)
         voice_assistant_speak("Here is what i found for " + search)
 
-        # find location
+    # find location
     elif "find location" in voice_data or 'locate' in voice_data:
-        location, language = record_audio(r, language='vi', ask='What is the location')
+        location, language = record_audio(r, language='en', ask='What is the location')
         url = 'https://www.google.nl/maps/place/' + location + '/&lamp;'
         wb.get().open(url)
         voice_assistant_speak(location, language=language)
 
-    # general functions
-        # asked for name
+    # ======================================= #
+    # ========== GENERAL FUNCTIONS ========== #
+    # ======================================= #
+    # asked for name
     elif "what is your name" in voice_data or "what's your name" in voice_data:
         voice_assistant_speak(" My name is Sloth")
 
-        # asked for time
+    # asked for time
     elif "what time is it" in voice_data:
         voice_assistant_speak(ctime())
     
-    # internal functions
-        # exit
+    
+    # ==================================== #
+    # ========== CORE FUNCTIONS ========== #
+    # ==================================== #
+    # exit
     elif "exit" in voice_data:
         exit()
 
