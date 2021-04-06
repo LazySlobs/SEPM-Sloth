@@ -4,6 +4,7 @@ from time import ctime
 import webbrowser as wb
 import os_functions.manage_dir as manage_dir    # use manage directory file
 import miscellaneous_functions.weather as weather    # use weather file
+import miscellaneous_functions.news as news    # use news file
 import settings
 
 def respond(r, voice_data, language='en'):
@@ -107,6 +108,17 @@ def respond(r, voice_data, language='en'):
         city = city.replace(' weather', '')
         print("city: " + city)
         weather.check_city_weather(city)
+    
+    # check the news
+    elif "check the news" in voice_data:
+        category, language = record_audio(r, language='en', ask='Which category would you like to check?')
+        country, language = record_audio(r, language='en', ask='And from which country?')
+        if country == "America" or country == "The US" or country == "USA" or "United States of America" in voice_data:
+            country = "us"
+        else:
+            country = "us"
+        news.read_news_headlines(category, country)
+
     
     # ==================================== #
     # ========== CORE FUNCTIONS ========== #
