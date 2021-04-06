@@ -3,6 +3,7 @@ from core.listen import record_audio
 from time import ctime
 import webbrowser as wb
 import os_functions.manage_dir as manage_dir    # use manage directory file
+import miscellaneous_functions.weather as weather    # use weather file
 import settings
 
 def respond(r, voice_data, language='en'):
@@ -77,6 +78,36 @@ def respond(r, voice_data, language='en'):
     elif "what time is it" in voice_data:
         voice_assistant_speak(ctime())
     
+    #check weather
+    elif voice_data == "check the weather":
+        city, language = record_audio(r, language='en', ask='Which city would you like to check?')
+        print("city: " + city)
+        weather.check_city_weather(city)
+    elif "what's the weather in" in voice_data or "what's the weather of" in voice_data or ("what" in voice_data and "weather" in voice_data):
+        city = voice_data
+        city = city.replace('what', '')
+        city = city.replace('the weather in ', '')
+        city = city.replace('the weather of ', '')
+        city = city.replace("'s ", '')
+        print("city: " + city)
+        weather.check_city_weather(city)
+    elif "how's the weather in" in voice_data or "how's the weather of" in voice_data or ("how" in voice_data and "weather" in voice_data):
+        city = voice_data
+        city = city.replace('how', '')
+        city = city.replace('the weather in ', '')
+        city = city.replace('the weather of ', '')
+        city = city.replace("'s ", '')
+        print("city: " + city)
+        weather.check_city_weather(city)
+    elif "check the weather in" in voice_data or "check the weather of" in voice_data or ("check" in voice_data and "weather" in voice_data):
+        city = voice_data
+        city = city.replace('check the weather of ', '')
+        city = city.replace('check the weather in ', '')
+        city = city.replace('check ', '')
+        city = city.replace("'s ", '')
+        city = city.replace(' weather', '')
+        print("city: " + city)
+        weather.check_city_weather(city)
     
     # ==================================== #
     # ========== CORE FUNCTIONS ========== #
