@@ -16,9 +16,8 @@ def main():
     voice_assistant_speak("How can I help you ?")
 
     while True:
-
         voice_data, language = record_audio(r1)
-        print(voice_data)
+        print("Voice data: " + voice_data)
         respond(r2, voice_data, language=language)
 
 if __name__ == '__main__':

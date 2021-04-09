@@ -2,6 +2,7 @@
 
 # import required modules
 import requests, json
+from core.speak import voice_assistant_speak
 
 def check_city_weather(city_name):
     # API key
@@ -53,6 +54,9 @@ def check_city_weather(city_name):
                         str(current_humidiy) +
             "\n description = " +
                         str(weather_description))
+        temp_in_C = current_temperature - 273.15
+        message = "Current temperature is " + str(temp_in_C) + "degree Celsius and we have" + str(weather_description) + "."
+        voice_assistant_speak(message, "en")
 
     else:
         print("City Not Found")

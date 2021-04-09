@@ -1,7 +1,7 @@
 # Python program to find current news details of any country and category using newsapi api
 
-import requests
-import json
+import requests, json
+from core.speak import voice_assistant_speak
 
 def read_news_headlines(category, country):
 	# For list of available categories and countries, visit https://newsapi.org/docs/endpoints/sources
@@ -22,13 +22,14 @@ def read_news_headlines(category, country):
 
 	news = json.loads(response.text)
 
+	i = 0 # to get 3 top headlines only
 	for article in news['articles']:
-		title = str(article['title'])
-		description = str(article['description'])
-
-		print("##############################################################\n")
-		print(title)
-		# print('______________________________________________________\n')
-		# print(description)
-		print("..............................................................")
-
+		if i < 3:
+			title = str(article['title'])
+			# description = str(article['description'])
+			# print(title)
+			# print(description)
+			voice_assistant_speak(title, "en")
+		else:
+			break
+		i = i + 1
