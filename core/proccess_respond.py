@@ -5,6 +5,7 @@ import webbrowser as wb
 import os_functions.manage_dir as manage_dir    # use manage directory file
 import miscellaneous_functions.weather as weather    # use weather file
 import miscellaneous_functions.news as news    # use news file
+import miscellaneous_functions.math as math    # use math file
 import settings
 
 def respond(r, voice_data, language='en'):
