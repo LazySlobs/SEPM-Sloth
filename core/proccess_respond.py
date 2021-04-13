@@ -119,6 +119,11 @@ def respond(r, voice_data, language='en'):
             country = "us"
         news.read_news_headlines(category, country)
 
+    # do math
+    elif ("what's" in voice_data or "what is" in voice_data) and ("/" in voice_data or "*" in voice_data or "x" in voice_data or "mod" in voice_data or "+" in voice_data or "-" in voice_data):
+        voice_data = voice_data.replace("what's ", "")
+        voice_data = voice_data.replace("what is ", "")
+        math.do_math(voice_data)
     
     # ==================================== #
     # ========== CORE FUNCTIONS ========== #
