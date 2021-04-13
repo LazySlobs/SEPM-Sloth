@@ -110,14 +110,11 @@ def respond(r, voice_data, language='en'):
         weather.check_city_weather(city)
     
     # check the news
+    elif "check the news from" in voice_data:
+        voice_data = voice_data.replace("check the news from ", "")
+        news.read_news_headlines_process(r, voice_data)
     elif "check the news" in voice_data:
-        category, language = record_audio(r, language='en', ask='Which category would you like to check?')
-        country, language = record_audio(r, language='en', ask='And from which country?')
-        if country == "America" or country == "The US" or country == "USA" or "United States of America" in voice_data:
-            country = "us"
-        else:
-            country = "us"
-        news.read_news_headlines(category, country)
+        news.read_news_headlines_ask()
 
     # do math
     elif ("what's" in voice_data or "what is" in voice_data) and ("/" in voice_data or "*" in voice_data or "x" in voice_data or "mod" in voice_data or "+" in voice_data or "-" in voice_data):
