@@ -119,7 +119,7 @@ def respond(r, voice_data, language='en'):
         news.read_news_headlines_ask()
 
     # do math
-    elif ("what's" in voice_data or "what is" in voice_data) and ("/" in voice_data or "*" in voice_data or "x" in voice_data or "mod" in voice_data or "+" in voice_data or "-" in voice_data):
+    elif "what" in voice_data and ("/" in voice_data or "*" in voice_data or "x" in voice_data or "mod" in voice_data or "+" in voice_data or "-" in voice_data):
         voice_data = voice_data.replace("what's ", "")
         voice_data = voice_data.replace("what is ", "")
         math.do_math(voice_data)
