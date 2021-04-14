@@ -6,6 +6,7 @@ import os_functions.manage_dir as manage_dir    # use manage directory file
 import miscellaneous_functions.weather as weather    # use weather file
 import miscellaneous_functions.news as news    # use news file
 import miscellaneous_functions.math as math    # use math file
+import miscellaneous_functions.monitor as monitor    # use monitor file
 import settings
 
 def respond(r, voice_data, language='en'):
@@ -122,6 +123,15 @@ def respond(r, voice_data, language='en'):
         voice_data = voice_data.replace("what's ", "")
         voice_data = voice_data.replace("what is ", "")
         math.do_math(voice_data)
+    
+    # display performance
+    elif "what" in voice_data and ("CPU" in voice_data and ("RAM" in voice_data or "memory" in voice_data)):
+        monitor.displayCPURAM()
+    elif "what" in voice_data and "CPU" in voice_data:
+        monitor.displayCPU()
+    elif "what" in voice_data and ("RAM" in voice_data or "memory" in voice_data):
+        monitor.displayRAM()
+    
     
     # ==================================== #
     # ========== CORE FUNCTIONS ========== #
