@@ -27,10 +27,14 @@ def record_audio(r, language=settings.language, ask = False):
         if ask:
             voice_assistant_speak(ask)
 
+        print("Calibrating microphone...")
+        # listen for 1 second to calibrate the energy threshold for ambient noise levels
+        r.adjust_for_ambient_noise(source)
+
         # starts to listen
-        print("Listening")
+        print("Listening...")
         audio = r.listen(source)
-        voice_data = ''
+        voice_data = ""
 
         # try to recognize the audio
         try:
