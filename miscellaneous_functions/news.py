@@ -57,11 +57,32 @@ def read_news_headlines_process(r, voice_data):
 						country = "th"
 					elif "Indonesia" in voice_data3 or "Indo" in voice_data3:
 						country = "id"
+					break
 			elif "no" in voice_data2:
 				voice_data3, language = record_audio(r, language='en', ask='Which country would you like to check from?')
 				if voice_data3 not in countries:
 					continue
 				else:
+					if "America" in voice_data3 or "The US" in voice_data3 or "USA" in voice_data3 or "United States of America" in voice_data3:
+						country = "us"
+					elif "India" in voice_data3:
+						country = "in"
+					elif "Australia" in voice_data3 or "oz" in voice_data3 or "AU" in voice_data3:
+						country = "au"
+					elif "China" in voice_data3:
+						country = "cn"
+					elif "Japan" in voice_data3:
+						country = "jp"
+					elif "Korea" in voice_data3:
+						country = "kr"
+					elif "Singapore" in voice_data3:
+						country = "sg"
+					elif "Malaysia" in voice_data3:
+						country = "my"
+					elif "Thailand" in voice_data3:
+						country = "th"
+					elif "Indonesia" in voice_data3 or "Indo" in voice_data3:
+						country = "id"
 					break
 			else:
 				continue
@@ -78,16 +99,18 @@ def read_news_headlines_process(r, voice_data):
 			voice_data2 = record_audio(r, language='en', ask="Sorry, this category is not available. Would you like to know the available categories?")
 			if "yes" in voice_data2:
 				category, language = record_audio(r, language='en', ask="We have general, business, entertainment, health, science, sports, technology. Which category would you like to check?")
-				if category not in categories:
+				if category.lower() not in categories:
 					continue
 				else:
 					read_news_headlines(category, country)
+					break
 			elif "no" in voice_data2:
 				category, language = record_audio(r, language='en', ask='Which category would you like to check?')
-				if category not in categories:
+				if category.lower() not in categories:
 					continue
 				else:
 					read_news_headlines(category, country)
+					break
 			else:
 				continue
 
