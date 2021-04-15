@@ -122,6 +122,7 @@ def respond(r, voice_data, language='en'):
     elif "what" in voice_data and ("/" in voice_data or "*" in voice_data or "x" in voice_data or "mod" in voice_data or "+" in voice_data or "-" in voice_data):
         voice_data = voice_data.replace("what's ", "")
         voice_data = voice_data.replace("what is ", "")
+        voice_data = voice_data.replace("whats ", "")
         math.do_math(voice_data)
     
     # display performance
