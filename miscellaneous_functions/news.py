@@ -125,18 +125,18 @@ def read_news_headlines_ask():
 	category.lower()
 	print("category = " + category)
 
-	if category not in categories:
+	if category.lower() not in categories:
 		while True:
 			voice_data2 = record_audio(r, language='en', ask="Sorry, this category is not available. Would you like to know the available categories?")
 			if "yes" in voice_data2:
 				category, language = record_audio(r, language='en', ask="We have general, business, entertainment, health, science, sports, technology. Which category would you like to check?")
-				if category not in categories:
+				if category.lower() not in categories:
 					continue
 				else:
 					break
 			elif "no" in voice_data2:
 				category, language = record_audio(r, language='en', ask='Which category would you like to check?')
-				if category not in categories:
+				if category.lower() not in categories:
 					continue
 				else:
 					break
