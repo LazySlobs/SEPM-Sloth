@@ -92,7 +92,7 @@ def read_news_headlines_process(r, voice_data):
 	category.lower()
 	print("category = " + category)
 
-	if category in categories:
+	if category.lower() in categories:
 		read_news_headlines(category, country)
 	else:
 		while True:
