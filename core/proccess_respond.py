@@ -82,7 +82,7 @@ def respond(r, voice_data, language='en'):
         voice_assistant_speak(ctime())
     
     # check weather
-    elif voice_data == "check the weather":
+    elif voice_data == "check the weather" or ("what" in voice_data and "weather" in voice_data):
         city, language = record_audio(r, language='en', ask='Which city would you like to check?')
         weather.check_city_weather(city)
     elif "what's the weather in" in voice_data or "what's the weather of" in voice_data or ("what" in voice_data and "weather" in voice_data):
