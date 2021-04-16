@@ -7,7 +7,22 @@ from pynput.keyboard import Controller
 from pynput import keyboard
 import settings
 
-kb = Controller
+kb = Controller()
+
+def key_combo(combo):
+    print('executing combo')
+    try:
+        for key in combo:
+            kb.press(key)
+            time.sleep(0.1)
+        for key in combo:
+            kb.release(key)
+            time.sleep(0.1)
+        return 1
+        print('success')
+    except Exception as e:
+        print(e)
+        return 0
 
 def similar_file(files, raw_dir):
     '''
@@ -61,11 +76,11 @@ def delete_file(voice_data, location):
 
     files = list_file(location)
 
-    dir = similar_file(files, raw_dir)
+    dir, ratio = similar_file(files, raw_dir)
     
     # create a recognizer object to confirms delete 
     r = sr.Recognizer()
-    r.energy_threshold = settings.energy_threshold
+    #r.energy_threshold = settings.energy_threshold
     respond = ''
     while 'yes' not in respond.lower() and 'no' not in respond.lower() or ('yes' in respond.lower() and 'no' in respond.lower()):
         respond, language = record_audio(r, ask="Do you want to delete {}?".format(dir))
@@ -76,16 +91,13 @@ def delete_file(voice_data, location):
     # delete various type of file 
     path = os.path.join(location, dir)  
 
-    # try to delete with os.remove
     try:
         os.remove(path)
         return 1
-    except:
-        pass
-    # delete a folder and all of its contents with shutil
-    shutil.rmtree(path)  
-    return 1
-
+    except:    
+        shutil.rmtree(path)  
+        return 1
+    return 0
 
 def open_file(voice_data, location):
     '''
@@ -111,7 +123,7 @@ def open_file(voice_data, location):
     if similarity < 0.5:
         print(similarity, dir)
         r = sr.Recognizer()
-        r.energy_threshold = settings.energy_threshold
+        #r.energy_threshold = settings.energy_threshold
         respond = ''
         while 'yes' not in respond.lower() and 'no' not in respond.lower() or ('yes' in respond.lower() and 'no' in respond.lower()):
             respond, language = record_audio(r, ask="Do you want to open {}?".format(dir))
@@ -127,9 +139,9 @@ def open_file(voice_data, location):
     if settings.platform == 'Windows':
         os.startfile(path)
         return 1
-
-    subprocess.call(['open', path])
-    return 1
+    elif settings.platform == 'Darwin':
+        subprocess.call(['open', path])
+        return 1
 
 def create_file(voice_data, location):
     '''
@@ -166,15 +178,91 @@ def file_info(voice_data):
         1(bool): opened successfully
     '''
 
-    try:
-        kb.press(keyboard.Key.cmd)
-        kb.press('i')
-        time.sleep(0.1)
-        kb.release(keyboard.Key.cmd)
-        kb.release('i')
-        return 1
-    except Exception:
-        return 0
+    if settings.platform == 'Darwin':
+        key_combo([keyboard.Key.cmd, 'i'])
+    elif settings.platform == 'Windows':
+        key_combo([keyboard.Key.ctrl, 'i'])
+
+def copy(voice_data):
+    '''
+    simulate ctrl + c / cmd + c
+
+    Parameters:
+        voice_data(str): the string recorded and recognized from user's voice input
+    
+    Returns:
+        0(bool): failed to copy
+        1(bool): copied successfully
+    '''
+
+    if settings.platform == 'Darwin':
+        key_combo([keyboard.Key.cmd, 'c'])
+    elif settings.platform == 'Windows':
+        key_combo([keyboard.Key.ctrl, 'c'])
+
+def paste(voice_data):
+    '''
+    simulate ctrl + v / cmd + v
+
+    Parameters:
+        voice_data(str): the string recorded and recognized from user's voice input
+    
+    Returns:
+        0(bool): failed to paste
+        1(bool): pasted successfully
+    '''
+    if settings.platform == 'Darwin':
+        key_combo([keyboard.Key.cmd, 'v'])
+    elif settings.platform == 'Windows':
+        key_combo([keyboard.Key.ctrl, 'v'])
+
+def cut(voice_data):
+    '''
+    simulate ctrl + x / cmd + x
+
+    Parameters:
+        voice_data(str): the string recorded and recognized from user's voice input
+    
+    Returns:
+        0(bool): failed to cut
+        1(bool): cut successfully
+    '''
+    if settings.platform == 'Darwin':
+        key_combo([keyboard.Key.cmd, 'x'])
+    elif settings.platform == 'Windows':
+        key_combo([keyboard.Key.ctrl, 'x'])
+
+def undo(voice_data):
+    '''
+    simulate ctrl + z / cmd + z
+
+    Parameters:
+        voice_data(str): the string recorded and recognized from user's voice input
+    
+    Returns:
+        0(bool): failed to undo
+        1(bool): undone successfully
+    '''
+    if settings.platform == 'Darwin':
+        key_combo([keyboard.Key.cmd, 'z'])
+    elif settings.platform == 'Windows':
+        key_combo([keyboard.Key.ctrl, 'z'])
+
+def redo(voice_data):
+    '''
+    simulate ctrl + y / cmd + y
+
+    Parameters:
+        voice_data(str): the string recorded and recognized from user's voice input
+    
+    Returns:
+        0(bool): failed to redo
+        1(bool): redone successfully
+    '''
+    if settings.platform == 'Darwin':
+        key_combo([keyboard.Key.cmd, 'y'])
+    elif settings.platform == 'Windows':
+        key_combo([keyboard.Key.ctrl, 'y'])
 
 def scroll_down(voice_data):
     '''
@@ -189,7 +277,7 @@ def scroll_down(voice_data):
     '''
 
     r = sr.Recognizer()
-    r.energy_threshold = settings.energy_threshold
+    #r.energy_threshold = settings.energy_threshold
     stop = False
     audio = ''
     stop = r.listen_in_background(sr.Microphone())

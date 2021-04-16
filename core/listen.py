@@ -29,6 +29,7 @@ def record_audio(r, language=settings.language, ask = False):
 
         # starts to listen
         print("Listening")
+        r.adjust_for_ambient_noise(source)
         audio = r.listen(source)
         voice_data = ''
 
