@@ -144,29 +144,31 @@ def read_news_headlines_ask():
 				continue
 	
 	voice_data, language = record_audio(r, language='en', ask='And from which country would you like to check from?')
-	print("voice_data = " + voice_data)
+	print("country voice_data = " + voice_data)
 
 	countries = ['America', 'India', 'China', 'Japan', 'Korea', 'Singapore', 'Malaysia', 'Thailand', 'Indonesia']
-	if "America" in voice_data or "The US" in voice_data or "USA" in voice_data or "United States of America" in voice_data:
-		country = "us"
-	elif "India" in voice_data:
-		country = "in"
-	elif "Australia" in voice_data or "oz" in voice_data or "AU" in voice_data:
-		country = "au"
-	elif "China" in voice_data:
-		country = "cn"
-	elif "Japan" in voice_data:
-		country = "jp"
-	elif "Korea" in voice_data:
-		country = "kr"
-	elif "Singapore" in voice_data:
-		country = "sg"
-	elif "Malaysia" in voice_data:
-		country = "my"
-	elif "Thailand" in voice_data:
-		country = "th"
-	elif "Indonesia" in voice_data or "Indo" in voice_data:
-		country = "id"
+	if voice_data in countries:
+		if "America" in voice_data or "The US" in voice_data or "USA" in voice_data or "United States of America" in voice_data:
+			country = "us"
+		elif "India" in voice_data:
+			country = "in"
+		elif "Australia" in voice_data or "oz" in voice_data or "AU" in voice_data:
+			country = "au"
+		elif "China" in voice_data:
+			country = "cn"
+		elif "Japan" in voice_data:
+			country = "jp"
+		elif "Korea" in voice_data:
+			country = "kr"
+		elif "Singapore" in voice_data:
+			country = "sg"
+		elif "Malaysia" in voice_data:
+			country = "my"
+		elif "Thailand" in voice_data:
+			country = "th"
+		elif "Indonesia" in voice_data or "Indo" in voice_data:
+			country = "id"
+		read_news_headlines(category, country)
 	else:
 		while voice_data not in countries:
 			voice_data2, language = record_audio(r, language='en', ask="Sorry, this country is not supported. Would you like to know the supported countries?")
