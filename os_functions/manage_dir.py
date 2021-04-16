@@ -76,11 +76,11 @@ def delete_file(voice_data, location):
 
     files = list_file(location)
 
-    dir = similar_file(files, raw_dir)
+    dir, ratio = similar_file(files, raw_dir)
     
     # create a recognizer object to confirms delete 
     r = sr.Recognizer()
-    r.energy_threshold = settings.energy_threshold
+    #r.energy_threshold = settings.energy_threshold
     respond = ''
     while 'yes' not in respond.lower() and 'no' not in respond.lower() or ('yes' in respond.lower() and 'no' in respond.lower()):
         respond, language = record_audio(r, ask="Do you want to delete {}?".format(dir))
@@ -91,16 +91,13 @@ def delete_file(voice_data, location):
     # delete various type of file 
     path = os.path.join(location, dir)  
 
-    # try to delete with os.remove
     try:
         os.remove(path)
         return 1
-    except:
-        pass
-    # delete a folder and all of its contents with shutil
-    shutil.rmtree(path)  
-    return 1
-
+    except:    
+        shutil.rmtree(path)  
+        return 1
+    return 0
 
 def open_file(voice_data, location):
     '''
@@ -126,7 +123,7 @@ def open_file(voice_data, location):
     if similarity < 0.5:
         print(similarity, dir)
         r = sr.Recognizer()
-        r.energy_threshold = settings.energy_threshold
+        #r.energy_threshold = settings.energy_threshold
         respond = ''
         while 'yes' not in respond.lower() and 'no' not in respond.lower() or ('yes' in respond.lower() and 'no' in respond.lower()):
             respond, language = record_audio(r, ask="Do you want to open {}?".format(dir))
@@ -142,9 +139,9 @@ def open_file(voice_data, location):
     if settings.platform == 'Windows':
         os.startfile(path)
         return 1
-
-    subprocess.call(['open', path])
-    return 1
+    elif settings.platform == 'Darwin':
+        subprocess.call(['open', path])
+        return 1
 
 def create_file(voice_data, location):
     '''
@@ -280,7 +277,7 @@ def scroll_down(voice_data):
     '''
 
     r = sr.Recognizer()
-    r.energy_threshold = settings.energy_threshold
+    #r.energy_threshold = settings.energy_threshold
     stop = False
     audio = ''
     stop = r.listen_in_background(sr.Microphone())
