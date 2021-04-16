@@ -3,7 +3,11 @@ from core.listen import record_audio
 from time import ctime
 import webbrowser as wb
 import os_functions.manage_dir as manage_dir
+import web_browser_control.quick_command as webr
 import settings
+import threading
+import speech_recognition as sr
+
 
 def respond(r, voice_data, language='en'):
     '''
@@ -74,7 +78,62 @@ def respond(r, voice_data, language='en'):
         voice_assistant_speak(ctime())
     
     # internal functions
-        # exit
+
+    # web browser functions
+    elif "browser" in voice_data:
+        webr.open_Browser_Window()
+    elif "existing window" in voice_data:
+        webr.naviagate_windows()
+    elif "History" in voice_data:
+        webr.open_history()
+    elif "refresh" in voice_data:
+        webr.refesh()
+    elif "back" in voice_data:
+        webr.back()
+    elif "forward" in voice_data:
+        webr.forward()
+    elif "return Home" in voice_data:
+        webr.return_Home()
+    elif "address bar" in voice_data:
+        webr.select_address_bar()
+    elif "olive green" in voice_data:
+        webr.full_screen()
+    elif "scroll  top" in voice_data:
+        webr.scroll_to_Top()
+    elif "scroll  bottom" in voice_data:
+        webr.scroll_to_Bottom()
+    elif "scroll up" in voice_data:
+        webr.scroll_up()
+    elif "scroll down" in voice_data:
+        webr.scroll_down()
+    elif "bookmark page" in voice_data:
+        webr.book_mark_page()
+    elif "bookmark list" in voice_data:
+        webr.book_mark_list()
+    elif "private window" in voice_data:
+        webr.private_window()
+    elif "find text" in voice_data:
+        webr.text_search()
+    elif "history" in voice_data:
+        webr.open_history()
+    elif "dowload" in voice_data:
+        webr.open_dowload_history()
+    elif "clear browser data" in voice_data:
+        webr.clear_browsing_data()
+    elif "inspect" in voice_data:
+        webr.inspect_website()
+    elif "new window" in voice_data:
+        webr.new_browser_window()
+    elif "new tab" in voice_data:
+        webr.new_tab()
+    elif "next tab" in voice_data:
+        webr.next_tab()
+    elif "close app" in voice_data:
+        webr.close_app()
+
+
+    # exit
     elif "exit" in voice_data:
         exit()
+
 

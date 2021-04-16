@@ -34,11 +34,13 @@ Say what the step will be
 ```
 Step 1: Install modules from command line
  - pip install SpeechRecognition 
- - pip install PyAudio
  - pip install pygame==1.9.6
  - pip install gTTS
+ - pip install playsound
  - pip install pynput
  - pip install pyAutoGUI
+ - pip install PyAudio
+
 ```
 
 And 
