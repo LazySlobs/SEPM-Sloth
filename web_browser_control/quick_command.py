@@ -279,7 +279,7 @@ def text_search():
         return 0
 
 
-def open_dowload_history():
+def open_download_history():
     '''
 
     Parameters:

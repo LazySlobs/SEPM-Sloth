@@ -131,7 +131,7 @@ def respond(r, voice_data, language='en'):
     elif "history" in voice_data:
         webr.open_history()
     elif "dowload" in voice_data:
-        webr.open_dowload_history()
+        webr.open_download_history()
     elif "clear browser data" in voice_data:
         webr.clear_browsing_data()
     elif "inspect" in voice_data:
