@@ -27,49 +27,15 @@ def respond(r, voice_data, language='en'):
     Returns:
         Null
     '''
+    voice_data = voice_data.lower()
     
-    # ================================== #
-    # ========== OS FUNCTIONS ========== #
-    # ================================== #
-    # delete
-    if 'delete' in voice_data:
-        manage_dir.delete_file(voice_data, location = settings.location)
-
-    # open 
-    elif 'open' in voice_data:
-        manage_dir.open_file(voice_data, location = settings.location)
-
-    # create 
-    elif 'create' in voice_data:
-        manage_dir.create_file(voice_data, location = settings.location)
-
-    # get info 
-    elif 'information' in voice_data and 'show' in voice_data:
-        manage_dir.file_info(voice_data)
-
-    # scoll 
-    elif 'scroll down' in voice_data:
-        manage_dir.scroll_down(voice_data)
-
-        #copy
-    elif 'copy' in voice_data:
-        manage_dir.copy(voice_data)
-        
-        #paste
-    elif 'paste' in voice_data:
-        manage_dir.paste(voice_data)
-        
-        #cut
-    elif 'cut' in voice_data:
-        manage_dir.cut(voice_data)
-        
-        #undo
-    elif 'undo' in voice_data:
-        manage_dir.undo(voice_data)
-        
-        #redo
-    elif 'redo' in voice_data:
-        manage_dir.redo(voice_data)
+    # ==================================== #
+    # ========== CORE FUNCTIONS ========== #
+    # ==================================== #
+    # exit
+    if "exit" in voice_data:
+        exit()
+    
 
     # ======================================= #
     # ========== BROWSER FUNCTIONS ========== #
@@ -94,28 +60,26 @@ def respond(r, voice_data, language='en'):
         wb.get().open(url)
         voice_assistant_speak(location, language=language)
     
-    elif "browser" in voice_data:
-        webr.open_Browser_Window()
-    elif "existing window" in voice_data:
+    elif "open" in voice_data and "browser" in voice_data:
+        webr.open_browser_window()
+    elif voice_data == "switch window" or voice_data == "change window":
         webr.naviagate_windows()
-    elif "History" in voice_data:
-        webr.open_history()
-    elif "refresh" in voice_data:
+    elif "refresh" in voice_data or voice_data == "refresh page":
         webr.refesh()
-    elif "back" in voice_data:
+    elif "go back" in voice_data:
         webr.back()
-    elif "forward" in voice_data:
+    elif "go forward" in voice_data:
         webr.forward()
-    elif "return Home" in voice_data:
-        webr.return_Home()
+    elif "return home" in voice_data:
+        webr.return_home()
     elif "address bar" in voice_data:
         webr.select_address_bar()
     elif "olive green" in voice_data:
         webr.full_screen()
-    elif "scroll  top" in voice_data:
-        webr.scroll_to_Top()
-    elif "scroll  bottom" in voice_data:
-        webr.scroll_to_Bottom()
+    elif voice_data == "scroll to top" or voice_data == "scroll to the top":
+        webr.scroll_to_top()
+    elif voice_data == "scroll to bottom" or voice_data == "scroll to the bottom":
+        webr.scroll_to_bottom()
     elif "scroll up" in voice_data:
         webr.scroll_up()
     elif "scroll down" in voice_data:
@@ -124,37 +88,82 @@ def respond(r, voice_data, language='en'):
         webr.book_mark_page()
     elif "bookmark list" in voice_data:
         webr.book_mark_list()
-    elif "private window" in voice_data:
+    elif "open" in voice_data and "private window" in voice_data:
         webr.private_window()
     elif "find text" in voice_data:
         webr.text_search()
-    elif "history" in voice_data:
+    elif voice_data == "open history":
         webr.open_history()
     elif "dowload" in voice_data:
         webr.open_download_history()
-    elif "clear browser data" in voice_data:
+    elif voice_data == "clear browsing data":
         webr.clear_browsing_data()
-    elif "inspect" in voice_data:
+    elif "inspect" in voice_data or voice_data == "inspect website":
         webr.inspect_website()
-    elif "new window" in voice_data:
+    elif "new window" in voice_data or voice_data == "open new window":
         webr.new_browser_window()
-    elif "new tab" in voice_data:
+    elif voice_data == "new tab" or voice_data == "open new tab":
         webr.new_tab()
-    elif "next tab" in voice_data:
+    elif voice_data == "next tab" or voice_data == "go to next tab":
         webr.next_tab()
     elif "close app" in voice_data:
         webr.close_app()
+    
+
+    # ================================== #
+    # ========== OS FUNCTIONS ========== #
+    # ================================== #
+    # delete
+    elif 'delete' in voice_data:
+        manage_dir.delete_file(voice_data, location = settings.location)
+
+    # open 
+    elif 'open' in voice_data:
+        manage_dir.open_file(voice_data, location = settings.location)
+
+    # create 
+    elif 'create' in voice_data:
+        manage_dir.create_file(voice_data, location = settings.location)
+
+    # get info 
+    elif 'information' in voice_data and 'show' in voice_data:
+        manage_dir.file_info(voice_data)
+
+    # scoll 
+    elif 'scroll down' in voice_data:
+        manage_dir.scroll_down(voice_data)
+
+    # copy
+    elif 'copy' in voice_data:
+        manage_dir.copy(voice_data)
+        
+    # paste
+    elif 'paste' in voice_data:
+        manage_dir.paste(voice_data)
+        
+    # cut
+    elif 'cut' in voice_data:
+        manage_dir.cut(voice_data)
+        
+    # undo
+    elif 'undo' in voice_data:
+        manage_dir.undo(voice_data)
+        
+    # redo
+    elif 'redo' in voice_data:
+        manage_dir.redo(voice_data)
 
     # ======================================= #
     # ========== GENERAL FUNCTIONS ========== #
     # ======================================= #
     # asked for name
-    elif "what is your name" in voice_data or "what's your name" in voice_data:
-        voice_assistant_speak(" My name is Sloth")
+    elif "what is your name" in voice_data or "what's your name" in voice_data or "whats your name" in voice_data:
+        voice_assistant_speak("My name is Sloth.")
 
     # asked for time
     elif "what time is it" in voice_data:
         voice_assistant_speak(ctime())
+    
     # check weather
     elif "what's the weather in" in voice_data or "what's the weather of" in voice_data:
         city = voice_data
@@ -207,12 +216,3 @@ def respond(r, voice_data, language='en'):
     elif "what" in voice_data and ("RAM" in voice_data or "memory" in voice_data):
         monitor.displayRAM()
     
-    
-    # ==================================== #
-    # ========== CORE FUNCTIONS ========== #
-    # ==================================== #
-    # exit
-    elif "exit" in voice_data:
-        exit()
-
-

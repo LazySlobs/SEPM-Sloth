@@ -5,7 +5,7 @@ import speech_recognition as sr
 from core.listen import record_audio
 
 
-def open_Browser_Window():
+def open_browser_window():
     '''
 
     Parameters:
@@ -93,7 +93,7 @@ def forward():
     else:
         return 0
 
-def return_Home():
+def return_home():
     '''
 
     Parameters:
@@ -148,7 +148,7 @@ def full_screen():
         return 0
 
 
-def scroll_to_Top():
+def scroll_to_top():
     '''
 
     Parameters:
@@ -166,7 +166,7 @@ def scroll_to_Top():
     else:
         return 0
 
-def scroll_to_Bottom():
+def scroll_to_bottom():
     '''
 
     Parameters:
