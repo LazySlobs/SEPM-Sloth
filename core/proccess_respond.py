@@ -27,7 +27,6 @@ def respond(r, voice_data, language='en'):
     Returns:
         Null
     '''
-    voice_data = voice_data.lower()
     
     # ==================================== #
     # ========== CORE FUNCTIONS ========== #
