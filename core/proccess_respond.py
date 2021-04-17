@@ -194,8 +194,10 @@ def respond(r, voice_data, language='en'):
         weather.check_city_weather(city)
     
     # check the news
-    elif "check the news from" in voice_data:
-        voice_data = voice_data.replace("check the news from ", "")
+    elif "check the news from" in voice_data or "check the news in" in voice_data:
+        voice_data = voice_data.replace("check the news ", "")
+        voice_data = voice_data.replace("in ", "")
+        voice_data = voice_data.replace("from ", "")
         news.read_news_headlines_process(r, voice_data)
     elif "check the news" in voice_data:
         news.read_news_headlines_ask()
