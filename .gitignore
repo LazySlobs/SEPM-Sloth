@@ -4,7 +4,6 @@ __pycache__/
 .coverage
 build/
 points.egg-info
-.vscode
 .# Created by .ignore support plugin (hsz.mobi)
 ### Python template
 # Byte-compiled / optimized / DLL files
@@ -33,6 +32,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+.DS_Store
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -157,3 +157,4 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+.vscode/settings.json

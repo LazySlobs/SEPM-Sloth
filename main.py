@@ -8,7 +8,7 @@ import settings
 settings.init()
 
 r1 = sr.Recognizer() # create a recognizer object to recognize texts
-r1.energy_threshold = settings.energy_threshold 
+#r1.energy_threshold = settings.energy_threshold 
 r2 = sr.Recognizer() # create a recognizer object to respond
 
 def main():
