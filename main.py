@@ -33,7 +33,6 @@ def main():
             if listen_for_keyword.count(WAKE) > 0:
                 print("Sloth is awake...")
                 voice_assistant_speak("How can I help you?")
-                print("Listening...")
                 voice_data, language = record_audio(r1)
                 print("Voice data: " + voice_data)
                 respond(r2, voice_data, language=language)
