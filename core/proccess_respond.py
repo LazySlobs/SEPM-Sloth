@@ -160,7 +160,7 @@ def respond(r, voice_data, language='en'):
         voice_assistant_speak("My name is Sloth.")
 
     # asked for time
-    elif "what time is it" in voice_data:
+    elif "what time is it" in voice_data or "whats the time" in voice_data or "what's the time" in voice_data:
         voice_assistant_speak(ctime())
     
     # check weather
