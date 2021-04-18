@@ -1,6 +1,6 @@
 from core.speak import voice_assistant_speak
 from core.listen import record_audio
-from time import ctime
+import time
 import webbrowser as wb
 import web_browser_control.quick_command as webr
 import os_functions.manage_dir as manage_dir    # use manage directory file
@@ -161,7 +161,7 @@ def respond(r, voice_data, language='en'):
 
     # asked for time
     elif "what time is it" in voice_data or "whats the time" in voice_data or "what's the time" in voice_data:
-        voice_assistant_speak(ctime())
+        voice_assistant_speak(str(time.strftime("It's currently %H:%M o'clock")))
     
     # check weather
     elif "what's the weather in" in voice_data or "what's the weather of" in voice_data:
