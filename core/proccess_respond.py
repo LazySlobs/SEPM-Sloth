@@ -211,9 +211,18 @@ def respond(r, voice_data, language='en'):
     
     # display performance
     elif "what" in voice_data and ("CPU" in voice_data and ("RAM" in voice_data or "memory" in voice_data)):
-        monitor.displayCPURAM()
+        monitor.tell_cpu_and_ram_used()
     elif "what" in voice_data and "CPU" in voice_data:
-        monitor.displayCPU()
+        monitor.tell_cpu_used()
     elif "what" in voice_data and ("RAM" in voice_data or "memory" in voice_data):
-        monitor.displayRAM()
+        monitor.tell_ram_used()
+    elif "what" in voice_data and ("remaining RAM" in voice_data or "remaining memory" in voice_data):
+        monitor.tell_available_ram()
+    elif "display" in voice_data and ("CPU" in voice_data and ("RAM" in voice_data or "memory" in voice_data)):
+        monitor.display_cpu_and_ram_used()
+    elif "display" in voice_data and "CPU" in voice_data:
+        monitor.display_cpu_used()
+    elif "display" in voice_data and ("RAM" in voice_data or "memory" in voice_data):
+        monitor.display_ram_used()
+
     
