@@ -27,22 +27,21 @@ def record_audio(r, language=settings.language, ask = False):
         if ask:
             voice_assistant_speak(ask)
 
-        print("Calibrating microphone...")
-        # listen for 1 second to calibrate the energy threshold for ambient noise levels
-        r.adjust_for_ambient_noise(source)
-
         # starts to listen
         print("Listening...")
         audio = r.listen(source)
         voice_data = ""
-
-        # try to recognize the audio
-        try:
-            voice_data = r.recognize_google(audio, language=language)
-        except sr.UnknownValueError:
-            print("Sorry, I did not get that")
-            voice_assistant_speak("Sorry, I did not get that")
-        except sr.RequestError:
-            voice_assistant_speak("Sorry, my speech service is down")
-            
+        # loop so that it can return an actual voice data instead of an empty string
+        while True:
+            # try to recognize the audio
+            try:
+                voice_data = r.recognize_google(audio, language=language)
+                break
+            except sr.UnknownValueError:
+                print("Sorry, I did not get that")
+                voice_assistant_speak("Sorry, I did not get that")
+                continue
+            except sr.RequestError:
+                voice_assistant_speak("Sorry, my speech service is down")
+                continue
     return voice_data, language
