@@ -19,7 +19,7 @@ def main():
     while True:
         # speak if the ask variable is a string
         with sr.Microphone() as source:
-            r1.adjust_for_ambient_noise(source)
+            r1.adjust_for_ambient_noise(source, duration=0.5)
             # starts to listen
             print("Listening for keyword...")
             audio = r1.listen(source)
@@ -37,7 +37,7 @@ def main():
                 print("Sloth is awake...")
                 voice_assistant_speak("How can I help you?")
                 while True:
-                    r1.adjust_for_ambient_noise(source)
+                    r1.adjust_for_ambient_noise(source, duration=0.5)
                     voice_data, language = record_audio(r1)
                     if voice_data.lower() == "stop the program":
                         print("Voice data: " + voice_data)
