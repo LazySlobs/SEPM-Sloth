@@ -8,15 +8,18 @@ import settings
 settings.init()
 
 r1 = sr.Recognizer() # create a recognizer object to recognize texts
-#r1.energy_threshold = settings.energy_threshold 
+# r1.energy_threshold = settings.energy_threshold 
 r2 = sr.Recognizer() # create a recognizer object to respond
+# r2.energy_threshold = settings.energy_threshold 
 
-WAKE = "hey sloth"
+WAKE = "wake up"
 
 def main():
+    stop = False
     while True:
         # speak if the ask variable is a string
         with sr.Microphone() as source:
+            r1.adjust_for_ambient_noise(source)
             # starts to listen
             print("Listening for keyword...")
             audio = r1.listen(source)
@@ -33,9 +36,17 @@ def main():
             if listen_for_keyword.count(WAKE) > 0:
                 print("Sloth is awake...")
                 voice_assistant_speak("How can I help you?")
-                voice_data, language = record_audio(r1)
-                print("Voice data: " + voice_data)
-                respond(r2, voice_data, language=language)
+                while True:
+                    r1.adjust_for_ambient_noise(source)
+                    voice_data, language = record_audio(r1)
+                    if voice_data.lower() == "stop the program":
+                        print("Voice data: " + voice_data)
+                        stop = True
+                        break
+                    print("Voice data: " + voice_data)
+                    respond(r2, voice_data, language=language)
+                if stop:
+                    break
             elif listen_for_keyword.lower() == "stop the program":
                 break
 
