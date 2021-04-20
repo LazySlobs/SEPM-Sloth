@@ -6,3 +6,5 @@ pynput~=1.7.3
 pyAutoGUI~=0.9.52
 playsound>=1.2.2
 psutil>=5.8.0
+pytesseract>=0.3.7
+opencv-python>=4.5.1.48
