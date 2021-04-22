@@ -8,6 +8,7 @@ import miscellaneous_functions.weather as weather    # use weather file
 import miscellaneous_functions.news as news    # use news file
 import miscellaneous_functions.math as math    # use math file
 import miscellaneous_functions.monitor as monitor    # use monitor file
+import os_functions.read_screen as readscreen    # use monitor file
 import settings
 import threading
 import speech_recognition as sr
@@ -156,6 +157,11 @@ def respond(r, voice_data, language='en'):
     # redo
     elif 'redo' in voice_data:
         manage_dir.redo(voice_data)
+
+    # convert text on img to string
+    elif voice_data == "read text":
+        readscreen.root = readscreen.ImageToText()
+        readscreen.root.mainloop()
 
     # ======================================= #
     # ========== GENERAL FUNCTIONS ========== #
