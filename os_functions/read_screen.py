@@ -10,20 +10,20 @@ from core.speak import voice_assistant_speak
 class ImageToText(tk.Tk):
 	def __init__(self):
 		super().__init__()
-		self.withdraw()
-		self.attributes('-fullscreen', True)
-		self.attributes("-topmost", True)
+		self.withdraw()	# hide window
+		self.attributes('-fullscreen', True) # make window fullscreen
+		self.attributes("-topmost", True) # put window above all other windows
 
-		self.canvas = tk.Canvas(self)
-		self.canvas.pack(fill="both",expand=True)
+		self.canvas = tk.Canvas(self) # create tkinter canvas window
+		self.canvas.pack(fill="both",expand=True) # 
 
-		image = ImageGrab.grab()
+		image = ImageGrab.grab() # takes a snapshot of the entire screen
 		self.image = ImageTk.PhotoImage(image)
 		self.photo = self.canvas.create_image(0,0,image=self.image,anchor="nw")
 
-		self.x, self.y = 0, 0
-		self.rect, self.start_x, self.start_y = None, None, None
-		self.deiconify()
+		self.x, self.y = 0, 0 # init x and y values
+		self.rect, self.start_x, self.start_y = None, None, None # init x and y values
+		self.deiconify() # display the window
 
 		self.canvas.tag_bind(self.photo,"<ButtonPress-1>", self.on_button_press)
 		self.canvas.tag_bind(self.photo,"<B1-Motion>", self.on_move_press)
@@ -31,15 +31,19 @@ class ImageToText(tk.Tk):
 
 		voice_assistant_speak("Please select an area of text on your screen.")
 
+	# get x and y axis of the cursor on mouse press
 	def on_button_press(self, event):
 		self.start_x = event.x
 		self.start_y = event.y
-		self.rect = self.canvas.create_rectangle(self.x, self.y, 1, 1, outline='yellow')
+		self.rect = self.canvas.create_rectangle(self.x, self.y, 1, 1, outline='red')
 
+	# get and update the 2nd x and y axis of the cursor when mouse1 is held and the mouse is moved
 	def on_move_press(self, event):
 		curX, curY = (event.x, event.y)
 		self.canvas.coords(self.rect, self.start_x, self.start_y, curX, curY)
 
+	# get bbox coordinates and convert the texts in the selected area
+	# and read the text
 	def on_button_release(self, event):
 		bbox = self.canvas.bbox(self.rect)
 		self.canvas.destroy()
@@ -57,12 +61,12 @@ class ImageToText(tk.Tk):
 
 		# Converted the image to monochrome for it to be easily
 		# read by the OCR and obtained the output String.
-		tesstr = pytesseract.image_to_string(
+		tesseract = pytesseract.image_to_string(
 				cv2.cvtColor(nm.array(cap), cv2.COLOR_BGR2GRAY), 
 				lang ='eng')
-		print(tesstr)
+		print(tesseract)
 		try:
-			voice_assistant_speak(tesstr)
+			voice_assistant_speak(tesseract)
 		except:
 			voice_assistant_speak("Sorry, I can't quite recognize the text.")
 		
