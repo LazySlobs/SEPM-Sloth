@@ -291,3 +291,17 @@ def scroll_down(voice_data):
         return 1
     except Exception:
         return 0
+
+
+def auto_scroll():
+    r1 = sr.Recognizer()  # create a recognizer object to recognize texts
+    r1.energy_threshold = 4000
+    while True:
+        pyautogui.scroll(1000)
+        navigate_data, language = record_audio(r1)
+        print(navigate_data)
+        if "enter" in navigate_data:
+            break
+
+
+auto_scroll()

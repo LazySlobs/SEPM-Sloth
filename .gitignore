@@ -159,3 +159,4 @@ crashlytics-build.properties
 fabric.properties
 .vscode/settings.json
 *.pyc
+__pycache__/settings.cpython-37.pyc
