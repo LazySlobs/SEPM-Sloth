@@ -158,3 +158,4 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 .vscode/settings.json
+*.pyc
