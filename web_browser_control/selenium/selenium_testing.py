@@ -19,8 +19,12 @@ driver.maximize_window()
 url = "https://learn.letskodeit.com/p/practice"
 url1 = "https://en.wikipedia.org/wiki/Python_%28programming_language%29"
 url2 = "https://www.geeksforgeeks.org/deque-in-python/"
-url4 = "https://quotes.toscrape.com/"
-driver.get(url)
+url3 = "https://quotes.toscrape.com/"
+# React Website
+url4 = "https://www.khanacademy.org/"
+# Angular Website
+url5 = "https://www.forbes.com/?sh=322095c92254"
+driver.get(url5)
 
 
 
@@ -36,9 +40,7 @@ def highlight(element, effect_time, color, border):
     time.sleep(effect_time)
     apply_style(original_style)
 
-# open_window_elem = driver.find_element_by_xpath("//*[contains(text(), 'Open Window')]")
-# highlight(open_window_elem, 100
-#           , "red", 5)
+
 
 
 
@@ -48,19 +50,22 @@ def highlight(element, effect_time, color, border):
 
 
 
+
+
 # get href_button
 def href_button():
- # List of href button
- link_buttons = []
- links = driver.find_elements_by_xpath("//a[@href]")
+  # List of href button
+  link_buttons = []
+  links = driver.find_elements_by_xpath("//a[@href]")
 
- # Add label of href button to List
- for link in links:
-    link_buttons.append(link.text)
+  # Add label of href button to List
+  for link in links:
+    if link.text != "":
+       link_buttons.append(link.text)
 
- print(href_button())
- button = input("Enter your button: ")
- if button in link_buttons:
+  print(link_buttons)
+  button = input("Enter your button: ")
+  if button in link_buttons:
    try:
      print(button)
      driver.find_element_by_xpath(f"//*[contains(text(), '{button}')]").click()
@@ -79,7 +84,8 @@ def label_button():
 
  # Add label of href button to List
  for label in labels:
-    label_buttons.append(label.text)
+     if label.text != "":
+          label_buttons.append(label.text)
 
  print(label_buttons)
  button = input("Enter your button: ")
@@ -99,7 +105,8 @@ def normal_button():
  normal_buttons = []
  buttons = driver.find_elements_by_xpath('//button')
  for button in buttons:
-    normal_buttons.append(button.text)
+     if button.text != "":
+         normal_buttons.append(button.text)
 
  print(normal_buttons)
  button = input("Enter your button: ")
@@ -120,7 +127,8 @@ def input_button():
  input_buttons = []
  input_elements = driver.find_elements_by_xpath("//input[@value]")
  for input_value in input_elements:
-    input_buttons.append(input_value.get_attribute('value'))
+     if input_value.text != "":
+         input_buttons.append(input_value.get_attribute('value'))
 
  print(input_buttons)
  button = input("Enter your button: ")
@@ -138,7 +146,8 @@ def place_holder_button():
  place_holder_buttons = []
  place_holder_elements = driver.find_elements_by_xpath("//input[@placeholder]")
  for place_holder_value in place_holder_elements:
-    place_holder_buttons.append(place_holder_value.get_attribute('placeholder'))
+     if place_holder_value.text != "":
+         place_holder_buttons.append(place_holder_value.get_attribute('placeholder'))
 
  print(place_holder_buttons)
  button = input("Enter your button: ")
@@ -150,6 +159,12 @@ def place_holder_button():
          print("Button not available")
 
 
-place_holder_button()
+# open_window_elem = driver.find_element_by_xpath("//*[contains(text(), 'Login')]")
+# highlight(open_window_elem, 100
+#           , "red", 5)
 
-
+href_button()
+# label_button()
+# normal_button()
+# input_button()
+# place_holder_button()
