@@ -13,13 +13,13 @@ class CircularProgress(QWidget):
         self.progress_width = 10
         self.progress_rounded_cap = True
         self.max_value = 100
-        self.progress_color = 0xff79c6
+        self.progress_color = 0x8be9fd
         # Text
         self.enable_text = True
         self.font_family = "Segoe UI"
         self.font_size = 12
         self.suffix = "%"
-        self.text_color = 0xff79c6
+        self.text_color = 0x8be9fd
         # BG
         self.enable_bg = True
         self.bg_color = 0x44475a

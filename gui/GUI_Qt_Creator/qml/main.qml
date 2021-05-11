@@ -39,13 +39,13 @@ Window {
             text: "X"
             anchors.right: parent.right
             anchors.top: parent.top
-            colorDefault: "#bfdd04"
+            colorDefault: "#a4ebf3"
             anchors.topMargin: 15
             font.pointSize: 10
             font.family: "Segoe UI"
             anchors.rightMargin: 20
-            colorMouseOver: "#9db504"
-            colorPressed: "#7c8f03"
+            colorMouseOver: "#a1cae2"
+            colorPressed: "#28527a"
             onClicked: window.close()
         }
 
@@ -53,7 +53,7 @@ Window {
             id: rectangleTitle
             height: 30
             opacity: 1
-            color: "#bfdd04"
+            color: "#a4ebf3"
             radius: 10
             anchors.left: parent.left
             anchors.right: parent.right
@@ -100,7 +100,7 @@ Window {
                 value: 0
                 startAngle: 90
                 Text {
-                    color: "#bfdd04"
+                    color: "#a4ebf3"
                     text: qsTr("CPU")
                     anchors.bottom: parent.bottom
                     font.family: "Segoe UI"
@@ -108,7 +108,7 @@ Window {
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.bottomMargin: 40
                 }
-                progressColor: "#bfdd04"
+                progressColor: "#a4ebf3"
                 progressWidth: 6
                 textSize: 14
                 roundCap: false
@@ -124,7 +124,7 @@ Window {
                 value: 0
                 startAngle: 90
                 Text {
-                    color: "#bfdd04"
+                    color: "#a4ebf3"
                     text: qsTr("RAM")
                     anchors.bottom: parent.bottom
                     font.family: "Segoe UI"
@@ -132,7 +132,7 @@ Window {
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.bottomMargin: 40
                 }
-                progressColor: "#bfdd04"
+                progressColor: "#a4ebf3"
                 progressWidth: 6
                 strokeBgWidth: 6
                 roundCap: false
@@ -148,7 +148,7 @@ Window {
                 value: 0
                 startAngle: 90
                 Text {
-                    color: "#bfdd04"
+                    color: "#a4ebf3"
                     text: qsTr("GPU")
                     anchors.bottom: parent.bottom
                     font.family: "Segoe UI"
@@ -156,7 +156,7 @@ Window {
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.bottomMargin: 40
                 }
-                progressColor: "#bfdd04"
+                progressColor: "#a4ebf3"
                 progressWidth: 6
                 strokeBgWidth: 6
                 roundCap: false
@@ -190,7 +190,7 @@ Window {
                     width: parent.width
                     height: 35
                     opacity: 1
-                    color: "#bfdd04"
+                    color: "#a4ebf3"
                     radius: 5
 
                     Rectangle{
@@ -207,7 +207,7 @@ Window {
                             padding: 10
 
                             Text {
-                                color: "#bfdd04"
+                                color: "#a4ebf3"
                                 text: qsTr("CPU:")
                                 anchors.verticalCenter: parent.verticalCenter
                                 font.pointSize: 10
@@ -230,7 +230,7 @@ Window {
                         padding: 10
 
                         Text {
-                            color: "#bfdd04"
+                            color: "#a4ebf3"
                             text: qsTr("CPU:")
                             anchors.verticalCenter: parent.verticalCenter
                         }
@@ -258,7 +258,7 @@ Window {
                         padding: 10
 
                         Text {
-                            color: "#bfdd04"
+                            color: "#a4ebf3"
                             text: qsTr("Physical cores:")
                             anchors.verticalCenter: parent.verticalCenter
                         }
@@ -272,7 +272,7 @@ Window {
                         }
 
                         Text {
-                            color: "#bfdd04"
+                            color: "#a4ebf3"
                             text: qsTr("Total cores:")
                             anchors.verticalCenter: parent.verticalCenter
                             leftPadding: 10
@@ -302,7 +302,7 @@ Window {
                         padding: 10
 
                         Text {
-                            color: "#bfdd04"
+                            color: "#a4ebf3"
                             text: qsTr("Frequency | Max:")
                             anchors.verticalCenter: parent.verticalCenter
                         }
@@ -316,7 +316,7 @@ Window {
                         }
 
                         Text {
-                            color: "#bfdd04"
+                            color: "#a4ebf3"
                             text: qsTr("Min:")
                             anchors.verticalCenter: parent.verticalCenter
                             leftPadding: 10
@@ -331,7 +331,7 @@ Window {
                             font.pointSize: 8
                         }
                         Text {
-                            color: "#bfdd04"
+                            color: "#a4ebf3"
                             text: qsTr("Current:")
                             anchors.verticalCenter: parent.verticalCenter
                             leftPadding: 10
@@ -353,7 +353,7 @@ Window {
                     width: parent.width
                     height: 35
                     opacity: 1
-                    color: "#bfdd04"
+                    color: "#a4ebf3"
                     radius: 5
 
                     Rectangle{
@@ -370,7 +370,7 @@ Window {
                             padding: 10
 
                             Text {
-                                color: "#bfdd04"
+                                color: "#a4ebf3"
                                 text: qsTr("RAM:")
                                 anchors.verticalCenter: parent.verticalCenter
                                 font.pointSize: 10
@@ -392,7 +392,7 @@ Window {
                         padding: 10
 
                         Text {
-                            color: "#bfdd04"
+                            color: "#a4ebf3"
                             text: qsTr("RAM | Total:")
                             anchors.verticalCenter: parent.verticalCenter
                         }
@@ -406,7 +406,7 @@ Window {
                         }
 
                         Text {
-                            color: "#bfdd04"
+                            color: "#a4ebf3"
                             text: qsTr("Available:")
                             anchors.verticalCenter: parent.verticalCenter
                             leftPadding: 10
@@ -421,7 +421,7 @@ Window {
                             font.pointSize: 8
                         }
                         Text {
-                            color: "#bfdd04"
+                            color: "#a4ebf3"
                             text: qsTr("Used:")
                             anchors.verticalCenter: parent.verticalCenter
                             leftPadding: 10
@@ -443,7 +443,7 @@ Window {
                     width: parent.width
                     height: 35
                     opacity: 1
-                    color: "#bfdd04"
+                    color: "#a4ebf3"
                     radius: 5
 
                     Rectangle{
@@ -460,7 +460,7 @@ Window {
                             padding: 10
 
                             Text {
-                                color: "#bfdd04"
+                                color: "#a4ebf3"
                                 text: qsTr("GPU:")
                                 anchors.verticalCenter: parent.verticalCenter
                                 font.pointSize: 10
@@ -481,7 +481,7 @@ Window {
                         anchors.fill: parent
                         padding: 10
                         Text {
-                            color: "#bfdd04"
+                            color: "#a4ebf3"
                             text: qsTr("Model:")
                             anchors.verticalCenter: parent.verticalCenter
                         }
@@ -508,7 +508,7 @@ Window {
                         anchors.fill: parent
                         padding: 10
                         Text {
-                            color: "#bfdd04"
+                            color: "#a4ebf3"
                             text: qsTr("VRAM | Total:")
                             anchors.verticalCenter: parent.verticalCenter
                         }
@@ -523,7 +523,7 @@ Window {
                         }
 
                         Text {
-                            color: "#bfdd04"
+                            color: "#a4ebf3"
                             text: qsTr("Free:")
                             anchors.verticalCenter: parent.verticalCenter
                             leftPadding: 10
@@ -539,7 +539,7 @@ Window {
                         }
 
                         Text {
-                            color: "#bfdd04"
+                            color: "#a4ebf3"
                             text: qsTr("Used:")
                             anchors.verticalCenter: parent.verticalCenter
                             leftPadding: 10
@@ -567,7 +567,7 @@ Window {
                         anchors.fill: parent
                         padding: 10
                         Text {
-                            color: "#bfdd04"
+                            color: "#a4ebf3"
                             text: qsTr("TEMP:")
                             anchors.verticalCenter: parent.verticalCenter
                         }
@@ -589,7 +589,7 @@ Window {
             id: rectangle
             height: 30
             opacity: 1
-            color: "#bfdd04"
+            color: "#a4ebf3"
             radius: 10
             anchors.left: parent.left
             anchors.right: parent.right
@@ -604,17 +604,7 @@ Window {
                 anchors.left: parent.left
                 anchors.leftMargin: 10
 
-                Text {
-                    color: "#3f4801"
-                    text: qsTr("BY:")
-                }
 
-                Text {
-                    color: "#757575"
-                    text: qsTr("WANDERSON M. PIMENTA")
-                    leftPadding: 5
-                    font.pointSize: 8
-                }
             }
         }
     }

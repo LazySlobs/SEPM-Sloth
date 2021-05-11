@@ -34,6 +34,7 @@ class MainWindow(QMainWindow):
         # ADD SLIDER
         self.slider = QSlider(Qt.Horizontal)
         self.slider.setRange(0, 100)
+
         self.slider.setValue(50)
         self.slider.valueChanged.connect(self.change_value)
 
