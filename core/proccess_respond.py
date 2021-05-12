@@ -114,17 +114,17 @@ def respond(r, voice_data, language='en'):
     elif voice_data == "close app" or voice_data == "close the app":
         webr.close_app()
     
-
     # ================================== #
     # ========== OS FUNCTIONS ========== #
     # ================================== #
+        
     # delete
     elif 'delete' in voice_data:
         manage_dir.delete_file(voice_data, location = settings.location)
 
     # open 
-    elif 'open' in voice_data:
-        manage_dir.open_file(voice_data, location = settings.location)
+    elif "open" in voice_data:
+        manage_dir.open_file(r, voice_data)
 
     # create 
     elif 'create' in voice_data:
@@ -157,11 +157,6 @@ def respond(r, voice_data, language='en'):
     # redo
     elif 'redo' in voice_data:
         manage_dir.redo(voice_data)
-
-    # convert text on img to string
-    elif voice_data == "read text":
-        readscreen.root = readscreen.ImageToText()
-        readscreen.root.mainloop()
 
     # ======================================= #
     # ========== GENERAL FUNCTIONS ========== #
