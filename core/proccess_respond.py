@@ -91,7 +91,7 @@ def respond(r, voice_data, language='en'):
         webr.book_mark_list()
     elif voice_data == "open private window" or voice_data == "open incognito mode":
         webr.private_window()
-    elif voice_data == "find text" or voice_data == "search for a text":
+    elif voice_data == "find text":
         webr.text_search()
     elif voice_data == "open history":
         webr.open_history()
