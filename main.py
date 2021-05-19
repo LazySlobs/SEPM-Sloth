@@ -21,7 +21,7 @@ def main():
             # adjust for ambient noise
             print("Calibrating...")
             r1.adjust_for_ambient_noise(source, duration=1)
-            r1.energy_threshold += 500
+            r1.energy_threshold += 250
 
             # starts to listen for keyword
             print("Listening for keyword...")
@@ -33,6 +33,9 @@ def main():
                 continue
             except sr.RequestError:
                 voice_assistant_speak("Sorry, my speech service is down")
+                continue
+            except:
+                print("Something went wrong.")
                 continue
             print("listen_for_keyword = " + listen_for_keyword)
 

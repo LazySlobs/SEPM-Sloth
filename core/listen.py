@@ -43,4 +43,7 @@ def record_audio(r, language=settings.language, ask = False):
             except sr.RequestError:
                 voice_assistant_speak("Sorry, my speech service is down")
                 continue
+            except:
+                print("Something went wrong.")
+                continue
         return voice_data, language
