@@ -1,6 +1,6 @@
 from core.speak import voice_assistant_speak
 from core.listen import record_audio
-import time
+import settings, time
 import webbrowser as wb
 import web_browser_control.quick_command as webr
 import os_functions.manage_dir as manage_dir    # use manage directory file
