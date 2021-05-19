@@ -14,12 +14,16 @@ r2 = sr.Recognizer() # create a recognizer object to respond
 WAKE = "wake up"
 
 def main():
-    stop = False
+    wake = False
     while True:
         # speak if the ask variable is a string
         with sr.Microphone() as source:
-            r1.adjust_for_ambient_noise(source, duration=0.5)
-            # starts to listen
+            # adjust for ambient noise
+            print("Calibrating...")
+            r1.adjust_for_ambient_noise(source, duration=1)
+            r1.energy_threshold += 500
+
+            # starts to listen for keyword
             print("Listening for keyword...")
             audio = r1.listen(source)
             listen_for_keyword = ""
@@ -32,20 +36,22 @@ def main():
                 continue
             print("listen_for_keyword = " + listen_for_keyword)
 
+            # keyword heard, wake up the voice assistant
             if listen_for_keyword.count(WAKE) > 0:
+                wake = True
                 print("Sloth is awake...")
                 voice_assistant_speak("How can I help you?")
-                while True:
-                    r1.adjust_for_ambient_noise(source, duration=0.5)
-                    voice_data, language = record_audio(r1)
-                    if voice_data.lower() == "stop the program":
-                        print("Voice data: " + voice_data)
-                        stop = True
-                        break
-                    print("Voice data: " + voice_data)
-                    respond(r2, voice_data, language=language)
-                if stop:
-                    break
+
+                if (wake):
+                    while True:
+                        # listen to users
+                        voice_data, language = record_audio(r1)
+                        # if user tells program to stop
+                        if voice_data.lower() == "go to sleep" or voice_data.lower() == "go back to sleep":
+                            wake = False
+                            break
+                        print("Voice data: " + voice_data)  # print user's voice data
+                        respond(r2, voice_data, language=language)  # respond to user's voice data
             elif listen_for_keyword.lower() == "stop the program":
                 break
 
