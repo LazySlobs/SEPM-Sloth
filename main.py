@@ -1,5 +1,4 @@
 import speech_recognition as sr
-import time, random, os, playsound
 from core.listen import record_audio
 from core.speak import voice_assistant_speak
 from core.proccess_respond import respond
