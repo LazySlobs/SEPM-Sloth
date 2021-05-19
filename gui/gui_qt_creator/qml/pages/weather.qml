@@ -63,15 +63,19 @@ Window {
             anchors.topMargin: 15
 
             Row {
+                width: 72
+                height: 23
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
+                anchors.verticalCenterOffset: 1
                 Text {
                     color: "#3f4801"
-                    text: qsTr("My System Informations")
+                    text: qsTr("Weather ")
+                    horizontalAlignment: Text.AlignLeft
                     font.pointSize: 10
                     font.family: "Segoe UI"
                 }
-                anchors.leftMargin: 10
+                anchors.leftMargin: 279
             }
 
             DragHandler {
@@ -97,6 +101,7 @@ Window {
                 width: 200
                 height: 200
                 opacity: 0
+                text: "°C"
                 value: 0
                 startAngle: 90
                 Text {
@@ -121,11 +126,12 @@ Window {
                 width: 200
                 height: 200
                 opacity: 0
+                text: "Km/h"
                 value: 0
                 startAngle: 90
                 Text {
                     color: "#a4ebf3"
-                    text: qsTr("Pressure")
+                    text: qsTr("Wind")
                     anchors.bottom: parent.bottom
                     font.family: "Segoe UI"
                     font.pointSize: 16
@@ -233,23 +239,15 @@ Window {
 
                     Row {
                         anchors.fill: parent
-                        anchors.bottomMargin: 0
-                        anchors.leftMargin: 253
-                        anchors.topMargin: 0
-                        anchors.rightMargin: 226
                         padding: 10
 
                         Text {
-                            x: 10
-                            width: 64
                             color: "#a4ebf3"
-                            text: qsTr("Pressure:")
+                            text: qsTr("Temperature:")
                             anchors.verticalCenter: parent.verticalCenter
                         }
                         Text {
                             id: cpu_info
-                            x: 10
-                            width: 64
                             color: "#878787"
                             text: qsTr("---")
                             anchors.verticalCenter: parent.verticalCenter
@@ -273,7 +271,7 @@ Window {
 
                         Text {
                             color: "#a4ebf3"
-                            text: qsTr("Physical cores:")
+                            text: qsTr("Humidity :")
                             anchors.verticalCenter: parent.verticalCenter
                         }
                         Text {
@@ -287,7 +285,7 @@ Window {
 
                         Text {
                             color: "#a4ebf3"
-                            text: qsTr("Total cores:")
+                            text: qsTr("Pressure:")
                             anchors.verticalCenter: parent.verticalCenter
                             leftPadding: 10
                         }
@@ -317,7 +315,7 @@ Window {
 
                         Text {
                             color: "#a4ebf3"
-                            text: qsTr("Frequency | Max:")
+                            text: qsTr("Temperature| Max:")
                             anchors.verticalCenter: parent.verticalCenter
                         }
                         Text {
@@ -381,11 +379,15 @@ Window {
 
                         Row {
                             anchors.fill: parent
+                            anchors.bottomMargin: 0
+                            anchors.leftMargin: 273
+                            anchors.topMargin: 0
+                            anchors.rightMargin: 273
                             padding: 10
 
                             Text {
                                 color: "#a4ebf3"
-                                text: qsTr("Description")
+                                text: qsTr("Wind")
                                 anchors.verticalCenter: parent.verticalCenter
                                 font.pointSize: 10
                                 font.family: "Segoe UI"
@@ -407,7 +409,7 @@ Window {
 
                         Text {
                             color: "#a4ebf3"
-                            text: qsTr("RAM | Total:")
+                            text: qsTr("Speed:")
                             anchors.verticalCenter: parent.verticalCenter
                         }
                         Text {
@@ -421,7 +423,7 @@ Window {
 
                         Text {
                             color: "#a4ebf3"
-                            text: qsTr("Available:")
+                            text: qsTr("Degree:")
                             anchors.verticalCenter: parent.verticalCenter
                             leftPadding: 10
                         }
@@ -436,7 +438,7 @@ Window {
                         }
                         Text {
                             color: "#a4ebf3"
-                            text: qsTr("Used:")
+                            text: qsTr("Clouds:")
                             anchors.verticalCenter: parent.verticalCenter
                             leftPadding: 10
                         }
@@ -471,11 +473,15 @@ Window {
 
                         Row {
                             anchors.fill: parent
+                            anchors.bottomMargin: 0
+                            anchors.leftMargin: 253
+                            anchors.topMargin: 0
+                            anchors.rightMargin: 253
                             padding: 10
 
                             Text {
                                 color: "#a4ebf3"
-                                text: qsTr("City")
+                                text: qsTr("Description")
                                 anchors.verticalCenter: parent.verticalCenter
                                 font.pointSize: 10
                                 font.family: "Segoe UI"
@@ -496,7 +502,7 @@ Window {
                         padding: 10
                         Text {
                             color: "#a4ebf3"
-                            text: qsTr("Model:")
+                            text: qsTr("Description:")
                             anchors.verticalCenter: parent.verticalCenter
                         }
 
@@ -523,7 +529,7 @@ Window {
                         padding: 10
                         Text {
                             color: "#a4ebf3"
-                            text: qsTr("VRAM | Total:")
+                            text: qsTr("City:")
                             anchors.verticalCenter: parent.verticalCenter
                         }
 
@@ -582,7 +588,7 @@ Window {
                         padding: 10
                         Text {
                             color: "#a4ebf3"
-                            text: qsTr("TEMP:")
+                            text: qsTr("Country:")
                             anchors.verticalCenter: parent.verticalCenter
                         }
 
@@ -1024,8 +1030,4 @@ Window {
         }
     }
 }
-/*##^##
-Designer {
-    D{i:0;autoSize:true;height:480;width:640}D{i:16}D{i:20}D{i:75}
-}
-##^##*/
+

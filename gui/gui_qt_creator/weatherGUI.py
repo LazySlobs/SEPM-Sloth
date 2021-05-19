@@ -3,7 +3,7 @@ import sys
 import os
 import psutil
 import GPUtil
-import cpuinfo
+from miscellaneous_functions import weather
 from PySide2.QtGui import QGuiApplication, QIcon
 from PySide2.QtQml import QQmlApplicationEngine
 from PySide2.QtCore import QObject, Slot, Signal, QTimer
@@ -14,30 +14,37 @@ class MainWindow(QObject):
         QObject.__init__(self)
 
         # AUTO REFRESH / DYNAMIC INFOS
+        # self.city_name = city_name
         timer = QTimer(self)
         timer.start(1000)
         timer.timeout.connect(lambda: self.setDynamicInfo())
+
+
+
+
+    # GET RESULTS FROM API
+    results_weather = weather.Current_Weather("Hanoi").display_weather_results()
 
     # SHOW PERCENTAGE
     showPercentage = False
 
     # PERCENTAGE / DYNAMIC
-    celciusTemperature = Signal(float)
+    percentageCPU = Signal(float)
     percentageRAM = Signal(float)
     percentageGPU = Signal(float)
-    cpuFrequencyCurrentInfo = Signal(str)
+    cpuFrequencyCurrentInfo = Signal(float)
     ramAvailableInfo = Signal(str)
     ramUsedInfo = Signal(str)
-    vramFreeInfo = Signal(str)
-    vramUsedInfo = Signal(str)
+    # vramFreeInfo = Signal(str)
+    # vramUsedInfo = Signal(str)
     gpuTempInfo = Signal(str)
 
     # STATIC INFO
     cpuInfo = Signal(str)
     cpuPhysicalCoresInfo = Signal(str)
     cpuTotalCoresInfo = Signal(str)
-    cpuFrequencyMaxInfo = Signal(str)
-    cpuFrequencyMinInfo = Signal(str)
+    cpuFrequencyMaxInfo = Signal(float)
+    cpuFrequencyMinInfo = Signal(float)
     ramTotalInfo = Signal(str)
     gpuModelInfo = Signal(str)
     vramTotalInfo = Signal(str)
@@ -59,21 +66,21 @@ class MainWindow(QObject):
             cpufreq = psutil.cpu_freq()
 
             # CIRCULAR PROGRESS BAR
-            self.celciusTemperature.emit(psutil.cpu_percent())
-            self.percentageRAM.emit(svmen.percent)
-            self.percentageGPU.emit(gpus[0].load*100)
+            self.percentageCPU.emit(int(self.results_weather[0]))
+            self.percentageRAM.emit(int(self.results_weather[1]))
+            self.percentageGPU.emit(self.results_weather[2])
 
             # CPU FREQUENCY
-            self.cpuFrequencyCurrentInfo.emit(f"{cpufreq.current:.2f}Mhz")
+            self.cpuFrequencyCurrentInfo.emit(self.results_weather[0])
 
             # RAM USAGE
-            self.ramAvailableInfo.emit(get_size(svmen.available))
-            self.ramUsedInfo.emit(get_size(svmen.used))
+            self.ramAvailableInfo.emit(int(self.results_weather[5]))
+            self.ramUsedInfo.emit(int(self.results_weather[6]))
 
             # GPU INFO
-            self.vramFreeInfo.emit(f"{gpus[0].memoryFree}MB")
-            self.vramUsedInfo.emit(f"{gpus[0].memoryUsed}MB")
-            self.gpuTempInfo.emit(f"{gpus[0].temperature} ºC")
+            # self.vramFreeInfo.emit(f"{gpus[0].memoryFree}MB")
+            # self.vramUsedInfo.emit(f"{gpus[0].memoryUsed}MB")
+            self.gpuTempInfo.emit(self.results_weather[11])
 
     # SET STATIC INFO
     @Slot()
@@ -92,18 +99,18 @@ class MainWindow(QObject):
         cpufreq = psutil.cpu_freq()
 
         # CPU INFO
-        self.cpuInfo.emit(cpuinfo.get_cpu_info()['brand_raw'])
+        self.cpuInfo.emit(self.results_weather[3])
         self.cpuPhysicalCoresInfo.emit(psutil.cpu_count(logical=False))
         self.cpuTotalCoresInfo.emit(psutil.cpu_count(logical=True))
-        self.cpuFrequencyMaxInfo.emit(f"{cpufreq.max:.2f}Mhz")
-        self.cpuFrequencyMinInfo.emit(f"{cpufreq.min:.2f}Mhz")
+        self.cpuFrequencyMaxInfo.emit(self.results_weather[5])
+        self.cpuFrequencyMinInfo.emit(self.results_weather[6])
 
         # RAM INFO
         self.ramTotalInfo.emit(get_size(svmen.total))
 
         # GPU INFO
-        self.gpuModelInfo.emit(gpus[0].name)
-        self.vramTotalInfo.emit(f"{gpus[0].memoryTotal}MB")
+        self.gpuModelInfo.emit(self.results_weather[3])
+        self.vramTotalInfo.emit(self.results_weather[10])
 
         # SHOW PERCENTAGE
         def showValues():
@@ -112,21 +119,20 @@ class MainWindow(QObject):
         QTimer.singleShot(2000, showValues)
 
 
-if __name__ == "__main__":
-    app = QGuiApplication(sys.argv)
-    engine = QQmlApplicationEngine()
 
-    # GET CONTEXT
-    main = MainWindow()
-    engine.rootContext().setContextProperty("backend", main)
+app = QGuiApplication(sys.argv)
+engine = QQmlApplicationEngine()
 
-    # SET ICON
-    app.setWindowIcon(QIcon("icon.ico"))
+# GET CONTEXT
+main = MainWindow()
+engine.rootContext().setContextProperty("backend", main)
 
-    # LOAD QML
-    engine.load(os.path.join(os.path.dirname(__file__), "qml/splashScreen.qml"))
-    # engine.load(os.path.join(os.path.dirname(__file__), "qml/main.qml"))
+# SET ICON
+app.setWindowIcon(QIcon("icon.ico"))
 
-    if not engine.rootObjects():
-        sys.exit(-1)
-    sys.exit(app.exec_())
+# LOAD QML
+engine.load(os.path.join(os.path.dirname(__file__), "qml/pages/weather.qml"))
+
+if not engine.rootObjects():
+    sys.exit(-1)
+sys.exit(app.exec_())
