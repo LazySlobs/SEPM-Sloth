@@ -158,6 +158,19 @@ def respond(r, voice_data, language='en'):
     elif 'redo' in voice_data:
         manage_dir.redo(voice_data)
 
+    # go to folder
+    elif "go to " in voice_data:
+        folder_name = voice_data.replace("go to ", "")
+        manage_dir.enter_folder(folder_name)
+
+    # go back to previous folder
+    elif "go back to previous folder" in voice_data:
+        manage_dir.go_back()
+
+    # go back to previous folder
+    elif "go to parent folder" in voice_data:
+        manage_dir.go_to_parent_folder()
+
     # ======================================= #
     # ========== GENERAL FUNCTIONS ========== #
     # ======================================= #

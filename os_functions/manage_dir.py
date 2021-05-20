@@ -50,6 +50,47 @@ def enter_folder(folder_name):
         # voice_assistant_speak("Sorry, I can't find any folder with name: " + folder_name)
 
 
+def go_back():
+    app = pywinauto.Application(backend='uia')  # create application object
+    app.connect(path="C:\Windows\explorer.exe") # connect to explorer.exe which is windows taskbar instances and other windows elements
+    folder = app.window(found_index=1)  # get currently displayed folder because Taskbar is always at index 0
+    folder.set_focus()  # bring folder file explorer window to front
+    # folder.print_control_identifiers()   # print control identifiers for debug
+    element = folder.child_window(title="Navigation buttons", control_type="ToolBar")   # get navigation bar elements
+    # element.print_control_identifiers()
+    element.descendants(control_type="Button")[0].set_focus().click_input(button='left')    # click on go back button
+    
+    # get address from address bar
+    wrapper = folder.child_window(auto_id="41477", control_type="Pane")    # get the ID of address bar's parent
+    # wrapper.print_control_identifiers()   # print control identifiers for debug
+    obj = wrapper.descendants(control_type='ToolBar')[0]    # get first element in elements with control type 'Toolbar'
+    obj_name = str(obj)   # convert object name to string
+    address = obj_name.replace("uia_controls.ToolbarWrapper - 'Address: ", "").replace("', Toolbar", "")  # remove all unnecessary parts in the string
+    print("Folder address: " + address)  # print address string for debug
+    settings.location = address
+
+
+def go_to_parent_folder():
+    app = pywinauto.Application(backend='uia')  # create application object
+    app.connect(path="C:\Windows\explorer.exe") # connect to explorer.exe which is windows taskbar instances and other windows elements
+    folder = app.window(found_index=1)  # get currently displayed folder because Taskbar is always at index 0
+    folder.set_focus()  # bring folder file explorer window to front
+    # folder.print_control_identifiers()   # print control identifiers for debug
+    element = folder.child_window(auto_id="1001", control_type="ToolBar")   # get navigation bar elements
+    # element.print_control_identifiers()
+    length = len(element.descendants(control_type="SplitButton"))
+    element.descendants(control_type="SplitButton")[length-1].set_focus().click_input(button='left')    # click on parent directory button
+    
+    # get address from address bar
+    wrapper = folder.child_window(auto_id="41477", control_type="Pane")    # get the ID of address bar's parent
+    # wrapper.print_control_identifiers()   # print control identifiers for debug
+    obj = wrapper.descendants(control_type='ToolBar')[0]    # get first element in elements with control type 'Toolbar'
+    obj_name = str(obj)   # convert object name to string
+    address = obj_name.replace("uia_controls.ToolbarWrapper - 'Address: ", "").replace("', Toolbar", "")  # remove all unnecessary parts in the string
+    print("Folder address: " + address)  # print address string for debug
+    settings.location = address
+
+
 def key_combo(combo):
     print('executing combo')
     try:
