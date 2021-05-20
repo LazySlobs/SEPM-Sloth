@@ -7,3 +7,5 @@ pyAutoGUI~=0.9.52
 playsound>=1.2.2
 psutil>=5.8.0
 pywinauto>=0.6.8
+selenium>=3.141.0
+webdriver_manager>=3.4.2
