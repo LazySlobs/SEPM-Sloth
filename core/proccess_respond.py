@@ -109,29 +109,34 @@ def respond(r, voice_data, language='en'):
         webr.next_tab()
     elif voice_data == "close app" or voice_data == "close the app":
         webr.close_app()
-    
+
     # ================================== #
     # ========== OS FUNCTIONS ========== #
     # ================================== #
-        
+
+    # # list files
+    # elif voice_data == "list file":
+    #     manage_dir.list_file_auto_locate()
+    
     # delete
-    elif 'delete' in voice_data:
-        manage_dir.delete_file(voice_data, location = settings.location)
+    elif 'delete ' in voice_data and voice_data.split(' ')[0] == 'delete':
+        manage_dir.delete_file(voice_data)
 
     # open 
-    elif "open" in voice_data:
-        manage_dir.open_file(r, voice_data)
+    elif "open " in voice_data and voice_data.split(' ')[0] == 'open':
+        manage_dir.open_file(voice_data)
 
-    # create 
+    # create
+    elif 'create ' in voice_data and voice_data.split(' ')[0] == 'create':
         manage_dir.create_folder(voice_data)
 
     # get info 
     elif 'information' in voice_data and 'show' in voice_data:
         manage_dir.file_info(voice_data)
 
-    # scoll 
-    elif 'scroll down' in voice_data:
-        manage_dir.scroll_down(voice_data)
+    # # scoll 
+    # elif 'scroll down' in voice_data:
+    #     manage_dir.scroll_down(voice_data)
 
     # copy
     elif 'copy' in voice_data:
