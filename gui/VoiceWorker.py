@@ -1,8 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import speech_recognition as sr
 import sys
-from PyQt5.QtCore import QCoreApplication
-
+from PyQt5.QtCore import QCoreApplication, QThread
+# from core.proccess_respond import respond
 from core.listen import record_audio
 from core.speak import voice_assistant_speak
 
@@ -31,22 +31,65 @@ class VoiceWorker(QtCore.QObject):
     def test(self):
         r1 = sr.Recognizer()  # create a recognizer object to recognize texts
         # r1.energy_threshold = settings.energy_threshold
-        r2 = sr.Recognizer()  # create a recognizer object to respond
-        voice_assistant_speak("How can I help you ?")
+        r2 = sr.Recognizer()  # create a recognizer object to
+        WAKE = "wake up"
+        wake = False
         while True:
-            voice_data, language = record_audio(r1)
-            self.textChanged.emit(voice_data)
-            print("Voice data: " + voice_data)
-            # respond(r2, voice_data, language=language)
+            # speak if the ask variable is a string
+            with sr.Microphone() as source:
+                # adjust for ambient noise
+                print("Calibrating...")
+                r1.adjust_for_ambient_noise(source, duration=1)
+                r1.energy_threshold += 250
+
+                # starts to listen for keyword
+                print("Listening for keyword...")
+                audio = r1.listen(source)
+                listen_for_keyword = ""
+                try:
+                    listen_for_keyword = r1.recognize_google(audio)
+                    self.textChanged.emit(listen_for_keyword)
+                except sr.UnknownValueError:
+                    continue
+                except sr.RequestError:
+                    voice_assistant_speak("Sorry, my speech service is down")
+                    continue
+                except:
+                    print("Something went wrong.")
+                    continue
+                print("listen_for_keyword = " + listen_for_keyword)
+                self.textChanged.emit(listen_for_keyword)
+
+                # keyword heard, wake up the voice assistant
+                if listen_for_keyword.count(WAKE) > 0:
+                    wake = True
+                    print("Sloth is awake...")
+                    voice_assistant_speak("How can I help you?")
+
+                    if (wake):
+                        while True:
+                            # listen to users
+                            voice_data, language = record_audio(r1)
+                            # if user tells program to stop
+                            if voice_data.lower() == "go to sleep" or voice_data.lower() == "go back to sleep":
+                                wake = False
+                                break
+                            print("Voice data: " + voice_data)  # print user's voice data
+                            self.textChanged.emit(voice_data)
+                            # respond(r2, voice_data, language=language)  # respond to user's voice data
+                elif listen_for_keyword.lower() == "stop the program":
+                    break
 
 
 def Gui():
+    r = sr.Recognizer()
+    m = sr.Microphone()
     app = QtWidgets.QApplication(sys.argv)
 
+    objThread = QThread()
     worker = VoiceWorker()
-    thread = QtCore.QThread()
-    thread.start()
-    worker.moveToThread(thread)
+    # thread = QtCore.QThread()
+    # thread.start()
 
     window = QtWidgets.QWidget()
     window.setGeometry(200, 200, 350, 400)
@@ -70,19 +113,16 @@ def Gui():
     you_text.move(25,150)
 
 
-    start_button = QtWidgets.QPushButton("Start")
-    close_button = QtWidgets.QPushButton("Close")
-
-
     v_box = QtWidgets.QVBoxLayout()
     v_box.addStretch()
-    v_box.addWidget(start_button)
-    v_box.addWidget(close_button)
     window.setLayout(v_box)
 
-    start_button.clicked.connect(worker.test)
-    close_button.clicked.connect(QCoreApplication.instance().quit)
+
     window.show()
+    worker.moveToThread(objThread)
+    objThread.start()
+    objThread.started.connect(worker.test)
+
     sys.exit(app.exec())
 
 

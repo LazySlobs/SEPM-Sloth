@@ -124,8 +124,8 @@ if __name__ == "__main__":
     app.setWindowIcon(QIcon("icon.ico"))
 
     # LOAD QML
-    engine.load(os.path.join(os.path.dirname(__file__), "qml/splashScreen.qml"))
-    # engine.load(os.path.join(os.path.dirname(__file__), "qml/main.qml"))
+    engine.load(os.path.join(os.path.dirname(__file__), "qml/splashScreenStart.qml"))
+    # engine.load(os.path.join(os.path.dirname(__file__), "qml/pages/weather.qml"))
 
     if not engine.rootObjects():
         sys.exit(-1)

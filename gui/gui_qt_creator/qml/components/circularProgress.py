@@ -13,16 +13,16 @@ class CircularProgress(QWidget):
         self.progress_width = 10
         self.progress_rounded_cap = True
         self.max_value = 100
-        self.progress_color = 0x8be9fd
+        self.progress_color = 0xebf85b
         # Text
         self.enable_text = True
         self.font_family = "Segoe UI"
         self.font_size = 12
         self.suffix = "%"
-        self.text_color = 0x8be9fd
+        self.text_color = 0xf7fcbd
         # BG
         self.enable_bg = True
-        self.bg_color = 0x44475a
+        self.bg_color = 0xebf85b
 
         # SET DEFAULT SIZE WITHOUT LAYOUT
         self.resize(self.width, self.height)
@@ -63,7 +63,7 @@ class CircularProgress(QWidget):
         paint.drawRect(rect)
 
         # PEN
-        pen = QPen()
+        pen = QPen()             
         pen.setWidth(self.progress_width)
         # Set Round Cap
         if self.progress_rounded_cap:
@@ -72,22 +72,23 @@ class CircularProgress(QWidget):
         # ENABLE BG
         if self.enable_bg:
             pen.setColor(QColor(self.bg_color))
-            paint.setPen(pen)
-            paint.drawArc(margin, margin, width, height, 0, 360 * 16)
+            paint.setPen(pen)  
+            paint.drawArc(margin, margin, width, height, 0, 360 * 16) 
 
         # CREATE ARC / CIRCULAR PROGRESS
         pen.setColor(QColor(self.progress_color))
-        paint.setPen(pen)
-        paint.drawArc(margin, margin, width, height, -90 * 16, -value * 16)
+        paint.setPen(pen)      
+        paint.drawArc(margin, margin, width, height, -90 * 16, -value * 16)       
 
         # CREATE TEXT
         if self.enable_text:
             pen.setColor(QColor(self.text_color))
             paint.setPen(pen)
-            paint.drawText(rect, Qt.AlignCenter, f"{self.value}{self.suffix}")
+            paint.drawText(rect, Qt.AlignCenter, f"{self.value}{self.suffix}")          
 
         # END
         paint.end()
 
-
-
+if __name__ == "__main__":
+    progress = CircularProgress()
+    progress.__init__()
