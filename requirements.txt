@@ -5,3 +5,4 @@ gTTS~=2.2.2;
 pynput~=1.7.3
 pyAutoGUI~=0.9.52
 playsound>=1.2.2
+psutil>=5.8.0

@@ -1,4 +1,4 @@
-import shutil, os, imghdr, subprocess, time, pyautogui
+import shutil, os, subprocess, time, pyautogui, pywinauto
 import speech_recognition as sr
 from core.speak import voice_assistant_speak
 from core.listen import record_audio
@@ -8,6 +8,88 @@ from pynput import keyboard
 import settings
 
 kb = Controller()
+
+def get_address():
+    app = pywinauto.Application(backend='uia')  # create application object
+    app.connect(path="C:\Windows\explorer.exe") # connect to explorer.exe which is windows taskbar instances and other windows elements
+    folder = app.window(found_index=1)  # get currently displayed folder because Taskbar is always at index 0
+    folder.set_focus()  # bring folder file explorer window to front
+    # folder.print_control_identifiers()   # print control identifiers for debug
+    wrapper = folder.child_window(auto_id="41477", control_type="Pane")    # get the ID of address bar's parent
+    # wrapper.print_control_identifiers()   # print control identifiers for debug
+    obj = wrapper.descendants(control_type='ToolBar')[0]    # get first element in elements with control type 'Toolbar'
+    obj_name = str(obj)   # convert object name to string
+    address = obj_name.replace("uia_controls.ToolbarWrapper - 'Address: ", "").replace("', Toolbar", "")  # remove all unnecessary parts in the string
+    print("Folder address: " + address)  # print address string for debug
+    settings.location = address
+
+
+def enter_folder(folder_name):
+    app = pywinauto.Application(backend='uia')  # create application object
+    app.connect(path="C:\Windows\explorer.exe") # connect to explorer.exe which is windows taskbar instances and other windows elements
+    folder = app.window(found_index=1)  # get currently displayed folder because Taskbar is always at index 0
+    folder.set_focus()  # bring folder file explorer window to front
+    # folder.print_control_identifiers()   # print control identifiers for debug
+    try:
+        # enter the folder
+        folder_wrapper = folder.child_window(title=folder_name, control_type="ListItem")    # get the ID of address bar's parent
+        # folder_wrapper.print_control_identifiers()   # print control identifiers for debug
+        folder_wrapper.select() # select folder
+        pywinauto.keyboard.send_keys('{ENTER}')    # go into folder by simulating enter key
+        
+        # get address from address bar
+        wrapper = folder.child_window(auto_id="41477", control_type="Pane")    # get the ID of address bar's parent
+        # wrapper.print_control_identifiers()   # print control identifiers for debug
+        obj = wrapper.descendants(control_type='ToolBar')[0]    # get first element in elements with control type 'Toolbar'
+        obj_name = str(obj)   # convert object name to string
+        address = obj_name.replace("uia_controls.ToolbarWrapper - 'Address: ", "").replace("', Toolbar", "")  # remove all unnecessary parts in the string
+        print("Folder address: " + address)  # print address string for debug
+        settings.location = address
+    except:
+        print("Can't find folder with name: " + folder_name)
+        # voice_assistant_speak("Sorry, I can't find any folder with name: " + folder_name)
+
+
+def go_back():
+    app = pywinauto.Application(backend='uia')  # create application object
+    app.connect(path="C:\Windows\explorer.exe") # connect to explorer.exe which is windows taskbar instances and other windows elements
+    folder = app.window(found_index=1)  # get currently displayed folder because Taskbar is always at index 0
+    folder.set_focus()  # bring folder file explorer window to front
+    # folder.print_control_identifiers()   # print control identifiers for debug
+    element = folder.child_window(title="Navigation buttons", control_type="ToolBar")   # get navigation bar elements
+    # element.print_control_identifiers()
+    element.descendants(control_type="Button")[0].set_focus().click_input(button='left')    # click on go back button
+    
+    # get address from address bar
+    wrapper = folder.child_window(auto_id="41477", control_type="Pane")    # get the ID of address bar's parent
+    # wrapper.print_control_identifiers()   # print control identifiers for debug
+    obj = wrapper.descendants(control_type='ToolBar')[0]    # get first element in elements with control type 'Toolbar'
+    obj_name = str(obj)   # convert object name to string
+    address = obj_name.replace("uia_controls.ToolbarWrapper - 'Address: ", "").replace("', Toolbar", "")  # remove all unnecessary parts in the string
+    print("Folder address: " + address)  # print address string for debug
+    settings.location = address
+
+
+def go_to_parent_folder():
+    app = pywinauto.Application(backend='uia')  # create application object
+    app.connect(path="C:\Windows\explorer.exe") # connect to explorer.exe which is windows taskbar instances and other windows elements
+    folder = app.window(found_index=1)  # get currently displayed folder because Taskbar is always at index 0
+    folder.set_focus()  # bring folder file explorer window to front
+    # folder.print_control_identifiers()   # print control identifiers for debug
+    element = folder.child_window(auto_id="1001", control_type="ToolBar")   # get navigation bar elements
+    # element.print_control_identifiers()
+    length = len(element.descendants(control_type="SplitButton"))
+    element.descendants(control_type="SplitButton")[length-1].set_focus().click_input(button='left')    # click on parent directory button
+    
+    # get address from address bar
+    wrapper = folder.child_window(auto_id="41477", control_type="Pane")    # get the ID of address bar's parent
+    # wrapper.print_control_identifiers()   # print control identifiers for debug
+    obj = wrapper.descendants(control_type='ToolBar')[0]    # get first element in elements with control type 'Toolbar'
+    obj_name = str(obj)   # convert object name to string
+    address = obj_name.replace("uia_controls.ToolbarWrapper - 'Address: ", "").replace("', Toolbar", "")  # remove all unnecessary parts in the string
+    print("Folder address: " + address)  # print address string for debug
+    settings.location = address
+
 
 def key_combo(combo):
     print('executing combo')
@@ -42,9 +124,10 @@ def similar_file(files, raw_dir):
             dir = i
     return dir, ratio
 
-def list_file(location):
+
+def list_file_auto_locate():
     '''
-    Search for all the file in current directory (excluding hidden file, file with the '.' in front)
+    Search for all the files in a directory (excluding hidden file, file with the '.' in front)
     
     Parameters:
         location(str): current path/directory
@@ -52,29 +135,46 @@ def list_file(location):
     Returns:
         files(string list): a list of file name (str) in the current directory
     '''
+    get_address()
+    files = [f for f in os.listdir(settings.location) if f[0] != '.']
+    print(files)
 
+    return files
+
+
+def list_file(location):
+    '''
+    Search for all the files in a directory (excluding hidden file, file with the '.' in front)
+    
+    Parameters:
+        location(str): current path/directory
+
+    Returns:
+        files(string list): a list of file name (str) in the current directory
+    '''
     files = [f for f in os.listdir(location) if f[0] != '.']
     print(files)
 
     return files
 
-def delete_file(voice_data, location):
+def delete_file(voice_data):
     '''
-    Delete a file at default location(desktop)
+    Delete a file at location
 
     Parameters:
         voice_data(str): the string recorded and recognized from user's voice input
-        location(str): current path/directory
     
     Returns:
         0(bool): failed to delete
         1(bool): delete successfully
     '''
-
     # voice data -> file name
     raw_dir = voice_data.replace('delete ', '').replace('file', '').replace('folder', '').replace(' ', '')  
 
-    files = list_file(location)
+    # get address
+    get_address()
+    # stores all the files s address
+    files = list_file(settings.location)
 
     dir, ratio = similar_file(files, raw_dir)
     
@@ -88,8 +188,8 @@ def delete_file(voice_data, location):
     if 'no' in respond.lower():
         return 0
     
-    # delete various type of file 
-    path = os.path.join(location, dir)  
+    # delete various types of files
+    path = os.path.join(settings.location, dir)  
 
     try:
         os.remove(path)
@@ -99,23 +199,78 @@ def delete_file(voice_data, location):
         return 1
     return 0
 
-def open_file(voice_data, location):
+
+# def open_file(recognizer, search_term):
+#     if search_term.count("open app") > 0:
+#         search_term = search_term.replace("open app", "apps:")
+#     elif search_term.count("open folder") > 0:
+#         search_term = search_term.replace("open folder", "folders:")
+#     elif search_term.count("open document") > 0:
+#         search_term = search_term.replace("open document", "documents: ")
+#     elif search_term.count("open image") > 0 or search_term.count("open photo") > 0:
+#         search_term = search_term.replace("open image", "photos: ")
+#     elif search_term.count("open music") > 0:
+#         search_term = search_term.replace("open music", "music: ")
+#     elif search_term.count("open video") > 0:
+#         search_term = search_term.replace("open video", "videos: ")
+#     print("Search: " + search_term)
+#     if settings.platform == 'Windows':
+#         pyautogui.hotkey("win", "s")
+#         time.sleep(0.5)
+#         pyautogui.write(search_term)
+#         confirmation, language = record_audio(recognizer, language='en', ask='Is this the correct file?')
+#         if confirmation == "no":
+#             open_file_ask(recognizer)
+#         elif confirmation == "yes":
+#             pyautogui.press("enter")
+
+
+# def open_file_ask(recognizer):
+#     while True:
+#         search_term, language = record_audio(recognizer, language='en', ask='Which file would you like to open?')
+#         if search_term.count("app") > 0:
+#             search_term = search_term.replace("app", "apps:")
+#         elif search_term.count("folder") > 0:
+#             search_term = search_term.replace("folder", "folders:")
+#         elif search_term.count("documents") > 0:
+#             search_term = search_term.replace("documents", "documents: ")
+#         elif search_term.count("document") > 0:
+#             search_term = search_term.replace("document", "documents: ")
+#         elif search_term.count("image") > 0 or search_term.count("open photo") > 0:
+#             search_term = search_term.replace("image", "photos: ")
+#         elif search_term.count("music") > 0:
+#             search_term = search_term.replace("music", "music: ")
+#         elif search_term.count("video") > 0:
+#             search_term = search_term.replace("video", "videos: ")
+#         print("Search: " + search_term)
+#         if settings.platform == 'Windows':
+#             pyautogui.hotkey("win", "s")
+#             time.sleep(0.5)
+#             pyautogui.write(search_term)
+#             confirmation, language = record_audio(recognizer, language='en', ask='Is this the correct file?')
+#             if confirmation == "no":
+#                 continue
+#             elif confirmation == "yes":
+#                 pyautogui.press("enter")
+#                 break
+
+
+def open_file(voice_data):
     '''
-    Open a file at default location(desktop)
+    Open a file at location
 
     Parameters:
         voice_data(str): the string recorded and recognized from user's voice input
-        location(str): current path/directory
     
     Returns:
         0(bool): failed to open
         1(bool): opened successfully
     '''
-
+    get_address()
     # voice data -> file name
     raw_dir = voice_data.replace('open ', '').replace('file', '').replace('folder', '').replace(' ', '')  
 
-    files = list_file(location)
+    files = list_file(settings.location)
 
     dir, similarity = similar_file(files, raw_dir)
 
@@ -132,8 +287,8 @@ def open_file(voice_data, location):
             return 0
     
     
-    # open various type of file 
-    path = os.path.join(location, dir)  
+    # open various types of files
+    path = os.path.join(settings.location, dir)  
 
     # try to open with os
     if settings.platform == 'Windows':
@@ -143,24 +298,24 @@ def open_file(voice_data, location):
         subprocess.call(['open', path])
         return 1
 
-def create_file(voice_data, location):
+
+def create_folder(voice_data):
     '''
-    Create a file at default location(desktop)
+    Create a folder at location
 
     Parameters:
         voice_data(str): the string recorded and recognized from user's voice input
-        location(str): current path/directory
     
     Returns:
         0(bool): failed to create
         1(bool): created successfully
 
     '''
-
+    get_address()
     raw_dir = voice_data.replace('create ', '').replace('file', '').replace('folder', '').replace(' ', '')  
 
     try:
-        os.mkdir(location + '/' + raw_dir)
+        os.mkdir(settings.location + '/' + raw_dir)
         return 1
     except FileExistsError as exc:
         print(exc)
@@ -264,30 +419,28 @@ def redo(voice_data):
     elif settings.platform == 'Windows':
         key_combo([keyboard.Key.ctrl, 'y'])
 
-def scroll_down(voice_data):
-    '''
-    Scroll down 
 
-    Parameters:
-        voice_data(str): the string recorded and recognized from user's voice input
+# def scroll_down(voice_data):
+#     '''
+#     Scroll down 
 
-    Returns:
-        0(bool): failed to scroll down
-        1(bool): scrolled down successfully
-    '''
+#     Parameters:
+#         voice_data(str): the string recorded and recognized from user's voice input
 
-    r = sr.Recognizer()
-    #r.energy_threshold = settings.energy_threshold
-    stop = False
-    audio = ''
-    stop = r.listen_in_background(sr.Microphone())
-    try:
-        while not stop:
-            pyautogui.scroll(-1)
-            
-            
-            
-            stop_audio = r.recognize_google(audio, language=settings.language)
-        return 1
-    except Exception:
-        return 0
+#     Returns:
+#         0(bool): failed to scroll down
+#         1(bool): scrolled down successfully
+#     '''
+
+#     r = sr.Recognizer()
+#     #r.energy_threshold = settings.energy_threshold
+#     stop = False
+#     audio = ''
+#     stop = r.listen_in_background(sr.Microphone())
+#     try:
+#         while not stop:
+#             pyautogui.scroll(-1)
+#             stop_audio = r.recognize_google(audio, language=settings.language)
+#         return 1
+#     except Exception:
+#         return 0
