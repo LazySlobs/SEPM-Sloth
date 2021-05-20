@@ -85,9 +85,9 @@ def similar_file(files, raw_dir):
     return dir, ratio
 
 
-def list_file(location):
+def list_file_auto_locate():
     '''
-    Search for all the file in current directory (excluding hidden file, file with the '.' in front)
+    Search for all the files in a directory (excluding hidden file, file with the '.' in front)
     
     Parameters:
         location(str): current path/directory
@@ -96,29 +96,45 @@ def list_file(location):
         files(string list): a list of file name (str) in the current directory
     '''
     get_address()
-    files = [f for f in os.listdir(location) if f[0] != '.']
+    files = [f for f in os.listdir(settings.location) if f[0] != '.']
     print(files)
 
     return files
 
 
-def delete_file(voice_data, location):
+def list_file(location):
     '''
-    Delete a file at default location(desktop)
+    Search for all the files in a directory (excluding hidden file, file with the '.' in front)
+    
+    Parameters:
+        location(str): current path/directory
+
+    Returns:
+        files(string list): a list of file name (str) in the current directory
+    '''
+    files = [f for f in os.listdir(location) if f[0] != '.']
+    print(files)
+
+    return files
+
+def delete_file(voice_data):
+    '''
+    Delete a file at location
 
     Parameters:
         voice_data(str): the string recorded and recognized from user's voice input
-        location(str): current path/directory
     
     Returns:
         0(bool): failed to delete
         1(bool): delete successfully
     '''
-    get_address()
     # voice data -> file name
     raw_dir = voice_data.replace('delete ', '').replace('file', '').replace('folder', '').replace(' ', '')  
 
-    files = list_file(location)
+    # get address
+    get_address()
+    # stores all the files s address
+    files = list_file(settings.location)
 
     dir, ratio = similar_file(files, raw_dir)
     
@@ -132,8 +148,8 @@ def delete_file(voice_data, location):
     if 'no' in respond.lower():
         return 0
     
-    # delete various type of file 
-    path = os.path.join(location, dir)  
+    # delete various types of files
+    path = os.path.join(settings.location, dir)  
 
     try:
         os.remove(path)
@@ -199,13 +215,12 @@ def delete_file(voice_data, location):
 #                 break
 
 
-def open_file(voice_data, location):
+def open_file(voice_data):
     '''
-    Open a file at default location(desktop)
+    Open a file at location
 
     Parameters:
         voice_data(str): the string recorded and recognized from user's voice input
-        location(str): current path/directory
     
     Returns:
         0(bool): failed to open
@@ -215,7 +230,7 @@ def open_file(voice_data, location):
     # voice data -> file name
     raw_dir = voice_data.replace('open ', '').replace('file', '').replace('folder', '').replace(' ', '')  
 
-    files = list_file(location)
+    files = list_file(settings.location)
 
     dir, similarity = similar_file(files, raw_dir)
 
@@ -232,8 +247,8 @@ def open_file(voice_data, location):
             return 0
     
     
-    # open various type of file 
-    path = os.path.join(location, dir)  
+    # open various types of files
+    path = os.path.join(settings.location, dir)  
 
     # try to open with os
     if settings.platform == 'Windows':
@@ -250,7 +265,6 @@ def create_folder(voice_data):
 
     Parameters:
         voice_data(str): the string recorded and recognized from user's voice input
-        location(str): current path/directory
     
     Returns:
         0(bool): failed to create
@@ -372,30 +386,27 @@ def redo(voice_data):
         key_combo([keyboard.Key.ctrl, 'y'])
 
 
-def scroll_down(voice_data):
-    '''
-    Scroll down 
+# def scroll_down(voice_data):
+#     '''
+#     Scroll down 
 
-    Parameters:
-        voice_data(str): the string recorded and recognized from user's voice input
+#     Parameters:
+#         voice_data(str): the string recorded and recognized from user's voice input
 
-    Returns:
-        0(bool): failed to scroll down
-        1(bool): scrolled down successfully
-    '''
+#     Returns:
+#         0(bool): failed to scroll down
+#         1(bool): scrolled down successfully
+#     '''
 
-    r = sr.Recognizer()
-    #r.energy_threshold = settings.energy_threshold
-    stop = False
-    audio = ''
-    stop = r.listen_in_background(sr.Microphone())
-    try:
-        while not stop:
-            pyautogui.scroll(-1)
-            
-            
-            
-            stop_audio = r.recognize_google(audio, language=settings.language)
-        return 1
-    except Exception:
-        return 0
+#     r = sr.Recognizer()
+#     #r.energy_threshold = settings.energy_threshold
+#     stop = False
+#     audio = ''
+#     stop = r.listen_in_background(sr.Microphone())
+#     try:
+#         while not stop:
+#             pyautogui.scroll(-1)
+#             stop_audio = r.recognize_google(audio, language=settings.language)
+#         return 1
+#     except Exception:
+#         return 0
