@@ -244,9 +244,9 @@ def open_file(voice_data, location):
         return 1
 
 
-def create_file(voice_data, location):
+def create_folder(voice_data):
     '''
-    Create a file at default location(desktop)
+    Create a folder at location
 
     Parameters:
         voice_data(str): the string recorded and recognized from user's voice input
@@ -261,7 +261,7 @@ def create_file(voice_data, location):
     raw_dir = voice_data.replace('create ', '').replace('file', '').replace('folder', '').replace(' ', '')  
 
     try:
-        os.mkdir(location + '/' + raw_dir)
+        os.mkdir(settings.location + '/' + raw_dir)
         return 1
     except FileExistsError as exc:
         print(exc)

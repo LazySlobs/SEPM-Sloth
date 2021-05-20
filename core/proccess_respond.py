@@ -123,8 +123,7 @@ def respond(r, voice_data, language='en'):
         manage_dir.open_file(r, voice_data)
 
     # create 
-    elif 'create' in voice_data:
-        manage_dir.create_file(voice_data, location = settings.location)
+        manage_dir.create_folder(voice_data)
 
     # get info 
     elif 'information' in voice_data and 'show' in voice_data:
