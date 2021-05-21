@@ -20,10 +20,10 @@ from core.listen import record_audio
 # FUNCTIONS
 def focus_browser():
     try:
-        app = pywinauto.Application().connect(title_re=".*Chrome.*", found_index=0) # connect to explorer.exe which is windows taskbar instances and other windows elements
-        browser = app.top_window()  # get currently displayed folder because Taskbar is always at index 0
-        # browser.print_control_identifiers()
-        browser.set_focus()  # bring folder file explorer window to front
+        app = pywinauto.Application().connect(title_re=".*Chrome.*", found_index=0) # connect to chrome browser
+        browser = app.top_window()  # get browser at the top index
+        # browser.print_control_identifiers()   # print control identifiers for debug
+        browser.set_focus()  # bring browser window to front
     except:
         print("Can't find Chrome browser window.")
 
