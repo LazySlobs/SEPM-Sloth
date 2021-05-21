@@ -20,8 +20,13 @@ SpeechRecognition>=3.8.1;
 PyAudio>=0.2.11;
 pygame~=1.9.6;
 gTTS~=2.2.2;
-pynput ~= 1.7.3
-pyAutoGUI~= 0.9.52
+pynput~=1.7.3
+pyAutoGUI~=0.9.52
+playsound>=1.2.2
+psutil>=5.8.0
+pywinauto>=0.6.8
+selenium>=3.141.0
+webdriver_manager>=3.4.2
 
 ```
 
@@ -40,16 +45,10 @@ Step 1: Install modules from command line
  - pip install pynput
  - pip install pyAutoGUI
  - pip install PyAudio
+ - pip install pywinauto
+ - pip install selenium
+ - pip install webdriver_manager
 
-```
-
-And 
-
-```
-Step 2: Set up paths for CRUD files and folders functions
-- Open file settings.py
-- Comment the location line and make new location path. For example, add this line "location ='C:/Users/Dell/Desktop'"
-- Keep adding to test functions in multiple paths
 ```
 
 ## Current Functions/ Feature: 
@@ -104,7 +103,10 @@ Add additional notes about how to deploy this on a live system
 * [PyGame](https://pypi.org/project/pygame/1.9.6/) - Support Music player / version 1.9.6 to stable mp3 file
 * [gTTS](https://pypi.org/project/gTTS/) - Google Text to Speech api
 * [pynput](https://pypi.org/project/pynput/) - Control and monitor keyboard/ mouse input devices
-* [pyAutoGUI](https://pypi.org/project/PyAutoGUI/) - programmatically control the mouse & keyboard
+* [PyAutoGUI](https://pypi.org/project/PyAutoGUI/) - programmatically control the mouse & keyboard
+* [PyWinAuto](https://pypi.org/project/pywinauto/) - send mouse and keyboard actions to windows dialogs and controls, but has support for more complex controls also
+* [selenium](https://pypi.org/project/selenium/) - automate web browser interaction from Python
+* [webdriver_manager](https://pypi.org/project/webdriver-manager/) - simplify management of binary drivers for different browsers
 
 ## Contributing
 
