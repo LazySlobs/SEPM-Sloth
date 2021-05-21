@@ -1,17 +1,18 @@
 # This Python file uses the following encoding: utf-8
 import sys
 import os
-import psutil
-import GPUtil
 from miscellaneous_functions import weather
-from PySide2.QtGui import QGuiApplication, QIcon
+from PySide2.QtGui import QGuiApplication
 from PySide2.QtQml import QQmlApplicationEngine
 from PySide2.QtCore import QObject, Slot, Signal, QTimer
 
 # CLASS MAIN WINDOW
-class MainWindow(QObject):
-    def __init__(self):
+class WeatherWindow(QObject):
+    def __init__(self,city):
         QObject.__init__(self)
+        self.city = city
+        # GET RESULTS FROM API
+        results_weather = weather.Current_Weather(city).display_weather_results()
 
         # AUTO REFRESH / DYNAMIC INFOS
         # self.city_name = city_name
@@ -20,10 +21,6 @@ class MainWindow(QObject):
         timer.timeout.connect(lambda: self.setDynamicInfo())
 
 
-
-
-    # GET RESULTS FROM API
-    results_weather = weather.Current_Weather("Hanoi").display_weather_results()
 
     # SHOW PERCENTAGE
     showPercentage = False
@@ -60,11 +57,6 @@ class MainWindow(QObject):
                 bytes /= factor
 
         if self.showPercentage:
-            # SYSTEM VARS
-            svmen = psutil.virtual_memory()
-            gpus = GPUtil.getGPUs()
-            cpufreq = psutil.cpu_freq()
-
             # CIRCULAR PROGRESS BAR
             self.percentageCPU.emit(int(self.results_weather[0]))
             self.percentageRAM.emit(int(self.results_weather[1]))
@@ -74,12 +66,10 @@ class MainWindow(QObject):
             self.cpuFrequencyCurrentInfo.emit(self.results_weather[0])
 
             # RAM USAGE
-            self.ramAvailableInfo.emit(int(self.results_weather[5]))
-            self.ramUsedInfo.emit(int(self.results_weather[6]))
+            self.ramAvailableInfo.emit(str(self.results_weather[5]))
+            self.ramUsedInfo.emit(str(self.results_weather[6]))
 
             # GPU INFO
-            # self.vramFreeInfo.emit(f"{gpus[0].memoryFree}MB")
-            # self.vramUsedInfo.emit(f"{gpus[0].memoryUsed}MB")
             self.gpuTempInfo.emit(self.results_weather[11])
 
     # SET STATIC INFO
@@ -93,20 +83,15 @@ class MainWindow(QObject):
                     return f"{bytes:.2f}{unit}{suffix}"
                 bytes /= factor
 
-        # SYSTEM VARS
-        svmen = psutil.virtual_memory()
-        gpus = GPUtil.getGPUs()
-        cpufreq = psutil.cpu_freq()
-
         # CPU INFO
         self.cpuInfo.emit(self.results_weather[3])
-        self.cpuPhysicalCoresInfo.emit(psutil.cpu_count(logical=False))
-        self.cpuTotalCoresInfo.emit(psutil.cpu_count(logical=True))
+        self.cpuPhysicalCoresInfo.emit(str(self.results_weather[2]))
+        self.cpuTotalCoresInfo.emit(str(self.results_weather[1]))
         self.cpuFrequencyMaxInfo.emit(self.results_weather[5])
         self.cpuFrequencyMinInfo.emit(self.results_weather[6])
 
         # RAM INFO
-        self.ramTotalInfo.emit(get_size(svmen.total))
+        self.ramTotalInfo.emit(str(self.results_weather[7]) + "m/s")
 
         # GPU INFO
         self.gpuModelInfo.emit(self.results_weather[3])
@@ -118,21 +103,22 @@ class MainWindow(QObject):
 
         QTimer.singleShot(2000, showValues)
 
+    def show_UI(self):
+        app = QGuiApplication(sys.argv)
+        engine = QQmlApplicationEngine()
 
+        # GET CONTEXT
+        main = WeatherWindow()
+        engine.rootContext().setContextProperty("backend", main)
 
-app = QGuiApplication(sys.argv)
-engine = QQmlApplicationEngine()
+        # LOAD QML
+        engine.load(os.path.join(os.path.dirname(__file__), "qml/pages/weather.qml"))
 
-# GET CONTEXT
-main = MainWindow()
-engine.rootContext().setContextProperty("backend", main)
+        if not engine.rootObjects():
+            sys.exit(-1)
+        sys.exit(app.exec_())
 
-# SET ICON
-app.setWindowIcon(QIcon("icon.ico"))
-
-# LOAD QML
-engine.load(os.path.join(os.path.dirname(__file__), "qml/pages/weather.qml"))
-
-if not engine.rootObjects():
-    sys.exit(-1)
-sys.exit(app.exec_())
+#
+# if __name__ == "__main__":
+#     weatherGUI = WeatherWindow()
+#     weatherGUI.__init__()

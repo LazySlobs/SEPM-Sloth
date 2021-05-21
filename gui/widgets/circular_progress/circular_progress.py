@@ -19,10 +19,10 @@ class CircularProgress(QWidget):
         self.font_family = "Segoe UI"
         self.font_size = 12
         self.suffix = "%"
-        self.text_color = 0xf7fcbd
+        self.text_color = 0xebf85b
         # BG
         self.enable_bg = True
-        self.bg_color = 0xebf85b
+        self.bg_color = 0x44475a
 
         # SET DEFAULT SIZE WITHOUT LAYOUT
         self.resize(self.width, self.height)

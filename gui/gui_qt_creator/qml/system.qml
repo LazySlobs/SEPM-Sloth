@@ -4,14 +4,14 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.0
 import QtQuick.Timeline 1.0
 import QtGraphicalEffects 1.15
-import "../components"
+import "components"
 
 
 Window {
     id: window
     width: 680
     height: 790
-    visible: true
+    visible: false
     color: "#00000000"
     title: qsTr("System Info - Python")
     flags: Qt.FramelessWindowHint | Qt.Window
@@ -39,13 +39,13 @@ Window {
             text: "X"
             anchors.right: parent.right
             anchors.top: parent.top
-            colorDefault: "#a4ebf3"
+            colorDefault: "#EAC2AA"
             anchors.topMargin: 15
             font.pointSize: 10
             font.family: "Segoe UI"
             anchors.rightMargin: 20
-            colorMouseOver: "#a1cae2"
-            colorPressed: "#28527a"
+            colorMouseOver: "#F2C0A2"
+            colorPressed: "#7c8f03"
             onClicked: window.close()
         }
 
@@ -53,7 +53,7 @@ Window {
             id: rectangleTitle
             height: 30
             opacity: 1
-            color: "#a4ebf3"
+            color: "#EAC2AA"
             radius: 10
             anchors.left: parent.left
             anchors.right: parent.right
@@ -63,19 +63,15 @@ Window {
             anchors.topMargin: 15
 
             Row {
-                width: 72
-                height: 23
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.left
-                anchors.verticalCenterOffset: 1
                 Text {
                     color: "#3f4801"
-                    text: qsTr("Weather ")
-                    horizontalAlignment: Text.AlignLeft
+                    text: qsTr("My System Informations")
                     font.pointSize: 10
                     font.family: "Segoe UI"
                 }
-                anchors.leftMargin: 279
+                anchors.leftMargin: 10
             }
 
             DragHandler {
@@ -101,19 +97,18 @@ Window {
                 width: 200
                 height: 200
                 opacity: 0
-                text: "°C"
                 value: 0
                 startAngle: 90
                 Text {
-                    color: "#a4ebf3"
-                    text: qsTr("Temperature")
+                    color: "#EAC2AA"
+                    text: qsTr("CPU")
                     anchors.bottom: parent.bottom
                     font.family: "Segoe UI"
                     font.pointSize: 16
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.bottomMargin: 40
                 }
-                progressColor: "#a4ebf3"
+                progressColor: "#EAC2AA"
                 progressWidth: 6
                 textSize: 14
                 roundCap: false
@@ -126,19 +121,18 @@ Window {
                 width: 200
                 height: 200
                 opacity: 0
-                text: "Km/h"
                 value: 0
                 startAngle: 90
                 Text {
-                    color: "#a4ebf3"
-                    text: qsTr("Wind")
+                    color: "#EAC2AA"
+                    text: qsTr("RAM")
                     anchors.bottom: parent.bottom
                     font.family: "Segoe UI"
                     font.pointSize: 16
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.bottomMargin: 40
                 }
-                progressColor: "#a4ebf3"
+                progressColor: "#EAC2AA"
                 progressWidth: 6
                 strokeBgWidth: 6
                 roundCap: false
@@ -154,15 +148,15 @@ Window {
                 value: 0
                 startAngle: 90
                 Text {
-                    color: "#a4ebf3"
-                    text: qsTr("Humidity")
+                    color: "#EAC2AA"
+                    text: qsTr("GPU")
                     anchors.bottom: parent.bottom
                     font.family: "Segoe UI"
                     font.pointSize: 16
                     anchors.horizontalCenter: parent.horizontalCenter
                     anchors.bottomMargin: 40
                 }
-                progressColor: "#a4ebf3"
+                progressColor: "#EAC2AA"
                 progressWidth: 6
                 strokeBgWidth: 6
                 roundCap: false
@@ -196,7 +190,7 @@ Window {
                     width: parent.width
                     height: 35
                     opacity: 1
-                    color: "#a4ebf3"
+                    color: "#EAC2AA"
                     radius: 5
 
                     Rectangle{
@@ -209,18 +203,12 @@ Window {
                         anchors.leftMargin: 5
 
                         Row {
-                            x: 69
                             anchors.fill: parent
-                            anchors.rightMargin: 263
-                            anchors.bottomMargin: 0
-                            anchors.leftMargin: 263
-                            anchors.topMargin: 0
                             padding: 10
 
                             Text {
-                                visible: true
-                                color: "#a4ebf3"
-                                text: qsTr("Weather")
+                                color: "#EAC2AA"
+                                text: qsTr("CPU:")
                                 anchors.verticalCenter: parent.verticalCenter
                                 font.pointSize: 10
                                 font.family: "Segoe UI"
@@ -242,8 +230,8 @@ Window {
                         padding: 10
 
                         Text {
-                            color: "#a4ebf3"
-                            text: qsTr("Weather Description:")
+                            color: "#EAC2AA"
+                            text: qsTr("CPU:")
                             anchors.verticalCenter: parent.verticalCenter
                         }
                         Text {
@@ -270,8 +258,8 @@ Window {
                         padding: 10
 
                         Text {
-                            color: "#a4ebf3"
-                            text: qsTr("Humidity :")
+                            color: "#EAC2AA"
+                            text: qsTr("Physical cores:")
                             anchors.verticalCenter: parent.verticalCenter
                         }
                         Text {
@@ -284,8 +272,8 @@ Window {
                         }
 
                         Text {
-                            color: "#a4ebf3"
-                            text: qsTr("Pressure:")
+                            color: "#EAC2AA"
+                            text: qsTr("Total cores:")
                             anchors.verticalCenter: parent.verticalCenter
                             leftPadding: 10
                         }
@@ -314,8 +302,8 @@ Window {
                         padding: 10
 
                         Text {
-                            color: "#a4ebf3"
-                            text: qsTr("Temperature| Max:")
+                            color: "#EAC2AA"
+                            text: qsTr("Frequency | Max:")
                             anchors.verticalCenter: parent.verticalCenter
                         }
                         Text {
@@ -328,7 +316,7 @@ Window {
                         }
 
                         Text {
-                            color: "#a4ebf3"
+                            color: "#EAC2AA"
                             text: qsTr("Min:")
                             anchors.verticalCenter: parent.verticalCenter
                             leftPadding: 10
@@ -343,7 +331,7 @@ Window {
                             font.pointSize: 8
                         }
                         Text {
-                            color: "#a4ebf3"
+                            color: "#EAC2AA"
                             text: qsTr("Current:")
                             anchors.verticalCenter: parent.verticalCenter
                             leftPadding: 10
@@ -365,7 +353,7 @@ Window {
                     width: parent.width
                     height: 35
                     opacity: 1
-                    color: "#a4ebf3"
+                    color: "#EAC2AA"
                     radius: 5
 
                     Rectangle{
@@ -379,15 +367,11 @@ Window {
 
                         Row {
                             anchors.fill: parent
-                            anchors.bottomMargin: 0
-                            anchors.leftMargin: 273
-                            anchors.topMargin: 0
-                            anchors.rightMargin: 273
                             padding: 10
 
                             Text {
-                                color: "#a4ebf3"
-                                text: qsTr("Wind")
+                                color: "#EAC2AA"
+                                text: qsTr("RAM:")
                                 anchors.verticalCenter: parent.verticalCenter
                                 font.pointSize: 10
                                 font.family: "Segoe UI"
@@ -408,8 +392,8 @@ Window {
                         padding: 10
 
                         Text {
-                            color: "#a4ebf3"
-                            text: qsTr("Speed:")
+                            color: "#EAC2AA"
+                            text: qsTr("RAM | Total:")
                             anchors.verticalCenter: parent.verticalCenter
                         }
                         Text {
@@ -422,8 +406,8 @@ Window {
                         }
 
                         Text {
-                            color: "#a4ebf3"
-                            text: qsTr("Degree:")
+                            color: "#EAC2AA"
+                            text: qsTr("Available:")
                             anchors.verticalCenter: parent.verticalCenter
                             leftPadding: 10
                         }
@@ -437,8 +421,8 @@ Window {
                             font.pointSize: 8
                         }
                         Text {
-                            color: "#a4ebf3"
-                            text: qsTr("Clouds:")
+                            color: "#EAC2AA"
+                            text: qsTr("Used:")
                             anchors.verticalCenter: parent.verticalCenter
                             leftPadding: 10
                         }
@@ -459,7 +443,7 @@ Window {
                     width: parent.width
                     height: 35
                     opacity: 1
-                    color: "#a4ebf3"
+                    color: "#EAC2AA"
                     radius: 5
 
                     Rectangle{
@@ -473,15 +457,11 @@ Window {
 
                         Row {
                             anchors.fill: parent
-                            anchors.bottomMargin: 0
-                            anchors.leftMargin: 253
-                            anchors.topMargin: 0
-                            anchors.rightMargin: 253
                             padding: 10
 
                             Text {
-                                color: "#a4ebf3"
-                                text: qsTr("Description")
+                                color: "#EAC2AA"
+                                text: qsTr("GPU:")
                                 anchors.verticalCenter: parent.verticalCenter
                                 font.pointSize: 10
                                 font.family: "Segoe UI"
@@ -501,8 +481,8 @@ Window {
                         anchors.fill: parent
                         padding: 10
                         Text {
-                            color: "#a4ebf3"
-                            text: qsTr("Description:")
+                            color: "#EAC2AA"
+                            text: qsTr("Model:")
                             anchors.verticalCenter: parent.verticalCenter
                         }
 
@@ -528,8 +508,8 @@ Window {
                         anchors.fill: parent
                         padding: 10
                         Text {
-                            color: "#a4ebf3"
-                            text: qsTr("City:")
+                            color: "#EAC2AA"
+                            text: qsTr("VRAM | Total:")
                             anchors.verticalCenter: parent.verticalCenter
                         }
 
@@ -542,6 +522,37 @@ Window {
                             font.pointSize: 8
                         }
 
+                        Text {
+                            color: "#EAC2AA"
+                            text: qsTr("Free:")
+                            anchors.verticalCenter: parent.verticalCenter
+                            leftPadding: 10
+                        }
+
+                        Text {
+                            id: vram_free_info
+                            color: "#878787"
+                            text: qsTr("---")
+                            anchors.verticalCenter: parent.verticalCenter
+                            leftPadding: 5
+                            font.pointSize: 8
+                        }
+
+                        Text {
+                            color: "#EAC2AA"
+                            text: qsTr("Used:")
+                            anchors.verticalCenter: parent.verticalCenter
+                            leftPadding: 10
+                        }
+
+                        Text {
+                            id: vram_used_info
+                            color: "#878787"
+                            text: qsTr("---")
+                            anchors.verticalCenter: parent.verticalCenter
+                            leftPadding: 5
+                            font.pointSize: 8
+                        }
                     }
                 }
 
@@ -556,8 +567,8 @@ Window {
                         anchors.fill: parent
                         padding: 10
                         Text {
-                            color: "#a4ebf3"
-                            text: qsTr("Country:")
+                            color: "#EAC2AA"
+                            text: qsTr("TEMP:")
                             anchors.verticalCenter: parent.verticalCenter
                         }
 
@@ -578,7 +589,7 @@ Window {
             id: rectangle
             height: 30
             opacity: 1
-            color: "#a4ebf3"
+            color: "#EAC2AA"
             radius: 10
             anchors.left: parent.left
             anchors.right: parent.right
@@ -593,7 +604,17 @@ Window {
                 anchors.left: parent.left
                 anchors.leftMargin: 10
 
+                Text {
+                    color: "#3f4801"
+                    text: qsTr(" ")
+                }
 
+                Text {
+                    color: "#757575"
+                    text: qsTr(" ")
+                    leftPadding: 5
+                    font.pointSize: 8
+                }
             }
         }
     }
@@ -629,6 +650,8 @@ Window {
         function onCpuFrequencyCurrentInfo(argument) { cpu_frequency_current_info.text = argument }
         function onRamAvailableInfo(argument) { ram_available_info.text = argument }
         function onRamUsedInfo(argument) { ram_used_info.text = argument }
+        function onVramFreeInfo(argument) { vram_free_info.text = argument }
+        function onVramUsedInfo(argument) { vram_used_info.text = argument }
         function onGpuTempInfo(argument) { gpu_temp_info.text = argument }
     }
 
@@ -997,4 +1020,3 @@ Window {
         }
     }
 }
-

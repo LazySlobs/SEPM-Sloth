@@ -4,12 +4,12 @@ import os
 import psutil
 import GPUtil
 import cpuinfo
-from PySide2.QtGui import QGuiApplication, QIcon
+from PySide2.QtGui import QGuiApplication
 from PySide2.QtQml import QQmlApplicationEngine
 from PySide2.QtCore import QObject, Slot, Signal, QTimer
 
 # CLASS MAIN WINDOW
-class MainWindow(QObject):
+class SystemWindow(QObject):
     def __init__(self):
         QObject.__init__(self)
 
@@ -22,7 +22,7 @@ class MainWindow(QObject):
     showPercentage = False
 
     # PERCENTAGE / DYNAMIC
-    celciusTemperature = Signal(float)
+    percentageCPU = Signal(float)
     percentageRAM = Signal(float)
     percentageGPU = Signal(float)
     cpuFrequencyCurrentInfo = Signal(str)
@@ -59,7 +59,7 @@ class MainWindow(QObject):
             cpufreq = psutil.cpu_freq()
 
             # CIRCULAR PROGRESS BAR
-            self.celciusTemperature.emit(psutil.cpu_percent())
+            self.percentageCPU.emit(psutil.cpu_percent())
             self.percentageRAM.emit(svmen.percent)
             self.percentageGPU.emit(gpus[0].load*100)
 
@@ -93,8 +93,8 @@ class MainWindow(QObject):
 
         # CPU INFO
         self.cpuInfo.emit(cpuinfo.get_cpu_info()['brand_raw'])
-        self.cpuPhysicalCoresInfo.emit(psutil.cpu_count(logical=False))
-        self.cpuTotalCoresInfo.emit(psutil.cpu_count(logical=True))
+        self.cpuPhysicalCoresInfo.emit(str(psutil.cpu_count(logical=False)))
+        self.cpuTotalCoresInfo.emit(str(psutil.cpu_count(logical=True)))
         self.cpuFrequencyMaxInfo.emit(f"{cpufreq.max:.2f}Mhz")
         self.cpuFrequencyMinInfo.emit(f"{cpufreq.min:.2f}Mhz")
 
@@ -111,22 +111,23 @@ class MainWindow(QObject):
 
         QTimer.singleShot(2000, showValues)
 
+    def show_UI(self):
+        app = QGuiApplication(sys.argv)
+        engine = QQmlApplicationEngine()
 
-if __name__ == "__main__":
-    app = QGuiApplication(sys.argv)
-    engine = QQmlApplicationEngine()
+        # GET CONTEXT
+        main = SystemWindow()
+        engine.rootContext().setContextProperty("backend", main)
 
-    # GET CONTEXT
-    main = MainWindow()
-    engine.rootContext().setContextProperty("backend", main)
+        # LOAD QML
+        engine.load(os.path.join(os.path.dirname(__file__), "qml/system.qml"))
 
-    # SET ICON
-    app.setWindowIcon(QIcon("icon.ico"))
+        if not engine.rootObjects():
+            sys.exit(-1)
+        sys.exit(app.exec_())
 
-    # LOAD QML
-    engine.load(os.path.join(os.path.dirname(__file__), "qml/splashScreenStart.qml"))
-    # engine.load(os.path.join(os.path.dirname(__file__), "qml/pages/weather.qml"))
 
-    if not engine.rootObjects():
-        sys.exit(-1)
-    sys.exit(app.exec_())
+#
+# if __name__ == "__main__":
+#     systemGUI = SystemWindow()
+#     systemGUI.__init__()

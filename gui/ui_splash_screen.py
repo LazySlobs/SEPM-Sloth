@@ -1,3 +1,13 @@
+# -*- coding: utf-8 -*-
+
+################################################################################
+## Form generated from reading UI file 'splash_screenUAwbzA.ui'
+##
+## Created by: Qt User Interface Compiler version 6.0.2
+##
+## WARNING! All changes made in this file will be lost when recompiling UI file!
+################################################################################
+
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
@@ -75,8 +85,11 @@ class Ui_SplashScreen(object):
 
         self.title = QLabel(self.texts)
         self.title.setObjectName(u"title")
-        self.title.setMinimumSize(QSize(0, 30))
+        self.title.setMinimumSize(QSize(10, 50))
         self.title.setAlignment(Qt.AlignCenter)
+        self.title.setStyleSheet(u"QLabel{\n"
+                                 "   font: 18pt \"Segoe UI\";\n"
+                                 "}")
 
         self.gridLayout.addWidget(self.title, 0, 0, 1, 1)
 

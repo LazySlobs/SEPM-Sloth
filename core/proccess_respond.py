@@ -8,6 +8,8 @@ import miscellaneous_functions.weather as weather    # use weather file
 import miscellaneous_functions.news as news    # use news file
 import miscellaneous_functions.math as math    # use math file
 import miscellaneous_functions.monitor as monitor    # use monitor file
+import gui.gui_qt_creator.weatherGUI as weatherGUI
+import gui.gui_qt_creator.systemGUI as systemGUI
 import speech_recognition as sr
 
 def respond(r, voice_data, language='en'):
@@ -173,7 +175,9 @@ def respond(r, voice_data, language='en'):
         city = city.replace('the weather of ', '')
         city = city.replace("'s ", '')
         print("city: " + city)
-        weather.check_city_weather(city)
+        current = weather.Current_Weather(city)
+        current.display_weather_results()
+        current.display_weather_console()
     elif "how's the weather in" in voice_data or "how's the weather of" in voice_data or ("how" in voice_data and "weather" in voice_data):
         city = voice_data
         city = city.replace('how', '')
@@ -225,6 +229,8 @@ def respond(r, voice_data, language='en'):
     elif "display" in voice_data and "CPU" in voice_data:
         monitor.display_cpu_used()
     elif "display" in voice_data and ("RAM" in voice_data or "memory" in voice_data):
+        monitor.display_ram_used()
+    elif "computer system" in voice_data :
         monitor.display_ram_used()
 
     
