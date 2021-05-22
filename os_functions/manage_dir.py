@@ -106,7 +106,6 @@ def key_combo(combo):
         print(e)
         return 0
 
-
 def similar_file(files, raw_dir):
     '''
     Find the directory name with the highest similar ratios with the requested name
@@ -322,7 +321,6 @@ def create_folder(voice_data):
         print(exc)
         return 0
 
-
 def file_info(voice_data):
     '''
     Open file's information summary window
@@ -339,7 +337,6 @@ def file_info(voice_data):
         key_combo([keyboard.Key.cmd, 'i'])
     elif settings.platform == 'Windows':
         key_combo([keyboard.Key.ctrl, 'i'])
-
 
 def copy(voice_data):
     '''
@@ -358,7 +355,6 @@ def copy(voice_data):
     elif settings.platform == 'Windows':
         key_combo([keyboard.Key.ctrl, 'c'])
 
-
 def paste(voice_data):
     '''
     simulate ctrl + v / cmd + v
@@ -374,7 +370,6 @@ def paste(voice_data):
         key_combo([keyboard.Key.cmd, 'v'])
     elif settings.platform == 'Windows':
         key_combo([keyboard.Key.ctrl, 'v'])
-
 
 def cut(voice_data):
     '''
@@ -392,7 +387,6 @@ def cut(voice_data):
     elif settings.platform == 'Windows':
         key_combo([keyboard.Key.ctrl, 'x'])
 
-
 def undo(voice_data):
     '''
     simulate ctrl + z / cmd + z
@@ -408,7 +402,6 @@ def undo(voice_data):
         key_combo([keyboard.Key.cmd, 'z'])
     elif settings.platform == 'Windows':
         key_combo([keyboard.Key.ctrl, 'z'])
-
 
 def redo(voice_data):
     '''

@@ -2,13 +2,15 @@ from core.speak import voice_assistant_speak
 from core.listen import record_audio
 import settings, time
 import webbrowser as wb
-import web_browser_control.quick_command as webr
+import web_browser_control.web_command as webr
 import os_functions.manage_dir as manage_dir    # use manage directory file
 import miscellaneous_functions.weather as weather    # use weather file
 import miscellaneous_functions.news as news    # use news file
 import miscellaneous_functions.math as math    # use math file
 import miscellaneous_functions.monitor as monitor    # use monitor file
 import speech_recognition as sr
+
+chrome = webr.Chrome()
 
 def respond(r, voice_data, language='en'):
     '''
@@ -61,54 +63,59 @@ def respond(r, voice_data, language='en'):
         wb.get().open(url)
         voice_assistant_speak(location, language=language)
     
-    elif voice_data == "open browser":
-        webr.open_browser_window()
+    elif voice_data == "open browser" or voice_data.lower() == "open chrome":
+        chrome.open_browser()
     elif voice_data == "switch window" or voice_data == "change window":
-        webr.naviagate_windows()
+        chrome.naviagate_windows()
     elif voice_data == "refresh" or voice_data == "refresh page":
-        webr.refesh()
+        chrome.refesh()
     elif voice_data == "go back":
-        webr.back()
+        chrome.back()
     elif voice_data == "go forward":
-        webr.forward()
+        chrome.forward()
     elif voice_data == "return home":
-        webr.return_home()
+        chrome.return_home()
     elif voice_data == "select address bar":
-        webr.select_address_bar()
+        chrome.select_address_bar()
     elif voice_data == "go fullscreen":
-        webr.full_screen()
+        chrome.full_screen()
     elif voice_data == "scroll to top" or voice_data == "scroll to the top":
-        webr.scroll_to_top()
+        chrome.scroll_to_top()
     elif voice_data == "scroll to bottom" or voice_data == "scroll to the bottom":
-        webr.scroll_to_bottom()
+        chrome.scroll_to_bottom()
     elif voice_data == "scroll up":
-        webr.scroll_up()
+        chrome.scroll_up()
     elif voice_data == "scroll down":
-        webr.scroll_down()
+        chrome.scroll_down()
     elif voice_data == "bookmark this page":
-        webr.book_mark_page()
+        chrome.book_mark_page()
     elif voice_data == "open bookmark list":
-        webr.book_mark_list()
+        chrome.book_mark_list()
     elif voice_data == "open private window" or voice_data == "open incognito mode":
-        webr.private_window()
+        chrome.private_window()
     elif voice_data == "find text":
-        webr.text_search()
+        chrome.text_search()
     elif voice_data == "open history":
-        webr.open_history()
+        chrome.open_history()
     elif voice_data == "open dowload history":
-        webr.open_download_history()
+        chrome.open_download_history()
     elif voice_data == "clear browsing data":
-        webr.clear_browsing_data()
+        chrome.clear_browsing_data()
     elif voice_data == "inspect" or voice_data == "inspect website":
-        webr.inspect_website()
+        chrome.inspect_website()
     elif voice_data == "new window" or voice_data == "open new window":
-        webr.new_browser_window()
+        chrome.new_browser_window()
     elif voice_data == "new tab" or voice_data == "open new tab":
-        webr.new_tab()
+        chrome.new_tab()
     elif voice_data == "next tab" or voice_data == "go to next tab":
-        webr.next_tab()
-    elif voice_data == "close app" or voice_data == "close the app":
-        webr.close_app()
+        chrome.next_tab()
+    elif 'select ' in voice_data and voice_data.split(' ')[0] == 'select':
+        voice_data = voice_data.replace("select ", "")
+        chrome.select_button(voice_data)
+    elif voice_data == "close window" or voice_data == "close the window":
+        chrome.close_window()
+    elif voice_data == "close browser" or voice_data == "close the browser" or voice_data.lower() == "close chrome":
+        chrome.close_browser()
 
     # ================================== #
     # ========== OS FUNCTIONS ========== #
