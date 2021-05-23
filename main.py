@@ -1,4 +1,5 @@
 import sys
+import time
 
 from PySide6 import QtCore
 from PySide6.QtCore import *
@@ -6,8 +7,9 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 
 # IMPORT UIS
-from ui_splash_screen import Ui_SplashScreen
-from widgets import CircularProgress
+
+from gui.ui_splash_screen import Ui_SplashScreen
+from gui.widgets import CircularProgress
 from core.listen import record_audio
 from core.proccess_respond import respond
 from core.speak import voice_assistant_speak
@@ -83,6 +85,7 @@ class VoiceWorker(QtCore.QObject):
                     if (wake):
                         while True:
                             language = "en"
+                            self.textChanged.emit("Waiting Command")
                             voice_data, language = record_audio(r1)
                             # if user tells program to stop
                             if  "exit" in voice_data:
@@ -93,6 +96,8 @@ class VoiceWorker(QtCore.QObject):
                                 break
                             print("Voice data: " + voice_data)  # print user's voice data
                             self.textChanged.emit("You said: \n" + voice_data)
+                            time.sleep(1)
+                            self.textChanged.emit("Executing")
                             respond(r2, voice_data, language=language)  # respond to user's voice data
                         # Break here to send signal to close app
                         print("You finally out of 1nd loop")
@@ -109,6 +114,16 @@ class VoiceWorker(QtCore.QObject):
 class MainWindow(QMainWindow):
     def __init__(self, parent):
         QMainWindow.__init__(self, parent)
+
+        icon = QIcon("gui/gui_qt_creator/images/Logo.png")
+        self.tray = QSystemTrayIcon()
+        self.tray.setIcon(icon)
+        self.tray.setVisible(True)
+        self.setWindowIcon(icon)
+
+        self.hide()
+        # explicitly show the tray-icon
+        self.tray.show()
 
         # Thread initialize
         self._thread = None
@@ -163,6 +178,8 @@ class MainWindow(QMainWindow):
         self._thread.quit()
         self._thread.wait()
         app.quit()
+
+
 
 class SplashScreen(QMainWindow):
     def __init__(self):
@@ -232,6 +249,7 @@ class SplashScreen(QMainWindow):
 if __name__ == "__main__":
     voiceRecognizer = sr.Recognizer()
     app = QApplication(sys.argv)
+    app.setWindowIcon(QIcon("gui/gui_qt_creator/images/Icon.ico"))
     app.setQuitOnLastWindowClosed(False)
     window = SplashScreen()
     sys.exit(app.exec_())
