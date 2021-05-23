@@ -13,7 +13,7 @@ Window {
     height: 790
     visible: false
     color: "#00000000"
-    title: qsTr("System Info - Python")
+    title: qsTr("System Info ")
     flags: Qt.FramelessWindowHint | Qt.Window
     Component.onCompleted: {
         backend.setStaticInfo()

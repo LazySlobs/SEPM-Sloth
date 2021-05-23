@@ -1,13 +1,3 @@
-# -*- coding: utf-8 -*-
-
-################################################################################
-## Form generated from reading UI file 'splash_screenUAwbzA.ui'
-##
-## Created by: Qt User Interface Compiler version 6.0.2
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
-
 from PySide6.QtCore import *
 from PySide6.QtGui import *
 from PySide6.QtWidgets import *
@@ -129,7 +119,9 @@ class Ui_SplashScreen(object):
     def retranslateUi(self, SplashScreen):
         SplashScreen.setWindowTitle(QCoreApplication.translate("SplashScreen", u"Loading...", None))
         self.version.setText(QCoreApplication.translate("SplashScreen", u"v1.0.0 - Beta 1", None))
-        self.title.setText(QCoreApplication.translate("SplashScreen", u"Voice Assistant", None))
+        self.title.setText(QCoreApplication.translate("SplashScreen", u"Sloth Voice Assistant", None))
         self.loading.setText(QCoreApplication.translate("SplashScreen", u"loading...", None))
     # retranslateUi
 
+if __name__ == '__main__':
+	Ui_SplashScreen()
