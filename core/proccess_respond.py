@@ -215,7 +215,7 @@ def respond(r, voice_data, language='en'):
             a.terminate()
             print("function done")
         else:
-            voice_assistant_speak("I could not find the city you said")
+            voice_assistant_speak("Sorry, I can't find the weather data of this city")
 
     elif "how's the weather in" in voice_data or "how's the weather of" in voice_data or ("how" in voice_data and "weather" in voice_data):
         city = voice_data
@@ -234,7 +234,7 @@ def respond(r, voice_data, language='en'):
             b.terminate()
             print("function done")
         else:
-            voice_assistant_speak("I could not find the city you said")
+            voice_assistant_speak("Sorry, I can't find the weather data of this city")
 
     elif "check the weather in" in voice_data or "check the weather of" in voice_data or ("check" in voice_data and "weather" in voice_data):
         city = voice_data
@@ -254,7 +254,7 @@ def respond(r, voice_data, language='en'):
             c.terminate()
             print("function done")
         else:
-            voice_assistant_speak("I could not find the city you said")
+            voice_assistant_speak("Sorry, I can't find the weather data of this city")
 
     elif voice_data == "check the weather" or ("what" in voice_data and "the weather" in voice_data):
         city, language = record_audio(r, language='en', ask='Which city would you like to check?')
@@ -268,7 +268,7 @@ def respond(r, voice_data, language='en'):
             d.terminate()
             print("function done")
         else:
-            voice_assistant_speak("I could not find the city you said")
+            voice_assistant_speak("Sorry, I can't find the weather data of this city")
 
     # check the news
     elif "check the news from" in voice_data or "check the news in" in voice_data:
