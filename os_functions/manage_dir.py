@@ -440,7 +440,28 @@ def redo(voice_data):
 #     try:
 #         while not stop:
 #             pyautogui.scroll(-1)
+            
+            
+            
 #             stop_audio = r.recognize_google(audio, language=settings.language)
 #         return 1
 #     except Exception:
 #         return 0
+
+
+if __name__ == '__main__':
+    # scroll_down()
+    redo()
+    undo()
+    cut()
+    paste()
+    copy()
+    file_info()
+    create_folder()
+    open_file()
+    delete_file()
+    list_file()
+    similar_file()
+    key_combo()
+    enter_folder()
+    get_address()

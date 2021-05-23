@@ -2,6 +2,7 @@ from gtts import gTTS
 from io import BytesIO
 import pygame, settings
 
+
 def voice_assistant_speak(msg, language=settings.language):
     '''
     Speak the sound using given text
@@ -30,3 +31,7 @@ def voice_assistant_speak(msg, language=settings.language):
     # prevents microphone from listening to the text spoken
     while pygame.mixer.music.get_busy():
         pygame.time.Clock().tick(10)
+
+
+if __name__ == '__main__':
+   voice_assistant_speak()

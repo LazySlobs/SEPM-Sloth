@@ -447,4 +447,29 @@ def move_button():
 
 
 
-
+if __name__ == '__main__':
+    move_button()
+    naviagate_windows()
+    close_app()
+    new_tab()
+    next_tab()
+    new_browser_window()
+    inspect_website()
+    clear_browsing_data()
+    open_download_history()
+    text_search()
+    private_window()
+    book_mark_list()
+    book_mark_page()
+    scroll_up()
+    scroll_down()
+    scroll_to_top()
+    scroll_to_bottom()
+    full_screen()
+    select_address_bar()
+    return_home()
+    forward()
+    back()
+    refesh()
+    open_history()
+    open_browser_window()
