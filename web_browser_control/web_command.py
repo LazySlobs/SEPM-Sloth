@@ -19,9 +19,9 @@ class Chrome:
     def __init__(self):
         pass
 
-    # Deleting (Calling destructor)
-    def __del__(self):
-        print('Chrome object destroyed.')
+    # # Deleting (Calling destructor)
+    # def __del__(self):
+    #     print('Chrome object destroyed.')
     
     def open_browser(self):
         self.driver = webdriver.Chrome(ChromeDriverManager().install())
