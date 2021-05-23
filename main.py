@@ -7,27 +7,31 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 
 # IMPORT UIS
-
 from gui.ui_splash_screen import Ui_SplashScreen
 from gui.widgets import CircularProgress
+
 from core.listen import record_audio
 from core.proccess_respond import respond
 from core.speak import voice_assistant_speak
 import speech_recognition as sr
+
 # GLOBALS
 counter = 0
 
 class VoiceWorker(QtCore.QObject):
     textChanged = QtCore.Signal(str)
     sgnFinished = QtCore.Signal()
+
+    # constructor
     def __init__(self, parent):
         QObject.__init__(self, parent)
         self._mutex = QMutex()
         self._running = True
-    #Stop signal
+    
+    # Stop signal
     @QtCore.Slot()
     def stop(self):
-        print('switching while loop condition to false')
+        # print('switching while loop condition to false')  # for debug
         self._mutex.lock()
         self._running = False
         self._mutex.unlock()
@@ -43,11 +47,9 @@ class VoiceWorker(QtCore.QObject):
     # Voice worker with binding text
     @QtCore.Slot(str)
     def start(self):
-        r1 = sr.Recognizer()  # create a recognizer object to recognize texts
-        # r1.energy_threshold = settings.energy_threshold
-        r2 = sr.Recognizer()  # create a recognizer object to
+        r1 = sr.Recognizer() # create a recognizer object to recognize texts
+        r2 = sr.Recognizer() # create a recognizer object to respond
         WAKE = "wake up"
-        wake = False
         while self.running():
             # speak if the ask variable is a string
             with sr.Microphone() as source:
@@ -64,6 +66,7 @@ class VoiceWorker(QtCore.QObject):
                 listen_for_keyword = ""
                 try:
                     listen_for_keyword = r1.recognize_google(audio)
+                    # listen_for_keyword = input("type keyword: ")   # for debug
                 except sr.UnknownValueError:
                     continue
                 except sr.RequestError:
@@ -75,43 +78,32 @@ class VoiceWorker(QtCore.QObject):
 
                 # keyword heard, wake up the voice assistant
                 if listen_for_keyword.count(WAKE) > 0:
-                    wake = True
                     print("Sloth is awake...")
-                    self.textChanged.emit("Sloth is awake!")
-                    self.textChanged.emit("I am Sloth Voice Assistant")
+                    self.textChanged.emit("Sloth Voice Assistant is awake!")
                     voice_assistant_speak("How can I help you?")
-                    self.textChanged.emit("Waiting for your voice input...")
 
-                    if (wake):
-                        while True:
-                            language = "en"
-                            self.textChanged.emit("Waiting Command")
-                            voice_data, language = record_audio(r1)
-                            # if user tells program to stop
-                            if  "exit" in voice_data:
-                                # Break here to get out 2nd loop
-                                wake = False
-                                print("You finally out of 2nd loop")
-                                self.textChanged.emit("Program is closing \n")
-                                break
-                            print("Voice data: " + voice_data)  # print user's voice data
-                            self.textChanged.emit("You said: \n" + voice_data)
-                            time.sleep(1)
-                            self.textChanged.emit("Executing")
-                            respond(r2, voice_data, language=language)  # respond to user's voice data
-                        # Break here to send signal to close app
-                        print("You finally out of 1nd loop")
-                        break
+                    while True:
+                        self.textChanged.emit("Waiting for your voice input...")
+                        voice_data, language = record_audio(r1)
+                        # voice_data = input("type voice data: ")   # for debug
+                        # language = "en"   # for debug
+                        # if user tells program to stop
+                        if  "go to sleep" in voice_data or "go back to sleep" in voice_data:
+                            self.textChanged.emit("Sloth is going to sleep \n")
+                            break
+
+                        print("Voice data: " + voice_data)  # print user's voice data
+                        self.textChanged.emit("You said: \n" + voice_data)
+                        respond(r2, voice_data, language=language)  # respond to user's voice data
                 elif "exit" in listen_for_keyword:
                     self.textChanged.emit("Program is closing \n")
-                    print("You finally out of 1nd loop")
                     break
-        print("get out of loop")
         self.sgnFinished.emit()
 
 
 # MAIN WINDOW
 class MainWindow(QMainWindow):
+    # constructor
     def __init__(self, parent):
         QMainWindow.__init__(self, parent)
 
@@ -148,10 +140,10 @@ class MainWindow(QMainWindow):
         # self.worker.textChanged.connect(self.title.setText)
         self.title.setMinimumSize(QSize())
         self.title.setStyleSheet(u"QLabel{\n"
-"	color: rgb(255, 255, 255);\n"
-"	border-radius: 12px;\n"
-"   font: 16pt \"Segoe UI\";\n"
-"}")
+                            "	color: rgb(255, 255, 255);\n"
+                            "	border-radius: 12px;\n"
+                            "   font: 16pt \"Segoe UI\";\n"
+                            "}")
         self.title.setAlignment(Qt.AlignCenter)
         self.verticalLayout.addWidget(self.title)
         self.setCentralWidget(self.centralwidget)
@@ -169,12 +161,12 @@ class MainWindow(QMainWindow):
             self._thread.started.connect(self._worker.start)
             self._thread.start()
         else:
-            print('stopping the Voice worker object')
+            print("Stopping the Voice worker object")
             self._worker.stop()
 
     @QtCore.Slot()
     def on_worker_done(self):
-        print('Voice workers job was interrupted ')
+        print("Voice worker's job finished")
         self._thread.quit()
         self._thread.wait()
         app.quit()
@@ -250,6 +242,6 @@ if __name__ == "__main__":
     voiceRecognizer = sr.Recognizer()
     app = QApplication(sys.argv)
     app.setWindowIcon(QIcon("gui/gui_qt_creator/images/Icon.ico"))
-    app.setQuitOnLastWindowClosed(False)
+    app.setQuitOnLastWindowClosed(True) # close app when the GUI is closed
     window = SplashScreen()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
