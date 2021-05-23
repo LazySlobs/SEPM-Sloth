@@ -118,3 +118,5 @@ class Current_Weather():
       return 0
 
 
+if __name__ == '__main__':
+	Current_Weather()

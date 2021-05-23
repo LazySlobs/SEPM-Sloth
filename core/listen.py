@@ -2,13 +2,15 @@ import speech_recognition as sr
 from core.speak import voice_assistant_speak
 import settings
 
+
+
 def record_audio(r, language=settings.language, ask = False):
     '''
     Record user input and turns it to text
 
-    Parameters: 
+    Parameters:
         r(Recognizer): the recognizer used to listen and recognize audio
-        
+
         Options:
             language(str): the language's short string
             ask(str/bool): the phrase used to speak before starts recording
@@ -19,16 +21,17 @@ def record_audio(r, language=settings.language, ask = False):
 
     Returns:
         voice_data(str): the string recorded and recognized from user's voice input
-        language(str): the language's short string (the same language used to recognize) 
+        language(str): the language's short string (the same language used to recognize)
     '''
 
     # loop so that it can return an actual voice data instead of an empty string
     while True:
         # speak if the ask variable is a string
         with sr.Microphone() as source:
+            r.adjust_for_ambient_noise(source, duration=1)
+            r.energy_threshold += 250
             if ask:
                 voice_assistant_speak(ask)
-
             # starts to listen
             print("Listening...")
             audio = r.listen(source)
@@ -47,3 +50,7 @@ def record_audio(r, language=settings.language, ask = False):
                 print("Something went wrong.")
                 continue
         return voice_data, language
+
+
+if __name__ == '__main__':
+	record_audio()

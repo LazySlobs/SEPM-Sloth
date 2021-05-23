@@ -28,3 +28,7 @@ def do_math(voice_data):
     print(voice_data + " = " + str(result))
     voice_assistant_speak(voice_data + " = " + str(result))
 
+if __name__ == '__main__':
+  get_operator_fn()
+  eval_binary_expr()
+  do_math()
