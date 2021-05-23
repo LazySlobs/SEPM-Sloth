@@ -206,13 +206,16 @@ def respond(r, voice_data, language='en'):
         city = city.replace("'s ", '')
         print("city: " + city)
         current = weather.Current_Weather(city)
-        # create Sub process to display Weather
-        current.display_weather_console()
-        a = Process(target=weatherGUI.WeatherWindow, args=(city,))
-        a.start()
-        a.join()
-        a.terminate()
-        print("function done")
+        if (current.display_weather_results()):
+            # create Sub process to display Weather
+            current.display_weather_console()
+            a = Process(target=weatherGUI.WeatherWindow, args=(city,))
+            a.start()
+            a.join()
+            a.terminate()
+            print("function done")
+        else:
+            voice_assistant_speak("I could not find the city you said")
 
     elif "how's the weather in" in voice_data or "how's the weather of" in voice_data or ("how" in voice_data and "weather" in voice_data):
         city = voice_data
@@ -222,13 +225,16 @@ def respond(r, voice_data, language='en'):
         city = city.replace("'s ", '')
         print("city: " + city)
         current = weather.Current_Weather(city)
-        # create Sub process to display Weather
-        current.display_weather_console()
-        a = Process(target=weatherGUI.WeatherWindow, args=(city,))
-        a.start()
-        a.join()
-        a.terminate()
-        print("function done")
+        if (current.display_weather_results()):
+            # create Sub process to display Weather
+            current.display_weather_console()
+            b = Process(target=weatherGUI.WeatherWindow, args=(city,))
+            b.start()
+            b.join()
+            b.terminate()
+            print("function done")
+        else:
+            voice_assistant_speak("I could not find the city you said")
 
     elif "check the weather in" in voice_data or "check the weather of" in voice_data or ("check" in voice_data and "weather" in voice_data):
         city = voice_data
@@ -239,24 +245,30 @@ def respond(r, voice_data, language='en'):
         city = city.replace(' weather', '')
         print("city: " + city)
         current = weather.Current_Weather(city)
-        # create Sub process to display Weather
-        current.display_weather_console()
-        a = Process(target=weatherGUI.WeatherWindow, args=(city,))
-        a.start()
-        a.join()
-        a.terminate()
-        print("function done")
+        if (current.display_weather_results()):
+            # create Sub process to display Weather
+            current.display_weather_console()
+            c = Process(target=weatherGUI.WeatherWindow, args=(city,))
+            c.start()
+            c.join()
+            c.terminate()
+            print("function done")
+        else:
+            voice_assistant_speak("I could not find the city you said")
 
     elif voice_data == "check the weather" or ("what" in voice_data and "the weather" in voice_data):
         city, language = record_audio(r, language='en', ask='Which city would you like to check?')
         current = weather.Current_Weather(city)
-        # create Sub process to display Weather
-        current.display_weather_console()
-        a = Process(target=weatherGUI.WeatherWindow, args=(city,))
-        a.start()
-        a.join()
-        a.terminate()
-        print("function done")
+        if (current.display_weather_results()):
+            # create Sub process to display Weather
+            current.display_weather_console()
+            d = Process(target=weatherGUI.WeatherWindow, args=(city,))
+            d.start()
+            d.join()
+            d.terminate()
+            print("function done")
+        else:
+            voice_assistant_speak("I could not find the city you said")
 
     # check the news
     elif "check the news from" in voice_data or "check the news in" in voice_data:
