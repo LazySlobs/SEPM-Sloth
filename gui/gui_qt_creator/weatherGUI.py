@@ -86,7 +86,7 @@ class WeatherWindow(QObject):
                 bytes /= factor
 
         # CPU INFO
-        self.cpuInfo.emit(self.results_weather[3])
+        self.cpuInfo.emit(str(self.results_weather[3]))
         self.cpuPhysicalCoresInfo.emit(str(self.results_weather[2]))
         self.cpuTotalCoresInfo.emit(str(self.results_weather[1]))
         self.cpuFrequencyMaxInfo.emit(self.results_weather[5])
