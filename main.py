@@ -244,4 +244,4 @@ if __name__ == "__main__":
     app.setWindowIcon(QIcon("gui/gui_qt_creator/images/Icon.ico"))
     app.setQuitOnLastWindowClosed(True) # close app when the GUI is closed
     window = SplashScreen()
-    sys.exit(app.exec())
+    sys.exit(app.exec_())
