@@ -9,3 +9,7 @@ psutil>=5.8.0
 pywinauto>=0.6.8
 selenium>=3.141.0
 webdriver_manager>=3.4.2
+PySide2>=5.15.2
+PySide6>=6.1.0
+GPUtil>=1.4.0
+py-cpuinfo>=8.0.0

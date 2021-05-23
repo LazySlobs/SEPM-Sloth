@@ -15,6 +15,16 @@ __pycache__/
 # C extensions
 *.so
 
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
 # Distribution / packaging
 .Python
 env/
@@ -158,3 +168,5 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 .vscode/settings.json
+*.pyc
+__pycache__/settings.cpython-37.pyc

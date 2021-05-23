@@ -39,3 +39,11 @@ def tell_ram_used():
 def tell_available_ram():
     voice_assistant_speak("Available memory percentage is " + str(int(psutil.virtual_memory().available * 100 / psutil.virtual_memory().total)) + "%")
 
+if __name__ == '__main__':
+  display_ram_used()
+  display_cpu_used()
+  display_cpu_and_ram_used()
+  tell_cpu_and_ram_used()
+  tell_available_ram()
+  tell_cpu_used()
+  tell_ram_used()

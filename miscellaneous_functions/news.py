@@ -239,3 +239,9 @@ def read_news_headlines(category, country):
 		else:
 			break
 		i = i + 1
+
+
+if __name__ == '__main__':
+	read_news_headlines()
+	read_news_headlines_process()
+	read_news_headlines_ask()

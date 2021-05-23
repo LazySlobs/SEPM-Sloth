@@ -1,3 +1,5 @@
+import sys
+
 from core.speak import voice_assistant_speak
 from core.listen import record_audio
 import settings, time
@@ -8,7 +10,13 @@ import miscellaneous_functions.weather as weather    # use weather file
 import miscellaneous_functions.news as news    # use news file
 import miscellaneous_functions.math as math    # use math file
 import miscellaneous_functions.monitor as monitor    # use monitor file
+import gui.gui_qt_creator.weatherGUI as weatherGUI
+import gui.gui_qt_creator.systemGUI as systemGUI
 import speech_recognition as sr
+from multiprocessing import Process
+
+
+
 
 chrome = webr.Chrome()
 
@@ -26,14 +34,14 @@ def respond(r, voice_data, language='en'):
     Returns:
         Null
     '''
-    
+
     # ==================================== #
     # ========== CORE FUNCTIONS ========== #
     # ==================================== #
-    # exit
-    if "exit" in voice_data:
-        exit()
-    
+    # Introduce
+    if "Introduce yourself" in voice_data:
+       voice_assistant_speak("I am Sloth Voice Assistant created by Lazy Slob Team" )
+
 
     # ======================================= #
     # ========== BROWSER FUNCTIONS ========== #
@@ -137,7 +145,7 @@ def respond(r, voice_data, language='en'):
     elif 'create ' in voice_data and voice_data.split(' ')[0] == 'create':
         manage_dir.create_folder(voice_data)
 
-    # get info 
+    # get info
     elif 'information' in voice_data and 'show' in voice_data:
         manage_dir.file_info(voice_data)
 
@@ -148,19 +156,19 @@ def respond(r, voice_data, language='en'):
     # copy
     elif 'copy' in voice_data:
         manage_dir.copy(voice_data)
-        
+
     # paste
     elif 'paste' in voice_data:
         manage_dir.paste(voice_data)
-        
+
     # cut
     elif 'cut' in voice_data:
         manage_dir.cut(voice_data)
-        
+
     # undo
     elif 'undo' in voice_data:
         manage_dir.undo(voice_data)
-        
+
     # redo
     elif 'redo' in voice_data:
         manage_dir.redo(voice_data)
@@ -188,7 +196,7 @@ def respond(r, voice_data, language='en'):
     # asked for time
     elif voice_data == "check the time" or voice_data == "what time is it" or voice_data == "whats the time" or voice_data == "what's the time":
         voice_assistant_speak(str(time.strftime("It's currently %H:%M o'clock")))
-    
+
     # check weather
     elif "what's the weather in" in voice_data or "what's the weather of" in voice_data or "what is the weather in" in voice_data or "what is the weather of" in voice_data:
         city = voice_data
@@ -197,7 +205,17 @@ def respond(r, voice_data, language='en'):
         city = city.replace('the weather of ', '')
         city = city.replace("'s ", '')
         print("city: " + city)
-        weather.check_city_weather(city)
+        current = weather.Current_Weather(city)
+        if (current.display_weather_results()):
+            # create Sub process to display Weather
+            current.display_weather_console()
+            a = Process(target=weatherGUI.WeatherWindow, args=(city,))
+            a.start()
+            a.join()
+            a.terminate()
+        else:
+            voice_assistant_speak("Sorry, I can't find the weather data of this city")
+
     elif "how's the weather in" in voice_data or "how's the weather of" in voice_data or ("how" in voice_data and "weather" in voice_data):
         city = voice_data
         city = city.replace('how', '')
@@ -205,7 +223,17 @@ def respond(r, voice_data, language='en'):
         city = city.replace('the weather of ', '')
         city = city.replace("'s ", '')
         print("city: " + city)
-        weather.check_city_weather(city)
+        current = weather.Current_Weather(city)
+        if (current.display_weather_results()):
+            # create Sub process to display Weather
+            current.display_weather_console()
+            b = Process(target=weatherGUI.WeatherWindow, args=(city,))
+            b.start()
+            b.join()
+            b.terminate()
+        else:
+            voice_assistant_speak("Sorry, I can't find the weather data of this city")
+
     elif "check the weather in" in voice_data or "check the weather of" in voice_data or ("check" in voice_data and "weather" in voice_data):
         city = voice_data
         city = city.replace('check the weather of ', '')
@@ -214,11 +242,30 @@ def respond(r, voice_data, language='en'):
         city = city.replace("'s ", '')
         city = city.replace(' weather', '')
         print("city: " + city)
-        weather.check_city_weather(city)
+        current = weather.Current_Weather(city)
+        if (current.display_weather_results()):
+            # create Sub process to display Weather
+            current.display_weather_console()
+            c = Process(target=weatherGUI.WeatherWindow, args=(city,))
+            c.start()
+            c.join()
+            c.terminate()
+        else:
+            voice_assistant_speak("Sorry, I can't find the weather data of this city")
+
     elif voice_data == "check the weather" or ("what" in voice_data and "the weather" in voice_data):
         city, language = record_audio(r, language='en', ask='Which city would you like to check?')
-        weather.check_city_weather(city)
-    
+        current = weather.Current_Weather(city)
+        if (current.display_weather_results()):
+            # create Sub process to display Weather
+            current.display_weather_console()
+            d = Process(target=weatherGUI.WeatherWindow, args=(city,))
+            d.start()
+            d.join()
+            d.terminate()
+        else:
+            voice_assistant_speak("Sorry, I can't find the weather data of this city")
+
     # check the news
     elif "check the news from" in voice_data or "check the news in" in voice_data:
         voice_data = voice_data.replace("check the news ", "")
@@ -234,7 +281,7 @@ def respond(r, voice_data, language='en'):
         voice_data = voice_data.replace("what is ", "")
         voice_data = voice_data.replace("whats ", "")
         math.do_math(voice_data)
-    
+
     # display performance
     elif "what" in voice_data and ("CPU" in voice_data and ("RAM" in voice_data or "memory" in voice_data)):
         monitor.tell_cpu_and_ram_used()
@@ -250,5 +297,16 @@ def respond(r, voice_data, language='en'):
         monitor.display_cpu_used()
     elif "display" in voice_data and ("RAM" in voice_data or "memory" in voice_data):
         monitor.display_ram_used()
+    elif "check" in voice_data and "system info" in voice_data :
+        # create Sub process to display Computer system
+        p = Process(target=systemGUI.SystemWindow)
+        p.start()
+        p.join()
+        p.terminate()
 
-    
+
+#
+
+
+if __name__ == '__main__':
+    respond()
