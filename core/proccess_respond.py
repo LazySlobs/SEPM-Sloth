@@ -13,7 +13,7 @@ import miscellaneous_functions.monitor as monitor    # use monitor file
 import gui.gui_qt_creator.weatherGUI as weatherGUI
 import gui.gui_qt_creator.systemGUI as systemGUI
 import speech_recognition as sr
-from multiprocessing import Process, Queue
+from multiprocessing import Process
 
 
 
@@ -183,10 +183,11 @@ def respond(r, voice_data, language='en'):
         print("city: " + city)
         current = weather.Current_Weather(city)
         # create Sub process to display Weather
-        # w = Process(target=weatherGUI.WeatherWindow(), args=(city,))
-        # w.start()
-        # w.join()
-        # current.display_weather_console()
+        current.display_weather_console()
+        a = Process(target=weatherGUI.WeatherWindow, args=(city,))
+        a.start()
+        a.join()
+        a.terminate()
         print("function done")
 
     elif "how's the weather in" in voice_data or "how's the weather of" in voice_data or ("how" in voice_data and "weather" in voice_data):
@@ -198,10 +199,11 @@ def respond(r, voice_data, language='en'):
         print("city: " + city)
         current = weather.Current_Weather(city)
         # create Sub process to display Weather
-        # a = Process(target=weatherGUI.WeatherWindow(), args=(city,))
-        # a.start()
-        # a.join()
-        # current.display_weather_console()
+        current.display_weather_console()
+        a = Process(target=weatherGUI.WeatherWindow, args=(city,))
+        a.start()
+        a.join()
+        a.terminate()
         print("function done")
 
     elif "check the weather in" in voice_data or "check the weather of" in voice_data or ("check" in voice_data and "weather" in voice_data):
@@ -214,21 +216,23 @@ def respond(r, voice_data, language='en'):
         print("city: " + city)
         current = weather.Current_Weather(city)
         # create Sub process to display Weather
-        b = Process(target=weatherGUI.WeatherWindow(), args=(city,))
-        b.start()
-        b.join()
         current.display_weather_console()
+        a = Process(target=weatherGUI.WeatherWindow, args=(city,))
+        a.start()
+        a.join()
+        a.terminate()
         print("function done")
 
-    # elif voice_data == "check the weather" or ("what" in voice_data and "the weather" in voice_data):
-    #     city, language = record_audio(r, language='en', ask='Which city would you like to check?')
-    #     current = weather.Current_Weather(city)
-    #     # create Sub process to display Weather
-    #     c = Process(target=weatherGUI.WeatherWindow(), args=(city,))
-    #     c.start()
-    #     c.join()
-    #     current.display_weather_console()
-    #     print("function done")
+    elif voice_data == "check the weather" or ("what" in voice_data and "the weather" in voice_data):
+        city, language = record_audio(r, language='en', ask='Which city would you like to check?')
+        current = weather.Current_Weather(city)
+        # create Sub process to display Weather
+        current.display_weather_console()
+        a = Process(target=weatherGUI.WeatherWindow, args=(city,))
+        a.start()
+        a.join()
+        a.terminate()
+        print("function done")
 
     # check the news
     elif "check the news from" in voice_data or "check the news in" in voice_data:
@@ -263,8 +267,7 @@ def respond(r, voice_data, language='en'):
         monitor.display_ram_used()
     elif "computer system" in voice_data :
         # create Sub process to display Computer system
-        # p = Process(target=systemGUI.SystemWindow)
-        p = Process(target=weatherGUI.WeatherWindow("HaNoi"))
+        p = Process(target=systemGUI.SystemWindow)
         p.start()
         p.join()
         p.terminate()

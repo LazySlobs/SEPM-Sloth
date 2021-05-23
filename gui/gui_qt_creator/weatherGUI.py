@@ -1,25 +1,27 @@
-# This Python file uses the following encoding: utf-8
 import sys
 import os
+import time
+
 from miscellaneous_functions import weather
 from PySide2.QtGui import QGuiApplication
 from PySide2.QtQml import QQmlApplicationEngine
 from PySide2.QtCore import QObject, Slot, Signal, QTimer
 
+
 # CLASS MAIN WINDOW
 class WeatherWindow(QObject):
-    def __init__(self,city):
+    def __init__(self, city):
         QObject.__init__(self)
+        self.app = QGuiApplication()
         self.city = city
         # GET RESULTS FROM API
-        results_weather = weather.Current_Weather(city).display_weather_results()
+        self.results_weather = weather.Current_Weather(self.city).display_weather_results()
 
         # AUTO REFRESH / DYNAMIC INFOS
-        # self.city_name = city_name
         timer = QTimer(self)
         timer.start(1000)
         timer.timeout.connect(lambda: self.setDynamicInfo())
-
+        self.show_UI()
 
 
     # SHOW PERCENTAGE
@@ -104,21 +106,24 @@ class WeatherWindow(QObject):
         QTimer.singleShot(2000, showValues)
 
     def show_UI(self):
-        app = QGuiApplication(sys.argv)
-        engine = QQmlApplicationEngine()
+            # app = QGuiApplication(sys.argv)
+            engine = QQmlApplicationEngine()
 
-        # GET CONTEXT
-        main = WeatherWindow()
-        engine.rootContext().setContextProperty("backend", main)
+            # GET CONTEXT
+            engine.rootContext().setContextProperty("backend", self)
 
-        # LOAD QML
-        engine.load(os.path.join(os.path.dirname(__file__), "qml/pages/weather.qml"))
+            # LOAD QML
+            engine.load(os.path.join(os.path.dirname(__file__), "qml/pages/weather.qml"))
 
-        if not engine.rootObjects():
-            sys.exit(-1)
-        sys.exit(app.exec_())
+            # AUTO CLOSE
+            timer2 = QTimer(self)
+            timer2.start(7000)
+            timer2.timeout.connect(lambda: sys.exit())
+            if not engine.rootObjects():
+                sys.exit(-1)
+            sys.exit(self.app.exec_())
 
-#
-# if __name__ == "__main__":
-#     weatherGUI = WeatherWindow()
-#     weatherGUI.__init__()
+
+if __name__ == "__main__":
+    WeatherWindow()
+

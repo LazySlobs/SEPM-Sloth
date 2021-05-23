@@ -135,7 +135,7 @@ class SystemWindow(QObject):
 
 
 
-if __name__ == "__main__":
-   SystemWindow()
+if __name__ == '__main__':
+    SystemWindow()
 
 
