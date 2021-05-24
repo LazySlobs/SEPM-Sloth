@@ -41,7 +41,7 @@ def record_audio(r, language=settings.language, ask = False):
                 voice_data = r.recognize_google(audio, language=language)
             except sr.UnknownValueError:
                 print("Sorry, I did not get that")
-                voice_assistant_speak("Sorry, I did not get that")
+                # voice_assistant_speak("Sorry, I did not get that")
                 continue
             except sr.RequestError:
                 voice_assistant_speak("Sorry, my speech service is down")

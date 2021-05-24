@@ -208,9 +208,8 @@ def respond(r, voice_data, language='en'):
             a.start()
             a.join()
             a.terminate()
-            print("function done")
         else:
-            voice_assistant_speak("I could not find the city you said")
+            voice_assistant_speak("Sorry, I can't find the weather data of this city")
 
     elif "how's the weather in" in voice_data or "how's the weather of" in voice_data or ("how" in voice_data and "weather" in voice_data):
         city = voice_data
@@ -227,9 +226,8 @@ def respond(r, voice_data, language='en'):
             b.start()
             b.join()
             b.terminate()
-            print("function done")
         else:
-            voice_assistant_speak("I could not find the city you said")
+            voice_assistant_speak("Sorry, I can't find the weather data of this city")
 
     elif "check the weather in" in voice_data or "check the weather of" in voice_data or ("check" in voice_data and "weather" in voice_data):
         city = voice_data
@@ -247,9 +245,8 @@ def respond(r, voice_data, language='en'):
             c.start()
             c.join()
             c.terminate()
-            print("function done")
         else:
-            voice_assistant_speak("I could not find the city you said")
+            voice_assistant_speak("Sorry, I can't find the weather data of this city")
 
     elif voice_data == "check the weather" or ("what" in voice_data and "the weather" in voice_data):
         city, language = record_audio(r, language='en', ask='Which city would you like to check?')
@@ -261,9 +258,8 @@ def respond(r, voice_data, language='en'):
             d.start()
             d.join()
             d.terminate()
-            print("function done")
         else:
-            voice_assistant_speak("I could not find the city you said")
+            voice_assistant_speak("Sorry, I can't find the weather data of this city")
 
     # check the news
     elif "check the news from" in voice_data or "check the news in" in voice_data:
@@ -296,13 +292,12 @@ def respond(r, voice_data, language='en'):
         monitor.display_cpu_used()
     elif "display" in voice_data and ("RAM" in voice_data or "memory" in voice_data):
         monitor.display_ram_used()
-    elif "computer system" in voice_data :
+    elif "check" in voice_data and "system info" in voice_data :
         # create Sub process to display Computer system
         p = Process(target=systemGUI.SystemWindow)
         p.start()
         p.join()
         p.terminate()
-        print("function done")
 
 
 #

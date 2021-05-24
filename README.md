@@ -27,6 +27,10 @@ psutil>=5.8.0
 pywinauto>=0.6.8
 selenium>=3.141.0
 webdriver_manager>=3.4.2
+PySide2>=5.15.2
+PySide6>=6.1.0
+GPUtil>=1.4.0
+py-cpuinfo>=8.0.0
 
 ```
 
@@ -48,6 +52,10 @@ Step 1: Install modules from command line
  - pip install pywinauto
  - pip install selenium
  - pip install webdriver_manager
+ - pip install PySide2
+ - pip install PySide6
+ - pip install GPUtil
+ - pip install py-cpuinfo
 
 ```
 
@@ -107,6 +115,11 @@ Add additional notes about how to deploy this on a live system
 * [PyWinAuto](https://pypi.org/project/pywinauto/) - send mouse and keyboard actions to windows dialogs and controls, but has support for more complex controls also
 * [selenium](https://pypi.org/project/selenium/) - automate web browser interaction from Python
 * [webdriver_manager](https://pypi.org/project/webdriver-manager/) - simplify management of binary drivers for different browsers
+* [PySide2](https://pypi.org/project/PySide2/) - Python bindings for the Qt cross-platform application and UI framework
+* [PySide6](https://pypi.org/project/PySide6/) - Python bindings for the Qt cross-platform application and UI framework
+* [GPUtil](https://pypi.org/project/GPUtil/) - getting the GPU status from NVIDA GPUs using nvidia-smi
+* [py-cpuinfo](https://pypi.org/project/py-cpuinfo/) - Get CPU info
+
 
 ## Contributing
 
