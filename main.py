@@ -1,5 +1,4 @@
 import sys
-import time
 
 from PySide6 import QtCore
 from PySide6.QtCore import *
@@ -9,7 +8,6 @@ from PySide6.QtWidgets import *
 # IMPORT UIS
 from gui.ui_splash_screen import Ui_SplashScreen
 from gui.widgets import CircularProgress
-
 from core.listen import record_audio
 from core.proccess_respond import respond
 from core.speak import voice_assistant_speak
@@ -111,8 +109,6 @@ class MainWindow(QMainWindow):
         self.tray = QSystemTrayIcon()
         self.tray.setIcon(icon)
         self.tray.setVisible(True)
-        self.setWindowIcon(icon)
-
         self.hide()
         # explicitly show the tray-icon
         self.tray.show()
@@ -178,7 +174,7 @@ class SplashScreen(QMainWindow):
         QMainWindow.__init__(self)
         self.ui = Ui_SplashScreen()
         self.ui.setupUi(self)
-        self.voiceRecognizer = sr.Recognizer()
+
 
         # REMOVE TITLE BAR
         self.setWindowFlag(Qt.FramelessWindowHint)
@@ -239,9 +235,8 @@ class SplashScreen(QMainWindow):
 
 
 if __name__ == "__main__":
-    voiceRecognizer = sr.Recognizer()
     app = QApplication(sys.argv)
-    app.setWindowIcon(QIcon("gui/gui_qt_creator/images/Icon.ico"))
+    app.setWindowIcon(QIcon("icon.ico"))
     app.setQuitOnLastWindowClosed(True) # close app when the GUI is closed
     window = SplashScreen()
     sys.exit(app.exec_())

@@ -1,6 +1,5 @@
 import sys
 import os
-import time
 
 from miscellaneous_functions import weather
 from PySide2.QtGui import QGuiApplication

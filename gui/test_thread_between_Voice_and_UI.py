@@ -1,6 +1,6 @@
 import time, sys
 from PyQt5.QtCore  import *
-from PyQt5.QtGui import *
+
 
 class Worker(QObject):
     sgnFinished = pyqtSignal()

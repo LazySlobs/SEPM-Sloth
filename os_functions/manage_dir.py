@@ -1,13 +1,10 @@
-import shutil, os, subprocess, time, pyautogui, pywinauto
+import shutil, os, subprocess, pywinauto
 import speech_recognition as sr
-from core.speak import voice_assistant_speak
 from core.listen import record_audio
 from difflib import SequenceMatcher
-from pynput.keyboard import Controller
-from pynput import keyboard
+import pyautogui
 import settings
 
-kb = Controller()
 
 def get_address():
     app = pywinauto.Application(backend='uia')  # create application object
@@ -91,20 +88,7 @@ def go_to_parent_folder():
     settings.location = address
 
 
-def key_combo(combo):
-    print('executing combo')
-    try:
-        for key in combo:
-            kb.press(key)
-            time.sleep(0.1)
-        for key in combo:
-            kb.release(key)
-            time.sleep(0.1)
-        return 1
-        print('success')
-    except Exception as e:
-        print(e)
-        return 0
+
 
 def similar_file(files, raw_dir):
     '''
@@ -334,9 +318,9 @@ def file_info(voice_data):
     '''
 
     if settings.platform == 'Darwin':
-        key_combo([keyboard.Key.cmd, 'i'])
+        pyautogui.hotkey("cmd", "i")
     elif settings.platform == 'Windows':
-        key_combo([keyboard.Key.ctrl, 'i'])
+        pyautogui.hotkey("ctrl", "i")
 
 def copy(voice_data):
     '''
@@ -351,9 +335,9 @@ def copy(voice_data):
     '''
 
     if settings.platform == 'Darwin':
-        key_combo([keyboard.Key.cmd, 'c'])
+        pyautogui.hotkey("cmd", "c")
     elif settings.platform == 'Windows':
-        key_combo([keyboard.Key.ctrl, 'c'])
+        pyautogui.hotkey("ctrl", "c")
 
 def paste(voice_data):
     '''
@@ -367,9 +351,9 @@ def paste(voice_data):
         1(bool): pasted successfully
     '''
     if settings.platform == 'Darwin':
-        key_combo([keyboard.Key.cmd, 'v'])
+        pyautogui.hotkey("cmd", "v")
     elif settings.platform == 'Windows':
-        key_combo([keyboard.Key.ctrl, 'v'])
+        pyautogui.hotkey("ctrl", "v")
 
 def cut(voice_data):
     '''
@@ -383,9 +367,9 @@ def cut(voice_data):
         1(bool): cut successfully
     '''
     if settings.platform == 'Darwin':
-        key_combo([keyboard.Key.cmd, 'x'])
+        pyautogui.hotkey("cmd", "x")
     elif settings.platform == 'Windows':
-        key_combo([keyboard.Key.ctrl, 'x'])
+        pyautogui.hotkey("ctrl", "x")
 
 def undo(voice_data):
     '''
@@ -399,9 +383,9 @@ def undo(voice_data):
         1(bool): undone successfully
     '''
     if settings.platform == 'Darwin':
-        key_combo([keyboard.Key.cmd, 'z'])
+        pyautogui.hotkey("cmd", "z")
     elif settings.platform == 'Windows':
-        key_combo([keyboard.Key.ctrl, 'z'])
+        pyautogui.hotkey("ctrl", "z")
 
 def redo(voice_data):
     '''
@@ -415,38 +399,10 @@ def redo(voice_data):
         1(bool): redone successfully
     '''
     if settings.platform == 'Darwin':
-        key_combo([keyboard.Key.cmd, 'y'])
+        pyautogui.hotkey("cmd", "y")
     elif settings.platform == 'Windows':
-        key_combo([keyboard.Key.ctrl, 'y'])
+        pyautogui.hotkey("ctrl", "y")
 
-
-# def scroll_down(voice_data):
-#     '''
-#     Scroll down 
-
-#     Parameters:
-#         voice_data(str): the string recorded and recognized from user's voice input
-
-#     Returns:
-#         0(bool): failed to scroll down
-#         1(bool): scrolled down successfully
-#     '''
-
-#     r = sr.Recognizer()
-#     #r.energy_threshold = settings.energy_threshold
-#     stop = False
-#     audio = ''
-#     stop = r.listen_in_background(sr.Microphone())
-#     try:
-#         while not stop:
-#             pyautogui.scroll(-1)
-            
-            
-            
-#             stop_audio = r.recognize_google(audio, language=settings.language)
-#         return 1
-#     except Exception:
-#         return 0
 
 
 if __name__ == '__main__':
@@ -462,6 +418,5 @@ if __name__ == '__main__':
     delete_file()
     list_file()
     similar_file()
-    key_combo()
     enter_folder()
     get_address()

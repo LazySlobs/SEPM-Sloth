@@ -1,8 +1,7 @@
-import sys
 
 from core.speak import voice_assistant_speak
 from core.listen import record_audio
-import settings, time
+import time
 import webbrowser as wb
 import web_browser_control.web_command as webr
 import os_functions.manage_dir as manage_dir    # use manage directory file
@@ -12,7 +11,6 @@ import miscellaneous_functions.math as math    # use math file
 import miscellaneous_functions.monitor as monitor    # use monitor file
 import gui.gui_qt_creator.weatherGUI as weatherGUI
 import gui.gui_qt_creator.systemGUI as systemGUI
-import speech_recognition as sr
 from multiprocessing import Process
 
 
@@ -137,7 +135,7 @@ def respond(r, voice_data, language='en'):
     elif 'delete ' in voice_data and voice_data.split(' ')[0] == 'delete':
         manage_dir.delete_file(voice_data)
 
-    # open 
+    # open
     elif "open " in voice_data and voice_data.split(' ')[0] == 'open':
         manage_dir.open_file(voice_data)
 
@@ -149,9 +147,6 @@ def respond(r, voice_data, language='en'):
     elif 'information' in voice_data and 'show' in voice_data:
         manage_dir.file_info(voice_data)
 
-    # # scoll 
-    # elif 'scroll down' in voice_data:
-    #     manage_dir.scroll_down(voice_data)
 
     # copy
     elif 'copy' in voice_data:

@@ -41,17 +41,6 @@ def highlight(element, effect_time, color, border):
     apply_style(original_style)
 
 
-
-
-
-# print(clickable_button)
-# buttons = driver.find_element_by_link_text("Hide").click()
-# driver.find_element_by_xpath("//*[contains(text(), 'object-oriented')]").click()
-
-
-
-
-
 # get href_button
 def href_button():
   # List of href button
@@ -159,12 +148,3 @@ def place_holder_button():
          print("Button not available")
 
 
-# open_window_elem = driver.find_element_by_xpath("//*[contains(text(), 'Login')]")
-# highlight(open_window_elem, 100
-#           , "red", 5)
-
-href_button()
-# label_button()
-# normal_button()
-# input_button()
-# place_holder_button()
