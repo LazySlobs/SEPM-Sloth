@@ -31,6 +31,7 @@ PySide2>=5.15.2
 PySide6>=6.1.0
 GPUtil>=1.4.0
 py-cpuinfo>=8.0.0
+cx_Freeze>=6.6
 
 ```
 
@@ -56,6 +57,7 @@ Step 1: Install modules from command line
  - pip install PySide6
  - pip install GPUtil
  - pip install py-cpuinfo
+ - pip install cx_Freeze
 
 ```
 
@@ -119,6 +121,7 @@ Add additional notes about how to deploy this on a live system
 * [PySide6](https://pypi.org/project/PySide6/) - Python bindings for the Qt cross-platform application and UI framework
 * [GPUtil](https://pypi.org/project/GPUtil/) - getting the GPU status from NVIDA GPUs using nvidia-smi
 * [py-cpuinfo](https://pypi.org/project/py-cpuinfo/) - Get CPU info
+* [cx_Freeze](pip install cx-Freeze) - creates standalone executables from Python scripts
 
 
 ## Contributing
