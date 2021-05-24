@@ -12,6 +12,18 @@ target = Executable(
     icon="icon.ico"
 )
 
+target1 = Executable(
+    script="gui/gui_qt_creator/systemGUI.py",
+    base="Win32GUI",
+    icon="icon.ico"
+)
+
+target2 = Executable(
+    script="gui/gui_qt_creator/weatherGUI.py",
+    base="Win32GUI",
+    icon="icon.ico"
+)
+
 # SETUP CX FREEZE
 setup(
     name="Lazy Sloth Voice Assistant",
@@ -22,6 +34,6 @@ setup(
            "Nguyen Bao Tri - Tester - Developer - (https://github.com/nguyenbaotri)"
            "Ha Gia Bao - Developer for Manager Directory and Voice recognition in 1st sprint - (https://github.com/baogia0912)",
     options={'build_exe': {'include_files': files}},
-    executables=[target]
+    executables=[target, target1, target2]
 
 )

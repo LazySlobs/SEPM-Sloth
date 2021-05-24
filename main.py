@@ -1,3 +1,4 @@
+import multiprocessing
 import sys
 
 from PySide6 import QtCore
@@ -235,6 +236,8 @@ class SplashScreen(QMainWindow):
 
 
 if __name__ == "__main__":
+    multiprocessing.freeze_support()
+    # multiprocessing.set_start_method("spawn")
     app = QApplication(sys.argv)
     app.setWindowIcon(QIcon("icon.ico"))
     app.setQuitOnLastWindowClosed(True) # close app when the GUI is closed
