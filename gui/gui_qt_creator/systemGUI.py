@@ -126,7 +126,7 @@ class SystemWindow(QObject):
 
             # AUTO CLOSE
             timer2 = QTimer(self)
-            timer2.start(7000)
+            timer2.start(10000)
             timer2.timeout.connect(lambda: sys.exit())
             if not engine.rootObjects():
                 sys.exit(-1)
