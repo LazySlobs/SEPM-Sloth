@@ -229,7 +229,7 @@ def respond(r, voice_data, language='en'):
         else:
             voice_assistant_speak("Sorry, I can't find the weather data of this city")
 
-    elif "check the weather in" in voice_data or "check the weather of" in voice_data or ("check" in voice_data and "weather" in voice_data):
+    elif "check the weather in" in voice_data or "check the weather of" in voice_data:
         city = voice_data
         city = city.replace('check the weather of ', '')
         city = city.replace('check the weather in ', '')
