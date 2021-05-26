@@ -126,12 +126,12 @@ Window {
                 width: 200
                 height: 200
                 opacity: 0
-                text: "Km/h"
+                text: ""
                 value: 0
                 startAngle: 90
                 Text {
                     color: "#a4ebf3"
-                    text: qsTr("Wind")
+                    text: qsTr("Pressure")
                     anchors.bottom: parent.bottom
                     font.family: "Segoe UI"
                     font.pointSize: 16
