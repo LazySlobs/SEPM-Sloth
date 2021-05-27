@@ -19,4 +19,4 @@ gTTS~=2.2.2
 comtypes~=1.1.10
 requests~=2.25.1
 setuptools~=57.0.0
-
+cx_Freeze>=6.6
