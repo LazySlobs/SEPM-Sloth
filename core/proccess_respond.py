@@ -2,7 +2,6 @@
 from core.speak import voice_assistant_speak
 from core.listen import record_audio
 import time
-import webbrowser as wb
 import web_browser_control.web_command as webr
 import os_functions.manage_dir as manage_dir    # use manage directory file
 import miscellaneous_functions.weather as weather    # use weather file
@@ -44,16 +43,18 @@ def respond(r, voice_data, language='en'):
     # ======================================= #
     # search google
     elif "search for" in voice_data:
+        chrome.open_browser()
         search = voice_data
         search = search.replace('search for', '')
         url = 'https://www.google.com/search?q=' + search
         voice_assistant_speak("Here is what i found for " + search)
-        wb.get().open(url)
+        chrome.go_to(url)
     elif "search" in voice_data:
         search, language = record_audio(r, ask='What do you want to search for')
+        chrome.open_browser()
         url = 'https://www.google.com/search?q=' + search
-        wb.get().open(url)
         voice_assistant_speak("Here is what i found for " + search)
+        chrome.go_to(url)
     elif voice_data == "open browser" or voice_data.lower() == "open chrome":
         chrome.open_browser()
     elif voice_data == "switch window" or voice_data == "change window":
