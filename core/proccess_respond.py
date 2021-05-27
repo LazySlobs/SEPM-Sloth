@@ -14,8 +14,6 @@ import gui.gui_qt_creator.systemGUI as systemGUI
 from multiprocessing import Process
 
 
-
-
 chrome = webr.Chrome()
 
 def respond(r, voice_data, language='en'):
@@ -56,19 +54,6 @@ def respond(r, voice_data, language='en'):
         url = 'https://www.google.com/search?q=' + search
         wb.get().open(url)
         voice_assistant_speak("Here is what i found for " + search)
-
-    # find location
-    elif voice_data == "find location":
-        location, language = record_audio(r, language='en', ask="What's the location?")
-        url = 'https://www.google.nl/maps/place/' + location + '/&lamp;'
-        wb.get().open(url)
-        voice_assistant_speak(location, language=language)
-    elif "locate" in voice_data and voice_data.split().len() > 1:
-        location, language = record_audio(r, language='en', ask='What is the location?')
-        url = 'https://www.google.nl/maps/place/' + location + '/&lamp;'
-        wb.get().open(url)
-        voice_assistant_speak(location, language=language)
-    
     elif voice_data == "open browser" or voice_data.lower() == "open chrome":
         chrome.open_browser()
     elif voice_data == "switch window" or voice_data == "change window":
@@ -298,9 +283,6 @@ def respond(r, voice_data, language='en'):
         p.start()
         p.join()
         p.terminate()
-
-
-#
 
 
 if __name__ == '__main__':
