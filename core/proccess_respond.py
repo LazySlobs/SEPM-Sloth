@@ -60,6 +60,10 @@ def respond(r, voice_data, language='en'):
         chrome.naviagate_windows()
     elif voice_data == "refresh" or voice_data == "refresh page":
         chrome.refesh()
+    elif "go to " in voice_data:
+        url = 'https://www.' + voice_data
+        url = url.replace("go to ", "")
+        chrome.go_to(url)
     elif voice_data == "go back":
         chrome.back()
     elif voice_data == "go forward":
