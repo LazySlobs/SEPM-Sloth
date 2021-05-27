@@ -102,7 +102,7 @@ def respond(r, voice_data, language='en'):
         chrome.new_browser_window()
     elif voice_data == "new tab" or voice_data == "open new tab":
         chrome.new_tab()
-    elif voice_data == "next tab" or voice_data == "go to next tab":
+    elif voice_data == "next tab" or voice_data == "switch to next tab":
         chrome.next_tab()
     elif 'select ' in voice_data and voice_data.split(' ')[0] == 'select':
         voice_data = voice_data.replace("select ", "")
@@ -157,9 +157,9 @@ def respond(r, voice_data, language='en'):
     elif 'redo' in voice_data:
         manage_dir.redo(voice_data)
 
-    # go to folder
-    elif "go to " in voice_data:
-        folder_name = voice_data.replace("go to ", "")
+    # enter a folder
+    elif "enter " in voice_data:
+        folder_name = voice_data.replace("enter ", "")
         manage_dir.enter_folder(folder_name)
 
     # go back to previous folder
@@ -167,7 +167,7 @@ def respond(r, voice_data, language='en'):
         manage_dir.go_back()
 
     # go back to previous folder
-    elif "go to parent folder" in voice_data:
+    elif "enter parent folder" in voice_data:
         manage_dir.go_to_parent_folder()
 
     # ======================================= #
