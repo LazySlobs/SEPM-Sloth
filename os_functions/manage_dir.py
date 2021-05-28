@@ -27,14 +27,18 @@ def enter_folder(folder_name):
     app.connect(path="C:\Windows\explorer.exe") # connect to explorer.exe which is windows taskbar instances and other windows elements
     folder = app.window(found_index=1)  # get currently displayed folder because Taskbar is always at index 0
     folder.set_focus()  # bring folder file explorer window to front
-    # folder.print_control_identifiers()   # print control identifiers for debug
+    # folder.print_control_identifiers()   # prin t control identifiers for debug
     try:
-        # enter the folder
-        folder_wrapper = folder.child_window(title=folder_name, control_type="ListItem")    # get the ID of address bar's parent
-        # folder_wrapper.print_control_identifiers()   # print control identifiers for debug
-        folder_wrapper.select() # select folder
-        pywinauto.keyboard.send_keys('{ENTER}')    # go into folder by simulating enter key
-        
+        # get folder view
+        folder_view = folder.child_window(title="Shell Folder View", auto_id="listview", control_type="Pane")
+        # folder_view.print_control_identifiers()
+        for item in folder_view.descendants(control_type="ListItem"):
+            print(str(item).replace("uia_controls.ListItemWrapper - '", "").replace("', ListItem", ""))
+            if folder_name.lower() == str(item).replace("uia_controls.ListItemWrapper - '", "").replace("', ListItem", "").lower():
+                item.select()
+                pywinauto.keyboard.send_keys('{ENTER}')
+                break
+
         # get address from address bar
         wrapper = folder.child_window(auto_id="41477", control_type="Pane")    # get the ID of address bar's parent
         # wrapper.print_control_identifiers()   # print control identifiers for debug
@@ -42,7 +46,6 @@ def enter_folder(folder_name):
         obj_name = str(obj)   # convert object name to string
         address = obj_name.replace("uia_controls.ToolbarWrapper - 'Address: ", "").replace("', Toolbar", "")  # remove all unnecessary parts in the string
         print("Folder address: " + address)  # print address string for debug
-        settings.location = address
     except:
         print("Can't find folder with name: " + folder_name)
         # voice_assistant_speak("Sorry, I can't find any folder with name: " + folder_name)
