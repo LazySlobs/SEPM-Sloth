@@ -106,7 +106,7 @@ def respond(r, voice_data, language='en'):
         chrome.new_tab()
     elif voice_data.lower() == "next tab" or voice_data.lower() == "switch to next tab":
         chrome.next_tab()
-    elif 'select ' in voice_data and voice_data.split(' ')[0] == 'select':
+    elif 'select ' in voice_data and voice_data.split(' ')[0] == 'select' and 'select file ' not in voice_data and 'select folder ' not in voice_data:
         voice_data = voice_data.replace("select ", "")
         chrome.select_button(voice_data)
     elif voice_data.lower() == "close window" or voice_data.lower() == "close the window":
@@ -143,6 +143,25 @@ def respond(r, voice_data, language='en'):
         else:
             name, language = record_audio(r, ask="What's the name of the folder?")
             manage_dir.create_folder(name)
+
+    # create folder
+    elif 'create file' in voice_data or 'create a file' in voice_data:
+        if 'create file named ' in voice_data:
+            manage_dir.create_file(voice_data.replace("create file named ", "").replace(". ", "."))
+        elif 'create a file named ' in voice_data:
+            manage_dir.create_file(voice_data.replace("create a file named ", "").replace(". ", "."))
+        else:
+            name, language = record_audio(r, ask="What's the name of the file? Please include file extension.")
+            name = name.replace(". ", ".")
+            manage_dir.create_file(name)
+
+    # select file
+    elif "select file " in voice_data:
+        manage_dir.select(voice_data.replace("select file ", ""))
+
+    # select folder
+    elif "select folder " in voice_data:
+        manage_dir.select(voice_data.replace("select folder ", ""))
 
     # get info
     elif 'information' in voice_data and 'show' in voice_data:
@@ -181,6 +200,14 @@ def respond(r, voice_data, language='en'):
     # go back to previous folder
     elif "enter parent folder" in voice_data:
         manage_dir.go_to_parent_folder()
+
+    # go back to previous folder
+    elif "dictate text" in voice_data:
+        manage_dir.dictate(r)
+
+    # go back to previous folder
+    elif "close app" in voice_data:
+        manage_dir.close_app()
 
     # ======================================= #
     # ========== GENERAL FUNCTIONS ========== #

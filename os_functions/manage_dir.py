@@ -67,6 +67,25 @@ def go_to_parent_folder():
     element.descendants(control_type="SplitButton")[length-1].set_focus().click_input(button='left')    # click on parent directory button
 
 
+def select(name):
+    app = pywinauto.Application(backend='uia')  # create application object
+    app.connect(path="C:\Windows\explorer.exe") # connect to explorer.exe which is windows taskbar instances and other windows elements
+    folder = app.window(found_index=1)  # get currently displayed folder because Taskbar is always at index 0
+    folder.set_focus()  # bring folder file explorer window to front
+    # folder.print_control_identifiers()   # prin t control identifiers for debug
+    try:
+        # get folder view
+        folder_view = folder.child_window(title="Shell Folder View", auto_id="listview", control_type="Pane")
+        # folder_view.print_control_identifiers()
+        for item in folder_view.descendants(control_type="ListItem"):
+            if name.lower() == str(item).replace("uia_controls.ListItemWrapper - '", "").replace("', ListItem", "").lower():
+                item.select()
+                break
+    except:
+        print("Can't find: " + name)
+        # voice_assistant_speak("Sorry, I can't find any folder with name: " + folder_name)
+
+
 def similar_file(files, raw_dir):
     '''
     Find the directory name with the highest similar ratios with the requested name
@@ -292,6 +311,32 @@ def create_folder(voice_data):
         return 0
 
 
+def create_file(voice_data):
+    '''
+    Create a file at location
+
+    Parameters:
+        voice_data(str): the string recorded and recognized from user's voice input
+    
+    Returns:
+        0(bool): failed to create
+        1(bool): created successfully
+
+    '''
+    
+
+    try:
+        # Creates a new file
+        with open(os.path.join(get_address(), voice_data), 'w') as fp:
+            pass
+        return 1
+    except FileExistsError as exc:
+        print(exc)
+        return 0
+    except:
+        return 0
+
+
 def file_info(voice_data):
     '''
     Open file's information summary window
@@ -390,6 +435,30 @@ def redo(voice_data):
     elif settings.platform == 'Windows':
         pyautogui.hotkey("ctrl", "y")
 
+def close_app():
+    '''
+    simulate ctrl + y / cmd + y
+
+    Parameters:
+        voice_data(str): the string recorded and recognized from user's voice input
+    
+    Returns:
+        0(bool): failed to redo
+        1(bool): redone successfully
+    '''
+    if settings.platform == 'Windows':
+        pyautogui.hotkey("alt", "f4")
+
+
+def dictate(r):
+    while True:
+        text, language = record_audio(r)
+        if text.lower() == "stop dictating":
+           break
+        else:
+            pyautogui.write(text)
+
+
 
 
 if __name__ == '__main__':
@@ -400,9 +469,13 @@ if __name__ == '__main__':
     copy()
     file_info()
     create_folder()
+    create_file()
     open_file()
     delete_file()
     list_file()
     similar_file()
     enter_folder()
     get_address()
+    select()
+    close_app()
+    dictate()
