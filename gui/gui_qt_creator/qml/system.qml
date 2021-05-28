@@ -67,7 +67,7 @@ Window {
                 anchors.left: parent.left
                 Text {
                     color: "#3f4801"
-                    text: qsTr("My System Informations")
+                    text: qsTr("System Information")
                     font.pointSize: 10
                     font.family: "Segoe UI"
                 }
