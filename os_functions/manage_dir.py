@@ -393,7 +393,6 @@ def redo(voice_data):
 
 
 if __name__ == '__main__':
-    # scroll_down()
     redo()
     undo()
     cut()
