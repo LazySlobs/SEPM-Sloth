@@ -96,8 +96,8 @@ class VoiceWorker(QtCore.QObject):
                             self.textChanged.emit("Sloth is going to sleep \n")
                             break
 
-                        print("Voice data: " + voice_data)  # print user's voice data
                         self.textChanged.emit("You said: \n" + voice_data)
+                        print("Voice data: " + voice_data)  # print user's voice data
                         respond(r2, voice_data, language=language)  # respond to user's voice data
                 elif "exit" in listen_for_keyword:
                     self.textChanged.emit("Program is closing \n")
