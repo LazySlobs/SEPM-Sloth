@@ -34,7 +34,7 @@ def respond(r, voice_data, language='en'):
     # ========== CORE FUNCTIONS ========== #
     # ==================================== #
     # Introduce
-    if "Introduce yourself" in voice_data:
+    if "introduce yourself" in voice_data.lower():
        voice_assistant_speak("I am Sloth Voice Assistant created by Lazy Slob Team" )
 
 
@@ -42,24 +42,24 @@ def respond(r, voice_data, language='en'):
     # ========== BROWSER FUNCTIONS ========== #
     # ======================================= #
     # search google
-    elif "search for" in voice_data:
+    elif "search for " in voice_data:
         chrome.open_browser()
         search = voice_data
         search = search.replace('search for', '')
         url = 'https://www.google.com/search?q=' + search
         voice_assistant_speak("Here is what i found for " + search)
         chrome.go_to(url)
-    elif "search" in voice_data:
+    elif "search " in voice_data:
         search, language = record_audio(r, ask='What do you want to search for')
         chrome.open_browser()
         url = 'https://www.google.com/search?q=' + search
         voice_assistant_speak("Here is what i found for " + search)
         chrome.go_to(url)
-    elif voice_data == "open browser" or voice_data.lower() == "open chrome":
+    elif voice_data.lower() == "open browser" or voice_data.lower() == "open chrome":
         chrome.open_browser()
-    elif voice_data == "switch window" or voice_data == "change window":
+    elif voice_data.lower() == "switch window" or voice_data.lower() == "change window":
         chrome.naviagate_windows()
-    elif voice_data == "refresh" or voice_data == "refresh page":
+    elif voice_data.lower() == "refresh" or voice_data.lower() == "refresh page":
         chrome.refesh()
     elif "go to " in voice_data:
         url = 'https://www.' + voice_data
@@ -67,50 +67,50 @@ def respond(r, voice_data, language='en'):
         chrome.go_to(url)
     elif voice_data == "go back":
         chrome.back()
-    elif voice_data == "go forward":
+    elif voice_data.lower() == "go forward":
         chrome.forward()
-    elif voice_data == "return home":
+    elif voice_data.lower() == "return home":
         chrome.return_home()
-    elif voice_data == "select address bar":
+    elif voice_data.lower() == "select address bar":
         chrome.select_address_bar()
-    elif voice_data == "go fullscreen":
+    elif voice_data.lower() == "go fullscreen":
         chrome.full_screen()
-    elif voice_data == "scroll to top" or voice_data == "scroll to the top":
+    elif voice_data.lower() == "scroll to top" or voice_data.lower() == "scroll to the top":
         chrome.scroll_to_top()
-    elif voice_data == "scroll to bottom" or voice_data == "scroll to the bottom":
+    elif voice_data.lower() == "scroll to bottom" or voice_data.lower() == "scroll to the bottom":
         chrome.scroll_to_bottom()
-    elif voice_data == "scroll up":
+    elif voice_data.lower() == "scroll up":
         chrome.scroll_up()
-    elif voice_data == "scroll down":
+    elif voice_data.lower() == "scroll down":
         chrome.scroll_down()
-    elif voice_data == "bookmark this page":
+    elif voice_data.lower() == "bookmark this page":
         chrome.book_mark_page()
-    elif voice_data == "open bookmark list":
+    elif voice_data.lower() == "open bookmark list":
         chrome.book_mark_list()
-    elif voice_data == "open private window" or voice_data == "open incognito mode":
+    elif voice_data.lower() == "open private window" or voice_data.lower() == "open incognito mode":
         chrome.private_window()
-    elif voice_data == "find text":
+    elif voice_data.lower() == "find text":
         chrome.text_search()
-    elif voice_data == "open history":
+    elif voice_data.lower() == "open history":
         chrome.open_history()
-    elif voice_data == "open dowload history":
+    elif voice_data.lower() == "open dowload history":
         chrome.open_download_history()
-    elif voice_data == "clear browsing data":
+    elif voice_data.lower() == "clear browsing data":
         chrome.clear_browsing_data()
-    elif voice_data == "inspect" or voice_data == "inspect website":
+    elif voice_data.lower() == "inspect" or voice_data.lower() == "inspect website":
         chrome.inspect_website()
-    elif voice_data == "new window" or voice_data == "open new window":
+    elif voice_data.lower() == "new window" or voice_data.lower() == "open new window":
         chrome.new_browser_window()
-    elif voice_data == "new tab" or voice_data == "open new tab":
+    elif voice_data.lower() == "new tab" or voice_data.lower() == "open new tab":
         chrome.new_tab()
-    elif voice_data == "next tab" or voice_data == "switch to next tab":
+    elif voice_data.lower() == "next tab" or voice_data.lower() == "switch to next tab":
         chrome.next_tab()
     elif 'select ' in voice_data and voice_data.split(' ')[0] == 'select':
         voice_data = voice_data.replace("select ", "")
         chrome.select_button(voice_data)
-    elif voice_data == "close window" or voice_data == "close the window":
+    elif voice_data.lower() == "close window" or voice_data.lower() == "close the window":
         chrome.close_window()
-    elif voice_data == "close browser" or voice_data == "close the browser" or voice_data.lower() == "close chrome":
+    elif voice_data.lower() == "close browser" or voice_data.lower() == "close the browser" or voice_data.lower() == "close chrome":
         chrome.close_browser()
 
     # ================================== #
@@ -126,7 +126,7 @@ def respond(r, voice_data, language='en'):
         manage_dir.delete_file(voice_data)
 
     # open file explorer
-    elif voice_data == "open folder" or voice_data == "open file explorer":
+    elif voice_data.lower() == "open folder" or voice_data.lower() == "open file explorer":
         manage_dir.open_file_explorer(voice_data)
 
     # open
