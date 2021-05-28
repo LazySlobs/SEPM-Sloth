@@ -282,12 +282,13 @@ def respond(r, voice_data, language='en'):
         monitor.display_cpu_used()
     elif "display" in voice_data and ("RAM" in voice_data or "memory" in voice_data):
         monitor.display_ram_used()
-    elif "check" in voice_data and "system info" in voice_data :
+    elif "check" in voice_data and ("system info" or "system information") in voice_data :
         # create Sub process to display Computer system
         p = Process(target=systemGUI.SystemWindow)
         p.start()
         p.join()
         p.terminate()
+        monitor.tell_cpu_and_ram_used()
 
 
 if __name__ == '__main__':
