@@ -13,9 +13,14 @@ from core.listen import record_audio
 from core.proccess_respond import respond
 from core.speak import voice_assistant_speak
 import speech_recognition as sr
+import threading
 
 # GLOBALS
 counter = 0
+
+def calibrate(source, recognizer):
+    recognizer.adjust_for_ambient_noise(source, duration=1)
+    recognizer.energy_threshold += 250
 
 class VoiceWorker(QtCore.QObject):
     textChanged = QtCore.Signal(str)
@@ -55,8 +60,7 @@ class VoiceWorker(QtCore.QObject):
                 # adjust for ambient noise
                 print("Calibrating...")
                 self.textChanged.emit("Calibrating...")
-                r1.adjust_for_ambient_noise(source, duration=1)
-                r1.energy_threshold += 250
+                calibrate(source, r1)
 
                 # starts to listen for keyword
                 print("Listening for keyword...")
@@ -82,6 +86,7 @@ class VoiceWorker(QtCore.QObject):
                     voice_assistant_speak("How can I help you?")
 
                     while True:
+                        threading.Thread(target=calibrate, args=(source, r1,)).start()
                         self.textChanged.emit("Waiting for your voice input...")
                         voice_data, language = record_audio(r1)
                         # voice_data = input("type voice data: ")   # for debug
