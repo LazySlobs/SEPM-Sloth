@@ -1,8 +1,10 @@
 import speech_recognition as sr
 from core.speak import voice_assistant_speak
-import settings
+import settings, threading
 
-
+def calibrate(source, recognizer):
+    recognizer.adjust_for_ambient_noise(source, duration=1)
+    recognizer.energy_threshold += 250
 
 def record_audio(r, language=settings.language, ask = False):
     '''
@@ -28,8 +30,7 @@ def record_audio(r, language=settings.language, ask = False):
     while True:
         # speak if the ask variable is a string
         with sr.Microphone() as source:
-            r.adjust_for_ambient_noise(source, duration=1)
-            r.energy_threshold += 250
+            threading.Thread(target=calibrate, args=(source, r,)).start()
             if ask:
                 voice_assistant_speak(ask)
             # starts to listen

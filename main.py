@@ -86,7 +86,6 @@ class VoiceWorker(QtCore.QObject):
                     voice_assistant_speak("How can I help you?")
 
                     while True:
-                        threading.Thread(target=calibrate, args=(source, r1,)).start()
                         self.textChanged.emit("Waiting for your voice input...")
                         voice_data, language = record_audio(r1)
                         # voice_data = input("type voice data: ")   # for debug
