@@ -288,7 +288,6 @@ def respond(r, voice_data, language='en'):
         p.start()
         p.join()
         p.terminate()
-        monitor.tell_cpu_and_ram_used()
 
 
 if __name__ == '__main__':
