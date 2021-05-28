@@ -33,7 +33,6 @@ def enter_folder(folder_name):
         folder_view = folder.child_window(title="Shell Folder View", auto_id="listview", control_type="Pane")
         # folder_view.print_control_identifiers()
         for item in folder_view.descendants(control_type="ListItem"):
-            print(str(item).replace("uia_controls.ListItemWrapper - '", "").replace("', ListItem", ""))
             if folder_name.lower() == str(item).replace("uia_controls.ListItemWrapper - '", "").replace("', ListItem", "").lower():
                 item.select()
                 pywinauto.keyboard.send_keys('{ENTER}')
