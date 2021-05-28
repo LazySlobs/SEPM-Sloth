@@ -134,9 +134,15 @@ def respond(r, voice_data, language='en'):
     elif "open " in voice_data and voice_data.split(' ')[0] == 'open':
         manage_dir.open_file(voice_data)
 
-    # create
-    elif 'create ' in voice_data and voice_data.split(' ')[0] == 'create':
-        manage_dir.create_folder(voice_data)
+    # create folder
+    elif 'create folder' in voice_data or 'create a folder' in voice_data:
+        if 'create folder named ' in voice_data:
+            manage_dir.create_folder(voice_data.replace("create folder named ", ""))
+        elif 'create a folder named ' in voice_data:
+            manage_dir.create_folder(voice_data.replace("create a folder named ", ""))
+        else:
+            name, language = record_audio(r, ask="What's the name of the folder?")
+            manage_dir.create_folder(name)
 
     # get info
     elif 'information' in voice_data and 'show' in voice_data:
