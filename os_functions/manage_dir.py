@@ -4,6 +4,7 @@ from core.listen import record_audio
 from difflib import SequenceMatcher
 import pyautogui
 import settings
+import time
 
 
 def get_address():
@@ -237,6 +238,14 @@ def delete_file(voice_data):
 #             elif confirmation == "yes":
 #                 pyautogui.press("enter")
 #                 break
+
+
+def open_file_explorer():
+    pyautogui.hotkey("win", "s")
+    time.sleep(0.5)
+    pyautogui.write("File explorer")
+    time.sleep(0.5)
+    pyautogui.press("enter")
 
 
 def open_file(voice_data):

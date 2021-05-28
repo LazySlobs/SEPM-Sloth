@@ -125,6 +125,10 @@ def respond(r, voice_data, language='en'):
     elif 'delete ' in voice_data and voice_data.split(' ')[0] == 'delete':
         manage_dir.delete_file(voice_data)
 
+    # open file explorer
+    elif voice_data == "open folder" or voice_data == "open file explorer":
+        manage_dir.open_file_explorer(voice_data)
+
     # open
     elif "open " in voice_data and voice_data.split(' ')[0] == 'open':
         manage_dir.open_file(voice_data)
