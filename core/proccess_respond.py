@@ -198,7 +198,7 @@ def respond(r, voice_data, language='en'):
         manage_dir.go_back()
 
     # go back to previous folder
-    elif "enter parent folder" in voice_data:
+    elif "go to parent folder" in voice_data:
         manage_dir.go_to_parent_folder()
 
     # go back to previous folder
