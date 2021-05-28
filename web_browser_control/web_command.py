@@ -1,4 +1,4 @@
-import pyautogui, pywinauto
+import pyautogui, pywinauto, time
 import settings
 
 from core.listen import record_audio
@@ -139,27 +139,31 @@ class Chrome:
 
     def scroll_down(self):
         self.focus_browser()
-        pyautogui.hotkey("space")
+        self.driver.execute_script("window.scrollBy(0, window.innerHeight)")
 
     def scroll_up(self):
         self.focus_browser()
-        pyautogui.hotkey("shift", "space")
+        self.driver.execute_script("window.scrollBy(0, -window.innerHeight)")
 
     def book_mark_page(self):
         self.focus_browser()
         # try to open with os
         if settings.platform == 'Windows':
             pyautogui.hotkey("ctrl", "d")
+            time.sleep(0.5)
+            pyautogui.press("enter")
         elif settings.platform == 'Darwin':
             pyautogui.hotkey("command", "shift", "d")
+            time.sleep(0.5)
+            pyautogui.press("enter")
 
     def book_mark_list(self):
         self.focus_browser()
         # try to open with os
         if settings.platform == 'Windows':
-            pyautogui.hotkey("ctrl", "shift", "o")
+            self.go_to("chrome://bookmarks/")
         elif settings.platform == 'Darwin':
-            pyautogui.hotkey("command", "shift", "l")
+            self.go_to("chrome://bookmarks/")
 
     def private_window(self):
         self.focus_browser()
