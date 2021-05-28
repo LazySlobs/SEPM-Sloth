@@ -18,8 +18,10 @@ def get_address():
     obj = wrapper.descendants(control_type='ToolBar')[0]    # get first element in elements with control type 'Toolbar'
     obj_name = str(obj)   # convert object name to string
     address = obj_name.replace("uia_controls.ToolbarWrapper - 'Address: ", "").replace("', Toolbar", "")  # remove all unnecessary parts in the string
+    address = address.replace('\\', '/')
     print("Folder address: " + address)  # print address string for debug
     settings.location = address
+    return address
 
 
 def enter_folder(folder_name):
