@@ -3,7 +3,7 @@
 # import required modules
 import requests
 from core.speak import voice_assistant_speak
-
+import threading
 
 class Current_Weather():
 
@@ -103,7 +103,7 @@ class Current_Weather():
        temp_in_C = self.current_temperature - 273.15
        message = "Current temperature is " + str(int(temp_in_C)) + "degree Celsius and we have" + str(
             self.weather_description) + "."
-       voice_assistant_speak(message, "en")
+       threading.Thread(target=voice_assistant_speak, args=(message, "en",)).start()
     else:
       print("City not found")
 
