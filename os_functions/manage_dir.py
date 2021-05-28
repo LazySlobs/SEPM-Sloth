@@ -281,14 +281,16 @@ def create_folder(voice_data):
 
     '''
     get_address()
-    raw_dir = voice_data.replace('create ', '').replace('file', '').replace('folder', '').replace(' ', '')  
 
     try:
-        os.mkdir(settings.location + '/' + raw_dir)
+        os.mkdir(settings.location + '/' + voice_data)
         return 1
     except FileExistsError as exc:
         print(exc)
         return 0
+    except:
+        return 0
+
 
 def file_info(voice_data):
     '''
