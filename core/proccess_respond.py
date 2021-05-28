@@ -127,7 +127,7 @@ def respond(r, voice_data, language='en'):
 
     # open file explorer
     elif voice_data.lower() == "open folder" or voice_data.lower() == "open file explorer":
-        manage_dir.open_file_explorer(voice_data)
+        manage_dir.open_file_explorer()
 
     # open
     elif "open " in voice_data and voice_data.split(' ')[0] == 'open':
