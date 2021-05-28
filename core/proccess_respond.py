@@ -11,6 +11,7 @@ import miscellaneous_functions.monitor as monitor    # use monitor file
 import gui.gui_qt_creator.weatherGUI as weatherGUI
 import gui.gui_qt_creator.systemGUI as systemGUI
 from multiprocessing import Process
+import threading
 
 
 chrome = webr.Chrome()
@@ -286,7 +287,9 @@ def respond(r, voice_data, language='en'):
         monitor.display_cpu_used()
     elif "display" in voice_data and ("RAM" in voice_data or "memory" in voice_data):
         monitor.display_ram_used()
-    elif "check" in voice_data and ("system info" or "system information") in voice_data :
+    elif "check" in voice_data and ("system info" or "system information") in voice_data:
+        # tell CPU and RAM usage while GUI starts up
+        threading.Thread(target=monitor.tell_cpu_and_ram_used).start()
         # create Sub process to display Computer system
         p = Process(target=systemGUI.SystemWindow)
         p.start()
