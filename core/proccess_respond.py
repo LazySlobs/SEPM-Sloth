@@ -306,20 +306,41 @@ def respond(r, voice_data, language='en'):
         math.do_math(voice_data)
 
     # display performance
-    elif "what" in voice_data and ("CPU" in voice_data and ("RAM" in voice_data or "memory" in voice_data)):
+    elif "what" in voice_data and ("CPU" in voice_data and ("ram" in voice_data.lower() or "memory" in voice_data)):
         monitor.tell_cpu_and_ram_used()
     elif "what" in voice_data and "CPU" in voice_data:
         monitor.tell_cpu_used()
-    elif "what" in voice_data and ("RAM" in voice_data or "memory" in voice_data):
+    elif "what" in voice_data and ("ram" in voice_data.lower() or "memory" in voice_data):
         monitor.tell_ram_used()
-    elif "what" in voice_data and ("remaining RAM" in voice_data or "remaining memory" in voice_data):
+    elif "what" in voice_data and ("remaining ram" in voice_data.lower() or "remaining memory" in voice_data):
         monitor.tell_available_ram()
     elif "display" in voice_data and ("CPU" in voice_data and ("RAM" in voice_data or "memory" in voice_data)):
         monitor.display_cpu_and_ram_used()
-    elif "display" in voice_data and "CPU" in voice_data:
+        # tell CPU and RAM usage while GUI starts up
+        threading.Thread(target=monitor.tell_cpu_and_ram_used).start()
+        # create Sub process to display Computer system
+        p = Process(target=systemGUI.SystemWindow)
+        p.start()
+        p.join()
+        p.terminate()
+    elif "display" in voice_data and "cpu" in voice_data.lower():
         monitor.display_cpu_used()
-    elif "display" in voice_data and ("RAM" in voice_data or "memory" in voice_data):
+        # tell CPU and RAM usage while GUI starts up
+        threading.Thread(target=monitor.tell_cpu_used).start()
+        # create Sub process to display Computer system
+        p = Process(target=systemGUI.SystemWindow)
+        p.start()
+        p.join()
+        p.terminate()
+    elif "display" in voice_data and ("ram" in voice_data.lower() or "memory" in voice_data.lower()):
         monitor.display_ram_used()
+        # tell CPU and RAM usage while GUI starts up
+        threading.Thread(target=monitor.tell_ram_used).start()
+        # create Sub process to display Computer system
+        p = Process(target=systemGUI.SystemWindow)
+        p.start()
+        p.join()
+        p.terminate()
     elif "check" in voice_data and ("system info" or "system information") in voice_data:
         # tell CPU and RAM usage while GUI starts up
         threading.Thread(target=monitor.tell_cpu_and_ram_used).start()
